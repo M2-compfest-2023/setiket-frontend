@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.layout {
+  max-width: 78.75rem;
+  @apply mx-auto w-11/12;
+}
+
+.section {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  @apply shadow-sm;
+}
+
+.dashboard-layout {
+  max-width: 88.75rem;
+  @apply mx-auto w-[96%];
+}

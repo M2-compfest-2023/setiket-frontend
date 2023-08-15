@@ -1,0 +1,11 @@
+.next
+node_modules
+package.json
+yarn.lock
+.lintstagedrc
+.prettierrc
+next.config
+postcss.config
+tailwind.config
+tsconfig.json
+vercel.json
