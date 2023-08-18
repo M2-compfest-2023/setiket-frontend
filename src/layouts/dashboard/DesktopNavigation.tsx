@@ -35,7 +35,7 @@ export default function DesktopNavigation() {
             <Typography
               variant='c1'
               className='text-white ml-2.5'
-              font='atmospheric'
+              font='ubuntu'
             >
               SeTicket 2023
             </Typography>

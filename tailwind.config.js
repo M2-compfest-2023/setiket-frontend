@@ -7,7 +7,7 @@ module.exports = {
     extend: {
       fontFamily: {
         primary: ['Inter', ...fontFamily.sans],
-        secondary: ['var(--font-atmospheric)', fontFamily.sans],
+        secondary: ['var(--font-ubuntu)', fontFamily.sans],
       },
       colors: {
         primary: {
@@ -62,8 +62,56 @@ module.exports = {
           inline: '#D1D5DC',
           icon: '#9AA2B1',
           secondary: '#687083',
-          label: '#1a3650',
+          label: '#1A3650',
           primary: '#212121',
+        },
+        background: {
+          violet: '#7C32A1',
+          purple: '#6D1991',
+        },
+        blue: {
+          300: '#93C5FD',
+          400: '#60A5FA',
+          500: '#3B82F6',
+        },
+        slate: {
+          600: '#0891B2',
+          700: '#0891B2',
+          800: '#155E75',
+        },
+        green: {
+          300: '#4ADE80',
+          400: '#22C55E',
+          500: '#16A34A',
+        },
+        red: {
+          300: '#F87171',
+          400: '#EF4444',
+          500: '#DC2626',
+        },
+        gradient: {
+          100: '#F6B4EE',
+          200: '#E356D5',
+          300: '#F78AB1',
+          400: '#E6457E',
+          500: '#BD5ECF',
+          600: '#8E13B9',
+        },
+        primarybutton: {
+          100: '#91ABF5',
+          200: '#4D84E0',
+          300: '#658CFB',
+          400: '#355EA1',
+          500: '#3B63D4',
+          600: '#204D98',
+        },
+        secondarybutton: {
+          100: '#FBC24B',
+          200: '#F8B434',
+          300: '#FFB51A',
+          400: '#D19627',
+          500: '#E9B037',
+          600: '#AA7E2B',
         },
       },
       boxShadow: {

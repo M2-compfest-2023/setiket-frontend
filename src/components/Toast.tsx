@@ -63,8 +63,8 @@ export { createCustomToast, showToast };
 
 const SUCCESS_TOAST = createCustomToast({
   style: {
-    background: '#E8F0E0',
-    color: '#8AB364',
+    background: '#60A5FA',
+    color: '#ffffff',
   },
   icon: <RiErrorWarningLine size={30} />,
   className: 'w-[375px] [&>div]:justify-start',
@@ -73,8 +73,8 @@ const SUCCESS_TOAST = createCustomToast({
 });
 const DANGER_TOAST = createCustomToast({
   style: {
-    background: '#F7DBDB',
-    color: '#D84A4D',
+    background: '#F87171',
+    color: '#ffffff',
   },
   icon: <RiErrorWarningLine size={30} />,
   className: 'w-[375px] [&>div]:justify-start',
@@ -84,8 +84,8 @@ const DANGER_TOAST = createCustomToast({
 
 const WARNING_TOAST = createCustomToast({
   style: {
-    background: '#FFEFCC',
-    color: '#FEB100',
+    background: '#4D84E0',
+    color: '#ffffff',
   },
   icon: <RiErrorWarningLine size={30} />,
   className: 'w-[375px] [&>div]:justify-start',

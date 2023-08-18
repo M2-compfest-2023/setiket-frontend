@@ -71,7 +71,7 @@ function LoginPage() {
               Kembali ke halaman awal
             </PrimaryLink>
             <div className='mt-12'>
-              <Typography variant='h4' font='atmospheric'>
+              <Typography variant='h4' font='ubuntu'>
                 LOGIN
               </Typography>
               <Typography>Silakan login dengan akun Anda</Typography>

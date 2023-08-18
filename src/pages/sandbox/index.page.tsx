@@ -51,16 +51,16 @@ export default function SandboxPage() {
   return (
     <div className='flex flex-col justify-center items-center min-h-screen'>
       <div className='text-center flex flex-col justify-center items-center'>
-        <Typography variant='h4' as='h4' font='atmospheric'>
+        <Typography variant='h4' as='h4' font='ubuntu'>
           Design System
         </Typography>
-        <Typography variant='h4' as='h4' font='atmospheric'>
-          SeTicket 2023
+        <Typography variant='h4' as='h4' font='ubuntu'>
+          SeTicket
         </Typography>
         <Typography className='max-w-4xl'>
           Digunakan untuk membangun aplikasi yang konsisten dan mudah di
           maintain oleh developer selain itu sebagai Key Perform Indikator IT
-          Dev SeTicket 2023
+          Dev SeTicket
         </Typography>
       </div>
       <div className='text-center'>

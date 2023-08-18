@@ -29,7 +29,7 @@ const MascotCard = ({
         <div className='mt-14'>
           <Typography
             variant='p'
-            font='atmospheric'
+            font='ubuntu'
             weight='bold'
             className='text-center'
           >
@@ -37,7 +37,7 @@ const MascotCard = ({
           </Typography>
           <Typography
             variant='h4'
-            font='atmospheric'
+            font='ubuntu'
             className={clsxm(
               'text-center text-[48px] md:text-[36px]',
               textClassName

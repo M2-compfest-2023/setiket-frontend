@@ -62,11 +62,7 @@ export default function RegisterPage() {
                 Kembali ke halaman awal
               </PrimaryLink>
               <div className='mt-12'>
-                <Typography
-                  variant='h4'
-                  font='atmospheric'
-                  className='text-3xl'
-                >
+                <Typography variant='h4' font='ubuntu' className='text-3xl'>
                   REGISTER
                 </Typography>
               </div>

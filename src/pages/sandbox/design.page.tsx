@@ -13,7 +13,7 @@ export default function Home() {
       <SEO title='Home' description='This is the home page' />
       <div className='flex justify-center items-center min-h-screen'>
         <div className='text-center'>
-          <Typography variant='p' font='atmospheric'>
+          <Typography variant='p' font='ubuntu'>
             Design System SeTicket 2023
           </Typography>
           <div className='flex justify-evenly'>

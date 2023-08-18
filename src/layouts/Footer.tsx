@@ -17,7 +17,7 @@ export default function Footer() {
               height='37'
             ></NextImage>
             <Typography
-              font='atmospheric'
+              font='ubuntu'
               variant='p'
               color='white'
               className='text-lg'

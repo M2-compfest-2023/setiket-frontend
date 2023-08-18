@@ -14,7 +14,7 @@ import nProgress from 'nprogress';
 import Toast from '@/components/Toast';
 import api from '@/lib/api';
 import clsxm from '@/lib/clsxm';
-import { Atmospheric } from '@/lib/font';
+import { ubuntu } from '@/lib/font';
 import SEO from '@/seo.config';
 
 Router.events.on('routeChangeStart', nProgress.start);
@@ -38,7 +38,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <Toast />
       <DefaultSeo {...SEO} />
-      <div className={clsxm(Atmospheric.variable)}>
+      <div className={clsxm(ubuntu.variable)}>
         <Component {...pageProps} />
       </div>
     </QueryClientProvider>

@@ -43,7 +43,7 @@ export default function FormSandbox() {
 
   return (
     <div className='p-6 space-y-4'>
-      <Typography variant='h4' font='atmospheric'>
+      <Typography variant='h4' font='ubuntu'>
         Form
       </Typography>
 
