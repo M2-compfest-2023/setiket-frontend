@@ -14,6 +14,7 @@ import useMutationToast from '@/hooks/useMutationToast';
 import Layout from '@/layouts/Layout';
 import api from '@/lib/api';
 import { setToken } from '@/lib/cookies';
+import AuthIllustration from '@/pages/auth/AuthIllustration';
 import useAuthStore from '@/store/useAuthStore';
 import { ApiReturn } from '@/types/api';
 import { User } from '@/types/entities/user';
@@ -60,35 +61,35 @@ function LoginPage() {
   return (
     <Layout>
       <SEO title='Login' description='Login Page' />
-      <main className='flex'>
+      <main className='flex bg-background-violet'>
         <section className='hidden lg:block w-7/12'>
-          {/* <AuthIllustration /> */}
+          <AuthIllustration />
         </section>
-        <section className='w-screen lg:w-5/12 h-screen flex'>
+        <section className='w-screen lg:w-5/12 h-screen flex bg-white rounded-l-3xl'>
           <div className='w-10/12 m-auto h-fit'>
             <PrimaryLink href='/' size='medium' variant='primary'>
               <AiOutlineHome className='mr-2 fill-primary-50 w-6 h-6' />
-              Kembali ke halaman awal
+              Back to home
             </PrimaryLink>
-            <div className='mt-12'>
+            <div className='mt-8'>
               <Typography variant='h4' font='ubuntu'>
-                LOGIN
+                Login
               </Typography>
-              <Typography>Silakan login dengan akun Anda</Typography>
             </div>
-            <div className='mt-12'>
+            <div className='mt-6'>
               <FormProvider {...methods}>
                 <form action='' onSubmit={handleSubmit(onSubmit)}>
                   <div>
                     <Input
                       id='email'
                       label='Email'
-                      placeholder='Email'
+                      placeholder='Input Email'
+                      helperText='Email must be example@mail.com format'
                       validation={{
-                        required: 'Email tidak boleh kosong',
+                        required: 'Email shouldn`t be empty',
                         pattern: {
                           value: REG_EMAIL,
-                          message: 'Email tidak valid',
+                          message: 'Email not valid',
                         },
                       }}
                     />
@@ -98,9 +99,10 @@ function LoginPage() {
                       id='password'
                       label='Password'
                       type='password'
-                      placeholder='Password'
+                      placeholder='Masukkan Password'
+                      helperText='The password must contain a minimum of 8 characters consisting of a combination of uppercase letters, lowercase letters, and numbers.'
                       validation={{
-                        required: 'Password tidak boleh kosong',
+                        required: 'Password shouldn`t be empty',
                       }}
                     />
                   </div>
@@ -110,7 +112,7 @@ function LoginPage() {
                     size='medium'
                     type='button'
                   >
-                    Lupa kata sandi?
+                    Forgot password?
                   </PrimaryLink>
                   <Button
                     variant='primary'
@@ -119,7 +121,7 @@ function LoginPage() {
                     type='submit'
                     isLoading={isLoading}
                   >
-                    Masuk
+                    Submit
                   </Button>
                   <Typography
                     variant='c1'
@@ -127,14 +129,14 @@ function LoginPage() {
                     font='inter'
                     className='mt-4 text-center'
                   >
-                    Belum punya akun?{' '}
+                    Doesn`t have account?{' '}
                     <PrimaryLink
                       href='/register'
                       variant='primary'
                       size='medium'
                       type='button'
                     >
-                      Daftar
+                      Sign Up
                     </PrimaryLink>
                   </Typography>
                 </form>

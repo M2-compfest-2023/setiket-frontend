@@ -44,7 +44,12 @@ export default function SearchableSelectInput({
   return (
     <div className={containerClassName}>
       {withLabel && (
-        <Typography as='label' variant='c1' className='block'>
+        <Typography
+          font='inter'
+          variant='c1'
+          weight='semibold'
+          className='text-sm'
+        >
           {label}
         </Typography>
       )}

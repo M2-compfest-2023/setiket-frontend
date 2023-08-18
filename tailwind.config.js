@@ -8,6 +8,7 @@ module.exports = {
       fontFamily: {
         primary: ['Inter', ...fontFamily.sans],
         secondary: ['var(--font-ubuntu)', fontFamily.sans],
+        tertiary: ['var(--font-pattaya)', fontFamily.sans],
       },
       colors: {
         primary: {

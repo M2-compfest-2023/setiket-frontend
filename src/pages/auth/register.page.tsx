@@ -5,13 +5,15 @@ import { AiOutlineHome } from 'react-icons/ai';
 
 import Button from '@/components/buttons/Button';
 import Input from '@/components/form/Input';
+import SearchableSelectInput from '@/components/form/SearchableSelectInput';
 import PrimaryLink from '@/components/links/PrimaryLink';
 import SEO from '@/components/SEO';
 import Typography from '@/components/Typography';
-import { REG_EMAIL, REG_PASSWORD, REG_PHONE } from '@/constants/regex';
+import { REG_EMAIL, REG_PASSWORD } from '@/constants/regex';
 import useMutationToast from '@/hooks/useMutationToast';
 import Layout from '@/layouts/Layout';
 import api from '@/lib/api';
+import AuthIllustration from '@/pages/auth/AuthIllustration';
 
 type RegisterForm = {
   name: string;
@@ -26,7 +28,10 @@ export default function RegisterPage() {
   });
   const router = useRouter();
   const { handleSubmit } = methods;
-
+  const role = [
+    { value: 'customer', label: 'Customer' },
+    { value: 'event_organizer', label: 'Event Organizer' },
+  ];
   const { mutate: handleRegister, isLoading } = useMutationToast<
     void,
     RegisterForm
@@ -51,75 +56,71 @@ export default function RegisterPage() {
     <Layout>
       <SEO title='Register' description='Register Page' />
       <main>
-        <section className='flex'>
+        <section className='flex bg-background-violet'>
           <section className='hidden lg:block md:w-1/2 lg:w-7/12'>
-            {/* <AuthIllustration /> */}
+            <AuthIllustration />
           </section>
-          <section className='w-screen lg:w-5/12 min-h-screen flex'>
+          <section className='w-screen lg:w-5/12 min-h-screen flex bg-white rounded-l-3xl'>
             <div className='w-10/12 mx-auto py-16'>
               <PrimaryLink href='/' size='medium' variant='primary'>
                 <AiOutlineHome className='mr-2 fill-primary-50 w-6 h-6' />
-                Kembali ke halaman awal
+                Back to home
               </PrimaryLink>
-              <div className='mt-12'>
-                <Typography variant='h4' font='ubuntu' className='text-3xl'>
-                  REGISTER
+              <div className='mt-8'>
+                <Typography variant='h4' font='ubuntu' className='text-5xl'>
+                  Sign Up
                 </Typography>
               </div>
-              <div className='mt-12'>
+              <div className='mt-6'>
                 <FormProvider {...methods}>
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <div>
                       <Input
                         id='name'
-                        label='Nama Lengkap'
-                        placeholder='Masukkan Nama'
-                        validation={{ required: 'Isi nama lengkap' }}
+                        label='Username'
+                        placeholder='Input Username'
+                        validation={{ required: 'Username shouldn`t be empty' }}
                       />
                     </div>
                     <div className='mt-5'>
                       <Input
                         id='email'
                         label='Email'
-                        placeholder='Masukkan Email'
-                        helperText='Email harus berformat example@mail.com'
+                        placeholder='Input Email'
+                        helperText='Email must be example@mail.com format'
                         validation={{
-                          required: 'Email harus diisi',
+                          required: 'Email shouldn`t be empty',
                           pattern: {
                             value: REG_EMAIL,
-                            message: 'Email tidak sesuai format',
+                            message: 'Email not valid',
                           },
                         }}
+                      />
+                    </div>
+                    <div className='mt-5'>
+                      <SearchableSelectInput
+                        id='Role'
+                        label='Role'
+                        placeholder='Select Role'
+                        validation={{
+                          required: 'Role shouldn`t be empty',
+                        }}
+                        options={role}
                       />
                     </div>
                     <div className='mt-5'>
                       <Input
                         id='password'
-                        label='Kata Sandi'
+                        label='Password'
                         type='password'
-                        placeholder='Masukkan Kata Sandi'
-                        helperText='Kata sandi harus mengandung minimal 8 karakter yang terdiri atas kombinasi huruf besar, huruf kecil, dan angka'
+                        placeholder='Masukkan Password'
+                        helperText='The password must contain a minimum of 8 characters consisting of a combination of uppercase letters, lowercase letters, and numbers.'
                         validation={{
-                          required: 'Kata sandi harus diisi',
+                          required: 'Password shouldn`t be empty',
                           pattern: {
                             value: REG_PASSWORD,
                             message:
-                              'Kata sandi harus mengandung minimal 8 karakter yang terdiri atas kombinasi huruf besar, huruf kecil, dan angka',
-                          },
-                        }}
-                      />
-                    </div>
-                    <div className='mt-5'>
-                      <Input
-                        id='no_telp'
-                        label='Nomor Telepon'
-                        placeholder='Masukkan Nomor Telepon'
-                        helperText='Nomor telepon harus diawali +62'
-                        validation={{
-                          required: 'Nomor telepon harus diisi',
-                          pattern: {
-                            value: REG_PHONE,
-                            message: 'Nomor telepon harus diawali +62',
+                              'The password must contain a minimum of 8 characters consisting of a combination of uppercase letters, lowercase letters, and numbers.',
                           },
                         }}
                       />
@@ -127,11 +128,11 @@ export default function RegisterPage() {
                     <Button
                       variant='primary'
                       size='base'
-                      className='w-full mt-12'
+                      className='w-full mt-6'
                       type='submit'
                       isLoading={isLoading}
                     >
-                      Daftar
+                      Submit
                     </Button>
                     <Typography
                       variant='c1'
@@ -139,13 +140,13 @@ export default function RegisterPage() {
                       font='inter'
                       className='mt-4 text-center'
                     >
-                      Sudah punya akun?{' '}
+                      Already have account?{' '}
                       <PrimaryLink
                         href='/login'
                         variant='primary'
                         size='medium'
                       >
-                        Masuk
+                        Login
                       </PrimaryLink>
                     </Typography>
                   </form>
