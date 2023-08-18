@@ -1,7 +1,7 @@
-import { Menu, Transition } from '@headlessui/react';
+import { Menu } from '@headlessui/react';
 import { Fragment, useEffect, useState } from 'react';
 import { CgClose } from 'react-icons/cg';
-import { HiChevronDown, HiOutlineMenuAlt3 } from 'react-icons/hi';
+import { HiChevronDown } from 'react-icons/hi';
 
 import IconButton from '@/components/buttons/IconButton';
 import ButtonLink from '@/components/links/ButtonLink';
@@ -34,7 +34,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className='sticky top-0 z-[100] w-full bg-typo-primary font-primary'>
+    <header className='sticky top-0 z-[100] w-full bg-typo-white font-primary'>
       <div className='flex flex-row items-center h-14 md:h-20 justify-between layout'>
         <UnstyledLink
           href='/'
@@ -50,7 +50,7 @@ export default function Navbar() {
           <Typography
             font='ubuntu'
             variant='p'
-            color='white'
+            color='slate'
             className='text-xs'
           >
             SeTicket 2023
@@ -59,73 +59,19 @@ export default function Navbar() {
 
         {/* Desktop Navbar */}
         <nav className='hidden md:block'>
-          <ul className='flex flex-row gap-6 justify-between items-center text-base'>
+          <ul className='flex flex-row gap-10 justify-center items-center text-base'>
             <li>
-              <Menu className='relative' as='div'>
-                <Menu.Button className='outline-none p-2.5'>
-                  {({ open }) => (
-                    <Typography
-                      font='inter'
-                      color='inline'
-                      variant='bt'
-                      weight='semibold'
-                      className='hover:text-typo-white flex flex-row gap-2.5 items-center'
-                    >
-                      Events
-                      <HiChevronDown
-                        className={clsxm(
-                          'text-xl transition ease-in-out duration-200',
-                          open && 'rotate-180'
-                        )}
-                      />
-                    </Typography>
-                  )}
-                </Menu.Button>
-
-                <Transition
-                  as={Fragment}
-                  enter='transition ease-out duration-100'
-                  enterFrom='transform opacity-0 scale-95'
-                  enterTo='transform opacity-100 scale-100'
-                  leave='transition ease-in duration-75'
-                  leaveFrom='transform opacity-100 scale-100'
-                  leaveTo='transform opacity-0 scale-95'
+              <UnstyledLink href='/about' className='flex p-2.5'>
+                <Typography
+                  font='inter'
+                  color='inline'
+                  variant='bt'
+                  weight='semibold'
+                  className='hover:text-slate-600 text-slate-800'
                 >
-                  <Menu.Items
-                    className={clsxm(
-                      'absolute w-max p-4 mt-2 shadow-80 bg-typo-white rounded-xl origin-top',
-                      'grid grid-rows-2 grid-cols-2 gap-y-4 gap-x-5',
-                      'left-1/2 -translate-x-1/2 focus:outline-none'
-                    )}
-                  >
-                    {events.map(({ name, href, color, description }) => (
-                      <Menu.Item
-                        key={name}
-                        as='button'
-                        className='flex space-y-3 rounded-md hover:bg-typo-surface'
-                      >
-                        {({ active }) => (
-                          <UnstyledLink
-                            href={href}
-                            className={clsxm(
-                              'p-3 text-start space-y-3 max-w-xs rounded-xl',
-                              active && 'bg-typo-surface'
-                            )}
-                          >
-                            <Typography variant='c1' weight='semibold'>
-                              SeTicket&nbsp;
-                              <span className={color}>{name}</span>
-                            </Typography>
-                            <Typography variant='btn' color='secondary'>
-                              {description}
-                            </Typography>
-                          </UnstyledLink>
-                        )}
-                      </Menu.Item>
-                    ))}
-                  </Menu.Items>
-                </Transition>
-              </Menu>
+                  Home
+                </Typography>
+              </UnstyledLink>
             </li>
             <li>
               <UnstyledLink href='/about' className='flex p-2.5'>
@@ -134,12 +80,43 @@ export default function Navbar() {
                   color='inline'
                   variant='bt'
                   weight='semibold'
-                  className='hover:text-typo-white'
+                  className='hover:text-slate-600 text-slate-800'
                 >
-                  Tentang Kami
+                  Event
                 </Typography>
               </UnstyledLink>
             </li>
+            <li>
+              <UnstyledLink href='/about' className='flex p-2.5'>
+                <Typography
+                  font='inter'
+                  color='inline'
+                  variant='bt'
+                  weight='semibold'
+                  className='hover:text-slate-600 text-slate-800'
+                >
+                  My Tickets
+                </Typography>
+              </UnstyledLink>
+            </li>
+            <li>
+              <UnstyledLink href='/about' className='flex p-2.5'>
+                <Typography
+                  font='inter'
+                  color='inline'
+                  variant='bt'
+                  weight='semibold'
+                  className='hover:text-slate-600 text-slate-800'
+                >
+                  About Us
+                </Typography>
+              </UnstyledLink>
+            </li>
+          </ul>
+        </nav>
+
+        <nav className='hidden md:block'>
+          <ul className='flex flex-row gap-10 justify-center items-center text-base'>
             <div className='flex flex-row gap-4'>
               {!isLogin ? (
                 <>
@@ -147,17 +124,17 @@ export default function Navbar() {
                     href='/login'
                     size='base'
                     variant='primary'
-                    className='border-0 bg-typo-white'
+                    className='border-0 text-white'
                   >
-                    Masuk
+                    Login
                   </ButtonLink>
                   <ButtonLink
                     href='/register'
                     size='base'
-                    variant='netral'
-                    className='border-typo-white text-typo-white bg-transparent'
+                    variant='secondary'
+                    className='border-0 text-white'
                   >
-                    Daftar
+                    Sign Up
                   </ButtonLink>
                 </>
               ) : (
@@ -173,16 +150,6 @@ export default function Navbar() {
             </div>
           </ul>
         </nav>
-
-        {!isOpen && (
-          <IconButton
-            variant='none'
-            icon={HiOutlineMenuAlt3}
-            className='md:hidden'
-            iconClassName='text-typo-white'
-            onClick={toggleShowNav}
-          />
-        )}
       </div>
 
       {/* Mobile Nav */}
