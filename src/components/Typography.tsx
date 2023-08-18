@@ -31,6 +31,7 @@ export enum TypographyColor {
   'surface',
   'purple',
   'skyblue',
+  'slate',
 }
 
 enum FontVariant {
@@ -110,6 +111,7 @@ export default function Typography<T extends React.ElementType>({
         [color === 'success' && ['text-success-60']],
         [color === 'warning' && ['text-warning-60']],
         [color === 'danger' && ['text-danger-60']],
+        [color === 'slate' && ['text-slate-800']],
 
         className
       )}

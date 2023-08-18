@@ -8,10 +8,10 @@ type Event = {
 
 export const events: Event[] = [
   {
-    name: 'Se Ticket',
+    name: 'Concert & Show',
     href: '/',
-    color: 'text-danger-40',
-    hover: 'hover:text-danger-30',
+    color: '',
+    hover: '',
     description:
       'Step up and unleash your potential through our programming contest!',
   },

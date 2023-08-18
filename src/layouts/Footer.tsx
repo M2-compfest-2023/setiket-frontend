@@ -6,7 +6,7 @@ import { quickLinks, socials } from '@/contents/footer';
 
 export default function Footer() {
   return (
-    <footer className='w-full bg-typo-primary z-[100]'>
+    <footer className='w-full bg-background-violet z-[100]'>
       <div className='flex flex-col gap-6 py-12 layout divide-y divide-typo-secondary'>
         <div className='flex flex-col md:flex-row justify-between gap-6 items-start md:pb-20'>
           <div className='flex flex-row items-center gap-4'>
@@ -47,7 +47,6 @@ export default function Footer() {
                         weight='semibold'
                         className='hover:text-typo-white text-sm'
                       >
-                        SeTicket&nbsp;
                         <span className={`${event.color} ${event.hover}`}>
                           {event.name}
                         </span>
