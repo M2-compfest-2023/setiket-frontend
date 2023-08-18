@@ -34,7 +34,7 @@ export enum TypographyColor {
 }
 
 enum FontVariant {
-  'atmospheric',
+  'ubuntu',
   'inter',
 }
 
@@ -81,7 +81,7 @@ export default function Typography<T extends React.ElementType>({
               weight === 'bold' && 'font-bold',
             ],
           ],
-          font === 'atmospheric' && ['font-secondary leading-none'],
+          font === 'ubuntu' && ['font-secondary leading-none'],
         ],
         // *=============== Font Variants ==================
         [

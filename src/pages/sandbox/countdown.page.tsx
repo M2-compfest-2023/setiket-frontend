@@ -7,7 +7,7 @@ export default function BadgePage() {
   return (
     <div className='flex flex-col justify-center items-center min-h-screen space-y-4'>
       <div className='text-center flex flex-col justify-center items-center gap-10'>
-        <Typography variant='h4' as='h4' font='atmospheric'>
+        <Typography variant='h4' as='h4' font='ubuntu'>
           Countdown
         </Typography>
         <Countdown

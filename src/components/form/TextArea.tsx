@@ -46,7 +46,7 @@ export default function TextArea({
         <label htmlFor={id} className='flex space-x-1'>
           <Typography
             className='font-semibold text-typo-primary'
-            font={'atmospheric'}
+            font={'ubuntu'}
           >
             {label}
           </Typography>

@@ -6,6 +6,8 @@ import clsxm from '@/lib/clsxm';
 
 enum ButtonVariant {
   'primary',
+  'secondary',
+  'gradient',
   'primary-darker',
   'warning',
   'danger',
@@ -58,11 +60,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         type='button'
         disabled={disabled}
         className={clsxm(
-          'button inline-flex items-center justify-center rounded-md',
+          'button inline-flex items-center justify-center rounded-full',
           'focus:warning-none focus-visible:ring focus-visible:ring-blue-500',
           'transition-colors duration-75',
-          'border-2 border-typo-primary',
-          'text-typo-primary text-sm md:text-base font-semibold',
+          'text-typo-white text-sm md:text-base font-semibold',
           //#region  //*=========== Size ===========
           [
             size === 'lg' && [
@@ -79,11 +80,25 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           //#region  //*=========== Variants ===========
           [
             variant === 'primary' && [
-              'bg-primary-40',
-              'hover:bg-primary-60',
-              'active:bg-primary-70',
+              'bg-gradient-to-b from-primarybutton-100 to-primarybutton-200',
+              'hover:from-primarybutton-300 hover:to-primarybutton-400',
+              'active:from-primarybutton-500 active:to-primarybutton-600',
               'shadow-p-100 hover:shadow-p-200 disabled:hover:shadow-p-100',
-              'disabled:bg-primary-70 disabled:brightness-90 disabled:hover:bg-primary-70',
+              'disabled:from-primarybutton-500 disabled:to-primarybutton-600 disabled:brightness-90 disabled:hover:bg-primarybutton-600',
+            ],
+            variant === 'secondary' && [
+              'bg-gradient-to-b from-secondarybutton-100 to-secondarybutton-200',
+              'hover:from-secondarybutton-300 hover:to-secondarybutton-400',
+              'active:from-secondarybutton-500 active:to-secondarybutton-600',
+              'shadow-p-100 hover:shadow-p-200 disabled:hover:shadow-p-100',
+              'disabled:from-secondarybutton-500 disabled:to-secondarybutton-600 disabled:brightness-90 disabled:hover:bg-secondarybutton-600',
+            ],
+            variant === 'gradient' && [
+              'bg-gradient-to-b from-gradient-100 to-gradient-200',
+              'hover:from-gradient-300 hover:to-gradient-400',
+              'active:from-gradient-500 active:to-gradient-600',
+              'shadow-p-100 hover:shadow-p-200 disabled:hover:shadow-p-100',
+              'disabled:from-gradient-500 disabled:to-gradient-600 disabled:brightness-90 disabled:hover:bg-gradient-600',
             ],
             variant === 'primary-darker' && [
               'bg-primary-80',
@@ -115,9 +130,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               'active:bg-typo-label disabled:bg-typo-label disabled:text-white disabled:brightness-95',
             ],
             variant === 'outline' && [
-              'bg-transparent text-typo-secondary border-typo-outline',
+              'bg-transparent text-typo-secondary border-2 border-primary-50',
               'hover:text-white hover:border-typo-label',
-              'active:text-white active:bg-typo-label disabled:bg-transparent disabled:text-typo-secondary disabled:border-typo-outline',
+              'active:text-white active:bg-typo-primary disabled:bg-transparent disabled:text-typo-secondary disabled:border-typo-outline',
             ],
           ],
           //#endregion  //*======== Variants ===========

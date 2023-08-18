@@ -23,7 +23,7 @@ export default function ToastPage() {
       // eslint-disable-next-line no-console
       console.log(token);
 
-      const user = await api.get('/me');
+      const user = await api.get('/province');
 
       setData(user.data.data);
     })
@@ -37,7 +37,7 @@ export default function ToastPage() {
 
   return (
     <div className='layout mt-4'>
-      <Typography variant='h1' as='h1' font='atmospheric'>
+      <Typography variant='h1' as='h1' font='ubuntu'>
         Toast
       </Typography>
       <div className='grid grid-cols-2 gap-x-5'>
@@ -59,7 +59,7 @@ export default function ToastPage() {
           </FormProvider>
         </div>
         <div>
-          <Typography variant='p' as='p' font='atmospheric'>
+          <Typography variant='p' as='p' font='ubuntu'>
             /Me
           </Typography>
           <pre>{JSON.stringify(data, null, 2)}</pre>

@@ -48,7 +48,7 @@ export default function Navbar() {
             className='w-7 md:w-10'
           />
           <Typography
-            font='atmospheric'
+            font='ubuntu'
             variant='p'
             color='white'
             className='text-xs'
@@ -206,7 +206,7 @@ export default function Navbar() {
             className='w-7 md:w-10'
           />
           <Typography
-            font='atmospheric'
+            font='ubuntu'
             variant='p'
             color='white'
             className='text-xs'

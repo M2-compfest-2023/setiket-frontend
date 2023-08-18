@@ -91,7 +91,7 @@ function ForgotPasswordPage() {
                   <div className='flex w-full flex-col'>
                     <Typography
                       variant='h5'
-                      font='atmospheric'
+                      font='ubuntu'
                       className='font-semibold'
                     >
                       Atur Ulang Kata Sandi
@@ -139,7 +139,7 @@ function ForgotPasswordPage() {
                 <div className='flex flex-col'>
                   <Typography
                     variant='h2'
-                    font='atmospheric'
+                    font='ubuntu'
                     className='font-semibold'
                   >
                     Periksa Email Anda
@@ -191,7 +191,7 @@ function ForgotPasswordPage() {
                   <div className='flex w-full flex-col'>
                     <Typography
                       variant='h5'
-                      font='atmospheric'
+                      font='ubuntu'
                       className='font-semibold'
                     >
                       Atur Ulang Kata Sandi
