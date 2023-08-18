@@ -37,6 +37,7 @@ export enum TypographyColor {
 enum FontVariant {
   'ubuntu',
   'inter',
+  'pattaya',
 }
 
 enum FontWeight {
@@ -83,6 +84,7 @@ export default function Typography<T extends React.ElementType>({
             ],
           ],
           font === 'ubuntu' && ['font-secondary leading-none'],
+          font === 'pattaya' && ['font-tertiary leading-none'],
         ],
         // *=============== Font Variants ==================
         [
