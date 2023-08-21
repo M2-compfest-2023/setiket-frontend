@@ -24,7 +24,7 @@ const config: DefaultSeoProps = {
   },
   titleTemplate: '%s | SeTicket',
   description:
-    'SeTicket adalah salah satu event terbesar yang diselenggarakan oleh mahasiswa Teknik Informatika. SeTicket merupakan event yang berfokus pada kompetisi pemrograman dan logika, serta memperkenalkan perkembangan teknologi kepada masyarakat luas melalui subevent-subevent SeTicket.',
+    'SeTicket adalah salah satu event terbesar yang diselenggarakan oleh peserta SEA Compfest. SeTicket merupakan event yang berfokus pada website pembuatan event.',
   defaultTitle: 'SeTicket',
   additionalLinkTags: [
     {

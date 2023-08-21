@@ -53,7 +53,7 @@ export default function DesktopNavigation() {
 
             <div className='text-typo-white'>
               <Typography variant='bt' className='font-bold text-typo-white'>
-                {user.name}
+                {user.username}
               </Typography>
               <Typography
                 variant='c2'
