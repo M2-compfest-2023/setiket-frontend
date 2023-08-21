@@ -5,6 +5,14 @@ import React, { useEffect } from 'react';
 
 import SEO from '@/components/SEO';
 import Layout from '@/layouts/Layout';
+import NextImage from '@/components/NextImage';
+import Typography from '@/components/Typography';
+import ButtonLink from '@/components/links/ButtonLink';
+import CategoryCard from '@/components/cards/CategoryCard';
+import { categories } from '@/contents/categories';
+import EventCard from '@/components/cards/EventCard';
+import IconCard from '@/components/cards/IconCard';
+import { FaChevronCircleRight } from 'react-icons/fa';
 
 export default function Home() {
   useEffect(() => {
@@ -13,14 +21,114 @@ export default function Home() {
 
   return (
     <Layout withNavbar={true} withFooter={true}>
-      <SEO />
-      <main className='flex flex-col scroll-smooth overflow-hidden'>
-        {/* Hero Section */}
-        <section
-          id='hero'
-          className='relative flex flex-col min-h-[600px] h-screen justify-center items-center w-full'
-        ></section>
-      </main>
+      <SEO title='Home' description='Home Page'/>
+
+      <div className='flex w-full min-h-[90vh] px-20 py-17 justify-between'>
+        <div className='w-[60%] flex flex-col justify-center pr-5'>
+          <Typography
+            className='mt-2'
+            color='violet'
+            variant='h2'
+            font='ubuntu'
+          >
+            Empowering Experiences, One Click at a Time!
+          </Typography>
+          <Typography
+            className='mt-2'
+            color='cyan'
+            variant='h4'
+            font='ubuntu'
+          >
+            Where Innovation Meets Event Excellence.
+          </Typography>
+          <Typography
+            className='mt-2 text-cyan-700'
+            variant='p3'
+            font='inter'
+            weight='medium'
+          >
+            Unlock the Door to Unforgettable Experiences! At SEA Tickets, we're not just selling tickets, we're crafting memories. Seamlessly navigating between innovation and simplicity, we've created a seamless ticketing experience that puts you at the heart of every event. Whether you're a passionate organizer or an eager attendee, our platform redefines convenience. Embark on a new era of event excitement with SEA Tickets – Where Every Ticket Unfolds a Story.
+          </Typography>
+          <div className='flex'>
+          <ButtonLink
+            href='#events'
+            size='base'
+            variant='secondary'
+            className='text-white border-0 my-5'
+            
+          >
+            Book tickets
+          </ButtonLink>
+          <ButtonLink
+            href='/'
+            size='base'
+            variant='primary'
+            className='text-white border-0 m-5'
+            
+          >
+            Learn more
+          </ButtonLink>
+          </div>
+        </div>
+
+        <NextImage
+          src='/images/home/man-with-gadget.png'
+          alt='man-with-gadget.png'
+          width={400}
+          height={400}
+          className='w-[40%]'
+        />
+
+      </div>
+
+      <div className='sm:min-h-screen bg-background-violet px-4 sm:px-20 py-4 flex flex-col justify-center' id='events'>
+        <Typography
+          className='my-1 sm:my-5'
+          variant='h5'
+          font='inter'
+          color='white'
+        >
+          Latest events
+        </Typography>
+
+        <div className='flex overflow-x-auto no-scrollbar gap-7 py-5'>
+          <EventCard className='hover:shadow-xl hover:scale-105 duration-150'/>
+          <EventCard className='hover:shadow-xl hover:scale-105 duration-150'/>
+          <EventCard className='hover:shadow-xl hover:scale-105 duration-150'/>
+          <EventCard className='hover:shadow-xl hover:scale-105 duration-150'/>
+          <IconCard Icon={FaChevronCircleRight} link='/events' className='hover:shadow-xl hover:scale-105 duration-150'/>
+        </div>
+
+        <Typography
+          className='my-1 sm:my-5'
+          variant='h5'
+          font='inter'
+          color='white'
+        >
+          Categories
+        </Typography>
+
+        <div className='flex overflow-x-auto no-scrollbar gap-7 py-5'>
+          {categories.map((category) => (
+              <CategoryCard link={category.href} category={''} src={category.image} key={category.name} ></CategoryCard>
+            ))}
+        </div>
+      </div>
+
+      <div className='min-h-screen p-5 sm:p-10'>
+      <Typography
+        className='my-1 sm:my-5 text-center mx-auto'
+        variant='h3'
+        font='inter'
+        color='cyan'
+      >
+        How to order tickets at Setiket ?
+      </Typography>        
+
+      <div className='grid grid-cols-3'>
+ 
+      </div>
+      </div>
     </Layout>
   );
 }

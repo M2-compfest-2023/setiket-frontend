@@ -23,14 +23,14 @@ export default function Custom404() {
         id='#404'
         className='relative overflow-y-hidden w-full min-h-[680px] h-screen grid grid-rows-2'
       >
-        <div className='absolute flex justify-center w-full h-2/5 md:h-1/2 bg-typo-light'>
+        <div className='absolute flex justify-center w-full h-2/5 md:h-1/2'>
           <div className='relative flex justify-center w-full'>
             <div className='absolute bottom-0 translate-y-[22%] w-1/2 md:w-full max-w-[400px]'>
               <Image
                 src='/images/404/404.png'
                 alt='404-box'
-                width='420'
-                height='420'
+                width={400}
+                height={400}
                 data-aos='fade-down'
                 data-aos-duration='500'
                 className='w-full'
@@ -45,41 +45,29 @@ export default function Custom404() {
           data-aos-delay='200'
           data-aos-duration='500'
         >
-          <Typography variant='h4' font='inter' className='font-bold text-2xl'>
-            yahhh... <br className='md:hidden' /> yang kamu cari gaada nih :(
+          <Typography variant='h4' font='ubuntu' className='font-bold text-2xl bg-gradient-to-r from-gradient-500 to-gradient-600 bg-clip-text text-transparent'>
+            404 - Page not found
           </Typography>
+
           <Typography
-            variant='p'
-            font='inter'
-            className='text-typo-secondary text-base mt-2'
+            variant='h4'
+            font='ubuntu'
+            className='text-base mt-2 bg-gradient-to-r from-gradient-500 to-gradient-600 bg-clip-text text-transparent'
           >
-            Mohon maaf, halaman yang sedang kamu cari tidak ditemukan.
-            <br className='hidden md:block' />
-            &nbsp; Coba kembali ke halaman utama, atau cek instagram SeTicket
-            2023!
+            Please double-check the URL or return to our homepage.
           </Typography>
-          <div className='flex flex-col md:flex-row gap-5 mt-10 justify-center'>
+          <div className='mt-5 justify-center'>
             <ButtonLink
               href='/'
-              variant='netral'
+              variant='primary'
               leftIcon={AiOutlineHome}
               data-aos-delay='100'
               data-aos='zoom-in-up'
               data-aos-duration='1000'
+              className='text-white border-0'
               data-aos-anchor='#main'
             >
               Homepage
-            </ButtonLink>
-            <ButtonLink
-              href='https://www.instagram.com/seticke/'
-              variant='netral'
-              leftIcon={BiGlobe}
-              data-aos-delay='100'
-              data-aos='zoom-in-up'
-              data-aos-duration='1000'
-              data-aos-anchor='#main'
-            >
-              Instagram SeTicket 2023
             </ButtonLink>
           </div>
         </div>

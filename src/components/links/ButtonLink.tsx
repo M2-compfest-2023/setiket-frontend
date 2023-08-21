@@ -54,7 +54,7 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
           'button inline-flex items-center justify-center rounded-full md:rounded-full',
           'focus:outline-none focus-visible:ring focus-visible:ring-blue-50',
           'transition duration-200 ease-in-out',
-          'text-sm md:text-base font-semibold',
+          'text-[12px] md:text-[16px] font-medium',
           'border-2 border-typo-primary',
           'text-typo-primary',
           //#region  //*=========== Size ===========
@@ -77,21 +77,21 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
               'hover:from-primarybutton-300 hover:to-primarybutton-400',
               'active:from-primarybutton-500 active:to-primarybutton-600',
               'shadow-p-100 hover:shadow-p-200 disabled:hover:shadow-p-100',
-              'disabled:from-primarybutton-500 disabled:to-primarybutton-600 disabled:brightness-90 disabled:hover:bg-primarybutton-600',
+              'disabled:from-primarybutton-500 disabled:to-primarybutton-600 disabled:brightness-90 ',
             ],
             variant === 'secondary' && [
               'bg-gradient-to-b from-secondarybutton-100 to-secondarybutton-200',
               'hover:from-secondarybutton-300 hover:to-secondarybutton-400',
               'active:from-secondarybutton-500 active:to-secondarybutton-600',
               'shadow-p-100 hover:shadow-p-200 disabled:hover:shadow-p-100',
-              'disabled:from-secondarybutton-500 disabled:to-secondarybutton-600 disabled:brightness-90 disabled:hover:bg-secondarybutton-600',
+              'disabled:from-secondarybutton-500 disabled:to-secondarybutton-600 disabled:brightness-90',
             ],
             variant === 'gradient' && [
               'bg-gradient-to-b from-gradient-100 to-gradient-200',
               'hover:from-gradient-300 hover:to-gradient-400',
               'active:from-gradient-500 active:to-gradient-600',
               'shadow-p-100 hover:shadow-p-200 disabled:hover:shadow-p-100',
-              'disabled:from-gradient-500 disabled:to-gradient-600 disabled:brightness-90 disabled:hover:bg-gradient-600',
+              'disabled:from-gradient-500 disabled:to-gradient-600 disabled:brightness-90',
             ],
             variant === 'warning' && [
               'bg-warning-50',

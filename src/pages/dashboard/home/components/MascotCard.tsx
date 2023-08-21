@@ -28,7 +28,7 @@ const MascotCard = ({
       >
         <div className='mt-14'>
           <Typography
-            variant='p'
+            variant='p1'
             font='ubuntu'
             weight='bold'
             className='text-center'

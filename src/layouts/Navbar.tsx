@@ -1,6 +1,7 @@
 import { Menu } from '@headlessui/react';
 import { Fragment, useEffect, useState } from 'react';
 import { CgClose } from 'react-icons/cg';
+import { AiOutlineMenu } from 'react-icons/ai';
 import { HiChevronDown } from 'react-icons/hi';
 
 import IconButton from '@/components/buttons/IconButton';
@@ -8,7 +9,7 @@ import ButtonLink from '@/components/links/ButtonLink';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import NextImage from '@/components/NextImage';
 import Typography from '@/components/Typography';
-import { events } from '@/contents/event';
+import { categories } from '@/contents/categories';
 import clsxm from '@/lib/clsxm';
 import { getToken } from '@/lib/cookies';
 
@@ -49,9 +50,9 @@ export default function Navbar() {
           />
           <Typography
             font='ubuntu'
-            variant='p'
-            color='slate'
-            className='text-xs'
+            variant='h4'
+            color='cyan'
+            className='text-sm'
           >
             SeTicket 2023
           </Typography>
@@ -61,26 +62,26 @@ export default function Navbar() {
         <nav className='hidden md:block'>
           <ul className='flex flex-row gap-10 justify-center items-center text-base'>
             <li>
-              <UnstyledLink href='/about' className='flex p-2.5'>
+              <UnstyledLink href='/' className='flex p-2.5'>
                 <Typography
                   font='inter'
-                  color='inline'
-                  variant='bt'
+                  color='cyan'
+                  variant='p2'
                   weight='semibold'
-                  className='hover:text-slate-600 text-slate-800'
+                  className='hover:text-cyan-600'
                 >
                   Home
                 </Typography>
               </UnstyledLink>
             </li>
             <li>
-              <UnstyledLink href='/about' className='flex p-2.5'>
+              <UnstyledLink href='/events' className='flex p-2.5'>
                 <Typography
                   font='inter'
-                  color='inline'
-                  variant='bt'
+                  color='cyan'
+                  variant='p2'
                   weight='semibold'
-                  className='hover:text-slate-600 text-slate-800'
+                  className='hover:text-cyan-600'
                 >
                   Event
                 </Typography>
@@ -90,10 +91,10 @@ export default function Navbar() {
               <UnstyledLink href='/about' className='flex p-2.5'>
                 <Typography
                   font='inter'
-                  color='inline'
-                  variant='bt'
+                  color='cyan'
+                  variant='p2'
                   weight='semibold'
-                  className='hover:text-slate-600 text-slate-800'
+                  className='hover:text-cyan-600'
                 >
                   My Tickets
                 </Typography>
@@ -103,10 +104,10 @@ export default function Navbar() {
               <UnstyledLink href='/about' className='flex p-2.5'>
                 <Typography
                   font='inter'
-                  color='inline'
-                  variant='bt'
+                  color='cyan'
+                  variant='p2'
                   weight='semibold'
-                  className='hover:text-slate-600 text-slate-800'
+                  className='hover:text-cyan-600'
                 >
                   About Us
                 </Typography>
@@ -122,7 +123,7 @@ export default function Navbar() {
                 <>
                   <ButtonLink
                     href='/login'
-                    size='base'
+                    size='sm'
                     variant='primary'
                     className='border-0 text-white'
                   >
@@ -130,7 +131,7 @@ export default function Navbar() {
                   </ButtonLink>
                   <ButtonLink
                     href='/register'
-                    size='base'
+                    size='sm'
                     variant='secondary'
                     className='border-0 text-white'
                   >
@@ -160,7 +161,8 @@ export default function Navbar() {
           'transition ease-in-out duration-300',
           isOpen ? 'translate-x-0' : '-translate-x-full'
         )}
-      >
+      > 
+        <div className='flex justify-between w-full'>
         <UnstyledLink
           href='/'
           className='flex flex-row items-center gap-2 md:gap-4'
@@ -174,13 +176,23 @@ export default function Navbar() {
           />
           <Typography
             font='ubuntu'
-            variant='p'
+            variant='h4'
             color='white'
-            className='text-xs'
+            className='text-lg'
           >
             SeTicket 2023
           </Typography>
         </UnstyledLink>
+
+        <IconButton
+          variant='label'
+          icon={CgClose}
+          size='lg'
+          className='border-transparent bg-transparent rounded-full sm:hidden'
+          iconClassName='text-white hover:text-blue-200'
+          onClick={toggleShowNav}
+        />
+        </div>
 
         <nav className='flex-1 w-full'>
           <ul className='space-y-4'>
@@ -192,7 +204,7 @@ export default function Navbar() {
                       <Typography
                         font='inter'
                         color='inline'
-                        variant='bt'
+                        variant='p2'
                         weight='semibold'
                         className='hover:text-typo-white flex flex-row gap-2.5 items-center'
                       >
@@ -213,7 +225,7 @@ export default function Navbar() {
                       'text-start focus:outline-none'
                     )}
                   >
-                    {events.map(({ name, href, color, hover }) => (
+                    {categories.map(({ name, href, color}) => (
                       <Menu.Item
                         key={name}
                         as='button'
@@ -225,12 +237,12 @@ export default function Navbar() {
                         >
                           <Typography
                             color='inline'
-                            variant='c1'
+                            variant='p3'
                             weight='semibold'
                             className='text-xs hover:text-typo-white'
                           >
                             SeTicket&nbsp;
-                            <span className={`${color} ${hover}`}>{name}</span>
+                            <span className={`${color}`}>{name}</span>
                           </Typography>
                         </UnstyledLink>
                       </Menu.Item>
@@ -243,7 +255,7 @@ export default function Navbar() {
                   <Typography
                     font='inter'
                     color='inline'
-                    variant='bt'
+                    variant='p2'
                     weight='semibold'
                     className='hover:text-typo-white'
                   >
@@ -261,7 +273,7 @@ export default function Navbar() {
                     variant='primary'
                     className='border-0 bg-typo-white'
                   >
-                    Masuk
+                    Login
                   </ButtonLink>
                   <ButtonLink
                     href='/register'
@@ -269,7 +281,7 @@ export default function Navbar() {
                     variant='netral'
                     className='border-typo-white text-typo-white bg-transparent'
                   >
-                    Daftar
+                    Sign Up
                   </ButtonLink>
                 </>
               ) : (
@@ -286,15 +298,15 @@ export default function Navbar() {
           </ul>
         </nav>
 
+      </div>
         <IconButton
           variant='label'
-          icon={CgClose}
+          icon={AiOutlineMenu}
           size='lg'
-          className='border-typo-white bg-transparent rounded-full'
-          iconClassName='text-typo-white'
+          className='border-transparent bg-transparent rounded-full sm:hidden'
+          iconClassName='text-cyan-800'
           onClick={toggleShowNav}
         />
-      </div>
     </header>
   );
 }

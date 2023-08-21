@@ -47,7 +47,7 @@ export default function StatusPembayaranCard({
       >
         <Typography
           as='p'
-          variant='c2'
+          variant='p2'
           weight='semibold'
           className={clsxm(`text-xs leading-6 ${colors[status].color}`)}
         >
