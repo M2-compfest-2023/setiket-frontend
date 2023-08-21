@@ -4,7 +4,6 @@ import AOS from 'aos';
 import Image from 'next/image';
 import React, { useEffect } from 'react';
 import { AiOutlineHome } from 'react-icons/ai';
-import { BiGlobe } from 'react-icons/bi';
 
 import ButtonLink from '@/components/links/ButtonLink';
 import SEO from '@/components/SEO';

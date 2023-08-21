@@ -1,9 +1,7 @@
 import IconCard from '@/components/cards/IconCard';
-import { events } from '@/contents/categories';
+import { categories } from '@/contents/categories';
 
 export default function Temp() {
-  console.table(events)
-
   return (
     <>
         <div>

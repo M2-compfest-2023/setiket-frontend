@@ -1,5 +1,5 @@
 import { Menu } from '@headlessui/react';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CgClose } from 'react-icons/cg';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { HiChevronDown } from 'react-icons/hi';
