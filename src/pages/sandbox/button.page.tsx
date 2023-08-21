@@ -7,13 +7,16 @@ import IconButton from '@/components/buttons/IconButton';
 import Typography from '@/components/Typography';
 import Layout from '@/layouts/Layout';
 
+
 export default function ButtonSandbox() {
   return (
     <Layout withNavbar={true} withFooter={true}>
       <section className='min-h-screen'>
+
         <Typography variant='h4' className='layout pt-10'>
           Button
         </Typography>
+
         <div className='layout py-10 flex flex-wrap justify-between'>
           <div className='space-y-3 h-fit'>
             <div className='space-x-3 p-2'>
@@ -146,15 +149,8 @@ export default function ButtonSandbox() {
             </div>
           </div>
         </section>
-      </section>
 
-      {/* <section id='outline-button' className=''>
-      <div className='layout py-10'>
-        <Typography variant='h4' className='layout text-white pt-10'>
-          Outline Button
-        </Typography>
-      </div>
-    </section> */}
+      </section>
     </Layout>
   );
 }

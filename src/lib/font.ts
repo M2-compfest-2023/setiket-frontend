@@ -9,3 +9,8 @@ export const pattaya = localFont({
   src: '../styles/fonts/pattaya.ttf',
   variable: '--font-pattaya',
 });
+
+export const lobster = localFont({
+  src: '../styles/fonts/lobster.ttf',
+  variable: '--font-lobster',
+});

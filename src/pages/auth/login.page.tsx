@@ -20,7 +20,7 @@ import { ApiReturn } from '@/types/api';
 import { User } from '@/types/entities/user';
 
 type LoginForm = {
-  email: string;
+email: string;
   password: string;
 };
 export default withAuth(LoginPage, 'public');
@@ -124,7 +124,7 @@ function LoginPage() {
                     Submit
                   </Button>
                   <Typography
-                    variant='c1'
+                    variant='b2'
                     weight='medium'
                     font='inter'
                     className='mt-4 text-center'

@@ -16,15 +16,15 @@ type Social = {
 
 export const quickLinks: QuickLink[] = [
   {
-    name: 'Tentang Kami',
+    name: 'About Us',
     href: '/about',
   },
   {
-    name: 'Masuk',
+    name: 'Login',
     href: '/login',
   },
   {
-    name: 'Daftar',
+    name: 'Sign Up',
     href: '/register',
   },
 ];

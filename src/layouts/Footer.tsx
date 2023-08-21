@@ -1,15 +1,15 @@
 import UnstyledLink from '@/components/links/UnstyledLink';
 import NextImage from '@/components/NextImage';
 import Typography from '@/components/Typography';
-import { events } from '@/contents/event';
+import { categories } from '@/contents/categories';
 import { quickLinks, socials } from '@/contents/footer';
 
 export default function Footer() {
   return (
     <footer className='w-full bg-background-violet z-[100]'>
-      <div className='flex flex-col gap-6 py-12 layout divide-y divide-typo-secondary'>
-        <div className='flex flex-col md:flex-row justify-between gap-6 items-start md:pb-20'>
-          <div className='flex flex-row items-center gap-4'>
+      <div className='flex flex-col gap-3 py-6 layout divide-y divide-typo-secondary'>
+        <div className='flex flex-col md:flex-row justify-between gap-6 items-start md:pb-5'>
+          <div className='flex flex-row items-center gap-4 mx-auto sm:mx-0'>
             <NextImage
               src='/images/logo.png'
               alt='logo'
@@ -18,37 +18,38 @@ export default function Footer() {
             ></NextImage>
             <Typography
               font='ubuntu'
-              variant='p'
+              weight='bold'
+              variant='h3'
               color='white'
               className='text-lg'
             >
               SeTicket 2023
             </Typography>
           </div>
-          <div className='flex flex-col gap-6 md:gap-24 md:flex-row'>
+          <div className='flex flex-col gap-6 md:gap-24 md:flex-row mx-auto text-center sm:mx-0 sm:text-left'>
             <div className='flex flex-col'>
               <Typography
                 font='inter'
-                color='secondary'
-                variant='c1'
+                color='white'
+                variant='b2'
                 weight='semibold'
                 className='text-sm'
               >
-                EVENTS
+                Events
               </Typography>
               <ul className='flex flex-col mt-2.5 gap-y-2.5'>
-                {events.map((event) => (
-                  <li key={event.name}>
-                    <UnstyledLink href={event.href}>
+                {categories.map((category) => (
+                  <li key={category.name}>
+                    <UnstyledLink href={category.href}>
                       <Typography
                         font='inter'
                         color='inline'
-                        variant='c1'
+                        variant='p3'
                         weight='semibold'
                         className='hover:text-typo-white text-sm'
                       >
-                        <span className={`${event.color} ${event.hover}`}>
-                          {event.name}
+                        <span className={`${category.color} `}>
+                          {category.name}
                         </span>
                       </Typography>
                     </UnstyledLink>
@@ -59,12 +60,12 @@ export default function Footer() {
             <div className='flex flex-col'>
               <Typography
                 font='inter'
-                color='secondary'
-                variant='c1'
+                color='white'
+                variant='b2'
                 weight='semibold'
                 className='text-sm'
               >
-                QUICK LINK
+                Quick Links
               </Typography>
               <ul className='flex flex-col mt-2.5 gap-y-2.5'>
                 {quickLinks.map((link) => (
@@ -73,7 +74,7 @@ export default function Footer() {
                       <Typography
                         font='inter'
                         color='inline'
-                        variant='c1'
+                        variant='p3'
                         weight='semibold'
                         className='hover:text-typo-white text-sm'
                       >
@@ -89,20 +90,9 @@ export default function Footer() {
         </div>
 
         <div className='flex flex-col-reverse md:flex-row justify-between items-center gap-6 pt-6'>
-          <Typography color='white' variant='btn' className='text-base'>
+          <Typography color='white' variant='p3' className='text-base'>
             &copy; SeTicket 2023
           </Typography>
-          <div className='flex flex-row items-center gap-4 text-typo-primary'>
-            {socials.map((social) => (
-              <UnstyledLink
-                key={social.name}
-                href={social.href}
-                className='flex justify-center items-center w-10 h-10 rounded-full bg-typo-white hover:bg-typo-light'
-              >
-                <social.icon size='20' />
-              </UnstyledLink>
-            ))}
-          </div>
         </div>
       </div>
     </footer>
