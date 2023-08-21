@@ -44,7 +44,11 @@ export default function Custom404() {
           data-aos-delay='200'
           data-aos-duration='500'
         >
-          <Typography variant='h4' font='ubuntu' className='font-bold text-2xl bg-gradient-to-r from-gradient-500 to-gradient-600 bg-clip-text text-transparent'>
+          <Typography
+            variant='h4'
+            font='ubuntu'
+            className='font-bold text-2xl bg-gradient-to-r from-gradient-500 to-gradient-600 bg-clip-text text-transparent'
+          >
             404 - Page not found
           </Typography>
 

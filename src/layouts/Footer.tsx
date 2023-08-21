@@ -2,7 +2,7 @@ import UnstyledLink from '@/components/links/UnstyledLink';
 import NextImage from '@/components/NextImage';
 import Typography from '@/components/Typography';
 import { categories } from '@/contents/categories';
-import { quickLinks, socials } from '@/contents/footer';
+import { quickLinks } from '@/contents/footer';
 
 export default function Footer() {
   return (

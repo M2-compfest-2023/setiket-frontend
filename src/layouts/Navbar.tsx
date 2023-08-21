@@ -1,7 +1,11 @@
 import { Menu } from '@headlessui/react';
 import { useEffect, useState } from 'react';
+<<<<<<< HEAD
 import { CgClose } from 'react-icons/cg';
+=======
+>>>>>>> 94d615860604956f85b7d9c372ff1f0f6f5c2c95
 import { AiOutlineMenu } from 'react-icons/ai';
+import { CgClose } from 'react-icons/cg';
 import { HiChevronDown } from 'react-icons/hi';
 
 import IconButton from '@/components/buttons/IconButton';
@@ -161,37 +165,37 @@ export default function Navbar() {
           'transition ease-in-out duration-300',
           isOpen ? 'translate-x-0' : '-translate-x-full'
         )}
-      > 
+      >
         <div className='flex justify-between w-full'>
-        <UnstyledLink
-          href='/'
-          className='flex flex-row items-center gap-2 md:gap-4'
-        >
-          <NextImage
-            src='/images/logo.png'
-            alt='logo'
-            width='42'
-            height='37'
-            className='w-7 md:w-10'
-          />
-          <Typography
-            font='ubuntu'
-            variant='h4'
-            color='white'
-            className='text-lg'
+          <UnstyledLink
+            href='/'
+            className='flex flex-row items-center gap-2 md:gap-4'
           >
-            SeTicket 2023
-          </Typography>
-        </UnstyledLink>
+            <NextImage
+              src='/images/logo.png'
+              alt='logo'
+              width='42'
+              height='37'
+              className='w-7 md:w-10'
+            />
+            <Typography
+              font='ubuntu'
+              variant='h4'
+              color='white'
+              className='text-lg'
+            >
+              SeTicket 2023
+            </Typography>
+          </UnstyledLink>
 
-        <IconButton
-          variant='label'
-          icon={CgClose}
-          size='lg'
-          className='border-transparent bg-transparent rounded-full sm:hidden'
-          iconClassName='text-white hover:text-blue-200'
-          onClick={toggleShowNav}
-        />
+          <IconButton
+            variant='label'
+            icon={CgClose}
+            size='lg'
+            className='border-transparent bg-transparent rounded-full sm:hidden'
+            iconClassName='text-white hover:text-blue-200'
+            onClick={toggleShowNav}
+          />
         </div>
 
         <nav className='flex-1 w-full'>
@@ -225,7 +229,7 @@ export default function Navbar() {
                       'text-start focus:outline-none'
                     )}
                   >
-                    {categories.map(({ name, href, color}) => (
+                    {categories.map(({ name, href, color }) => (
                       <Menu.Item
                         key={name}
                         as='button'
@@ -297,16 +301,15 @@ export default function Navbar() {
             </div>
           </ul>
         </nav>
-
       </div>
-        <IconButton
-          variant='label'
-          icon={AiOutlineMenu}
-          size='lg'
-          className='border-transparent bg-transparent rounded-full sm:hidden'
-          iconClassName='text-cyan-800'
-          onClick={toggleShowNav}
-        />
+      <IconButton
+        variant='label'
+        icon={AiOutlineMenu}
+        size='lg'
+        className='border-transparent bg-transparent rounded-full sm:hidden'
+        iconClassName='text-cyan-800'
+        onClick={toggleShowNav}
+      />
     </header>
   );
 }

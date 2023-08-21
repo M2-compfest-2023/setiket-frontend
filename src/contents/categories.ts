@@ -12,41 +12,41 @@ export const categories: Category[] = [
     href: '/a',
     color: '',
     description: '',
-    image: '/images/categories/concert-n-show.png'
+    image: '/images/categories/concert-n-show.png',
   },
   {
     name: 'Seminar',
     href: '/b',
     color: '',
     description: '',
-    image: '/images/categories/seminar.png'
+    image: '/images/categories/seminar.png',
   },
   {
     name: 'Workshop',
     href: '/c',
     color: '',
     description: '',
-    image: '/images/categories/workshop.png'
+    image: '/images/categories/workshop.png',
   },
   {
     name: 'Exhibition',
     href: '/d',
     color: '',
     description: '',
-    image: '/images/categories/exhibition.png'
+    image: '/images/categories/exhibition.png',
   },
   {
     name: 'Sport & Competition',
     href: '/e',
     color: '',
     description: '',
-    image: '/images/categories/sports-n-competition.png'
+    image: '/images/categories/sports-n-competition.png',
   },
   {
     name: 'Festival',
     href: '/f',
     color: '',
     description: '',
-    image: '/images/categories/festival.png'
+    image: '/images/categories/festival.png',
   },
 ];
