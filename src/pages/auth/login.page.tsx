@@ -20,7 +20,7 @@ import { ApiReturn } from '@/types/api';
 import { User } from '@/types/entities/user';
 
 type LoginForm = {
-email: string;
+  email: string;
   password: string;
 };
 export default withAuth(LoginPage, 'public');
