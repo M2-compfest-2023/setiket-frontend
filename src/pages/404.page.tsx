@@ -4,7 +4,6 @@ import AOS from 'aos';
 import Image from 'next/image';
 import React, { useEffect } from 'react';
 import { AiOutlineHome } from 'react-icons/ai';
-import { BiGlobe } from 'react-icons/bi';
 
 import ButtonLink from '@/components/links/ButtonLink';
 import SEO from '@/components/SEO';
@@ -45,7 +44,11 @@ export default function Custom404() {
           data-aos-delay='200'
           data-aos-duration='500'
         >
-          <Typography variant='h4' font='ubuntu' className='font-bold text-2xl bg-gradient-to-r from-gradient-500 to-gradient-600 bg-clip-text text-transparent'>
+          <Typography
+            variant='h4'
+            font='ubuntu'
+            className='font-bold text-2xl bg-gradient-to-r from-gradient-500 to-gradient-600 bg-clip-text text-transparent'
+          >
             404 - Page not found
           </Typography>
 

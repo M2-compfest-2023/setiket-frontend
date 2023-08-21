@@ -7,12 +7,10 @@ import IconButton from '@/components/buttons/IconButton';
 import Typography from '@/components/Typography';
 import Layout from '@/layouts/Layout';
 
-
 export default function ButtonSandbox() {
   return (
     <Layout withNavbar={true} withFooter={true}>
       <section className='min-h-screen'>
-
         <Typography variant='h4' className='layout pt-10'>
           Button
         </Typography>
@@ -149,7 +147,6 @@ export default function ButtonSandbox() {
             </div>
           </div>
         </section>
-
       </section>
     </Layout>
   );

@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import clsxm from '@/lib/clsxm';
 
 enum TypographyVariant {
@@ -15,6 +16,12 @@ enum TypographyVariant {
   'b1',
   'b2',
   'b3',
+  'c1',
+  'c2',
+  't',
+  'bt',
+  'btn',
+  'p',
 }
 
 export enum TypographyColor {
@@ -31,6 +38,7 @@ export enum TypographyColor {
   'surface',
   'purple',
   'skyblue',
+  'slate',
   'cyan',
   'violet',
 }
@@ -104,6 +112,12 @@ export default function Typography<T extends React.ElementType>({
           variant === 'b1' && ['md:text-[24px] md:leading-[36px] font-bold'],
           variant === 'b2' && ['md:text-[16px] md:leading-[24px] font-bold'],
           variant === 'b3' && ['md:text-[12px] md:leading-[18px] font-bold'],
+          variant === 'c1' && ['md:text-[14px] md:leading-[24px]'],
+          variant === 'c2' && ['md:text-[12px] md:leading-[24px]'],
+          variant === 't' && ['md:text-[20px] md:leading-[24px]'],
+          variant === 'p' && ['md:text-[18px] md:leading-[24px]'],
+          variant === 'bt' && ['md:text-[16px] md:leading-[24px]'],
+          variant === 'btn' && ['md:text-[16px] md:leading-[24px]'],
         ],
         // *=============== Font Colors ==================
         [color === 'primary' && ['text-typo-primary']],
@@ -119,6 +133,7 @@ export default function Typography<T extends React.ElementType>({
         [color === 'danger' && ['text-danger-60']],
         [color === 'cyan' && ['text-cyan-800']],
         [color === 'violet' && ['text-background-violet']],
+        [color === 'slate' && ['text-slate-800']],
 
         className
       )}

@@ -1,8 +1,9 @@
 import Link from 'next/link';
-import clsxm from '@/lib/clsxm';
-import Typography from '@/components/Typography';
+import { AiOutlineCalendar, AiOutlineClockCircle } from 'react-icons/ai';
 import { HiLocationMarker } from 'react-icons/hi';
-import { AiOutlineClockCircle, AiOutlineCalendar } from 'react-icons/ai';
+
+import Typography from '@/components/Typography';
+import clsxm from '@/lib/clsxm';
 
 enum CardVariant {
   'primary',
@@ -22,28 +23,25 @@ type CardProps = {
   className?: string;
 };
 
-export default function EventCard({
-  size,
-  variant,
-  className,
-}: CardProps) {
+export default function EventCard({ className }: CardProps) {
   return (
     <Link href='/'>
-      <div className={clsxm('w-[310px] h-[160px] bg-white rounded-3xl px-5 py-3 shadow-lg flex flex-col justify-between', className)}>
+      <div
+        className={clsxm(
+          'w-[310px] h-[160px] bg-white rounded-3xl px-5 py-3 shadow-lg flex flex-col justify-between',
+          className
+        )}
+      >
         <div>
           <Typography
             className='text-cyan-600 my-1'
             variant='p3'
             weight='semibold'
           >
-            <HiLocationMarker className='inline-block'/> City, Province
+            <HiLocationMarker className='inline-block' /> City, Province
           </Typography>
 
-          <Typography
-            variant='h5'
-            color='cyan'
-            className='my-1'
-          >
+          <Typography variant='h5' color='cyan' className='my-1'>
             Event Name
           </Typography>
 
@@ -52,7 +50,7 @@ export default function EventCard({
             variant='p3'
             weight='semibold'
           >
-            <AiOutlineCalendar className='inline-block'/> dd/mm/yyyy
+            <AiOutlineCalendar className='inline-block' /> dd/mm/yyyy
           </Typography>
 
           <Typography
@@ -60,14 +58,11 @@ export default function EventCard({
             variant='p3'
             weight='semibold'
           >
-            <AiOutlineClockCircle className='inline-block'/> 00:00 - 24:00
+            <AiOutlineClockCircle className='inline-block' /> 00:00 - 24:00
           </Typography>
         </div>
 
-        <Typography
-          className='text-cyan-700'
-          variant='b2'
-        >
+        <Typography className='text-cyan-700' variant='b2'>
           Rp 999,999
         </Typography>
       </div>
