@@ -101,7 +101,7 @@ export default function MobileNavigation() {
                       variant='c1'
                       className='font-bold text-typo-white'
                     >
-                      {user?.name ?? 'Testing Testing'}
+                      {user?.username ?? 'Testing Testing'}
                     </Typography>
                     <Typography variant='c2' className='text-typo-white'>
                       {user?.email ?? 'testing@gmail.com'}

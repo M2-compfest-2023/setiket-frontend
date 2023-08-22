@@ -1,8 +1,7 @@
 export interface User {
-  role: 'user' | 'admin';
-  name: string;
+  role: 'user' | 'admin' | 'event_organizer';
+  username: string;
   email: string;
-  no_telp: string;
 }
 
 export interface withToken {
