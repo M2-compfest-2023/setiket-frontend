@@ -4,8 +4,8 @@ export default function Temp() {
   return (
     <>
       <div>
-        <IconCard />
+        <input type="text" />
       </div>
     </>
-  );
+  );  
 }

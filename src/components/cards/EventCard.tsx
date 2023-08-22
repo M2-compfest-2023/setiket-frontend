@@ -21,11 +21,31 @@ type CardProps = {
   size?: keyof typeof CardSize;
   variant?: keyof typeof CardVariant;
   className?: string;
+  province: string;
+  city: string;
+  eventName: string;
+  startdate: string;
+  starttime: string;
+  ticketPrice: string;
+  eventId: string;
 };
 
-export default function EventCard({ className }: CardProps) {
+export default function EventCard({ 
+  size,
+  variant,
+  className,
+  province,
+  city,
+  eventName,
+  startdate,
+  starttime,
+  ticketPrice,
+  eventId,
+ }: CardProps) {
+
+  const link = '/events/detail/'.concat(eventId);
   return (
-    <Link href='/'>
+    <Link href={link}>
       <div
         className={clsxm(
           'w-[310px] h-[160px] bg-white rounded-3xl px-5 py-3 shadow-lg flex flex-col justify-between',
@@ -38,11 +58,11 @@ export default function EventCard({ className }: CardProps) {
             variant='p3'
             weight='semibold'
           >
-            <HiLocationMarker className='inline-block' /> City, Province
+            <HiLocationMarker className='inline-block' /> {city}, {province}
           </Typography>
 
           <Typography variant='h5' color='cyan' className='my-1'>
-            Event Name
+            {eventName}
           </Typography>
 
           <Typography
@@ -50,7 +70,7 @@ export default function EventCard({ className }: CardProps) {
             variant='p3'
             weight='semibold'
           >
-            <AiOutlineCalendar className='inline-block' /> dd/mm/yyyy
+            <AiOutlineCalendar className='inline-block' /> {startdate}
           </Typography>
 
           <Typography
@@ -58,12 +78,12 @@ export default function EventCard({ className }: CardProps) {
             variant='p3'
             weight='semibold'
           >
-            <AiOutlineClockCircle className='inline-block' /> 00:00 - 24:00
+            <AiOutlineClockCircle className='inline-block' /> {starttime}
           </Typography>
         </div>
 
         <Typography className='text-cyan-700' variant='b2'>
-          Rp 999,999
+          Rp {ticketPrice}
         </Typography>
       </div>
     </Link>
