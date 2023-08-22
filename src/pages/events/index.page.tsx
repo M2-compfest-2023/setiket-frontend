@@ -15,7 +15,7 @@ import Datepicker from '@/components/form/Datepicker';
 import Button from '@/components/buttons/Button';
 
 type SearchForm = {
-  email: string;
+  keyword: string;
 };
 
 type FilterForm = {
