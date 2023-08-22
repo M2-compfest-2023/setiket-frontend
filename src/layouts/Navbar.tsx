@@ -1,9 +1,5 @@
 import { Menu } from '@headlessui/react';
 import { useEffect, useState } from 'react';
-<<<<<<< HEAD
-import { CgClose } from 'react-icons/cg';
-=======
->>>>>>> 94d615860604956f85b7d9c372ff1f0f6f5c2c95
 import { AiOutlineMenu } from 'react-icons/ai';
 import { CgClose } from 'react-icons/cg';
 import { HiChevronDown } from 'react-icons/hi';

@@ -24,6 +24,8 @@ export type CheckboxProps = {
   hideError?: boolean;
   /** Manual validation using RHF, it is encouraged to use yup resolver instead */
   validation?: RegisterOptions;
+  labelClassName?: string;
+  labelVariant?: string;
   size?: keyof typeof CheckboxSize;
   color?: keyof typeof TypographyColor;
 } & Omit<React.ComponentPropsWithoutRef<'input'>, 'size'>;
@@ -39,6 +41,8 @@ export default function Checkbox({
   validation,
   size = 'base',
   color = 'primary',
+  labelClassName,
+  labelVariant = 'p3',
   ...rest
 }: CheckboxProps) {
   const {
@@ -75,9 +79,10 @@ export default function Checkbox({
         />
         <Typography
           color={color}
-          className={clsx(readOnly && 'cursor-not-allowed')}
+          className={clsx(readOnly && 'cursor-not-allowed', labelClassName)}
           as='label'
           htmlFor={`${name}_${value}`}
+          variant='p2'
         >
           {label}
         </Typography>

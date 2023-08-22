@@ -16,6 +16,7 @@ export type SearchableSelectInputProps = {
   validation?: RegisterOptions;
   options: { value: string; label: string }[];
   containerClassName?: string;
+  labelClassName?: string;
   reactSelectProps?: React.ComponentPropsWithoutRef<typeof Select>;
   handleChange?: <T extends string>(selectedOptions: T) => void;
 } & React.ComponentPropsWithoutRef<'select'>;
@@ -32,6 +33,7 @@ export default function SearchableSelectInput({
   containerClassName,
   reactSelectProps,
   handleChange,
+  labelClassName,
 }: SearchableSelectInputProps) {
   const {
     control,
@@ -46,9 +48,9 @@ export default function SearchableSelectInput({
       {withLabel && (
         <Typography
           font='inter'
-          variant='c1'
-          weight='semibold'
-          className='text-sm'
+          variant='p3'
+          weight='semibold' 
+          className={labelClassName}
         >
           {label}
         </Typography>

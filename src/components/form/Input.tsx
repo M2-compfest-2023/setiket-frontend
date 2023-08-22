@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { get, RegisterOptions, useFormContext } from 'react-hook-form';
 import { IconType } from 'react-icons';
 import { HiEye, HiEyeOff } from 'react-icons/hi';
@@ -46,7 +46,7 @@ export default function Input({
     formState: { errors },
   } = useFormContext();
 
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const error = get(errors, id);
 
   return (
@@ -55,7 +55,7 @@ export default function Input({
         <label htmlFor={id} className='flex space-x-1'>
           <Typography
             font='inter'
-            variant='c1'
+            variant='p3'
             weight='semibold'
             className='text-sm'
           >
