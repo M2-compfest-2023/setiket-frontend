@@ -10,7 +10,8 @@ import Typography from '@/components/Typography';
 import Layout from '@/layouts/Layout';
 
 export default function detail() {
-  const ticketAmount = 1;
+  const [ticketAmount, setTicketAmount] = useState(1);
+  const ticketPrice = 150000;
 
   return (
     <Layout withNavbar={true} withFooter={true}>
@@ -64,6 +65,8 @@ export default function detail() {
               className='rounded-full border-0'
               iconClassName='font-bold text-white'
               icon={AiOutlineMinus}
+              onClick={() => setTicketAmount(ticketAmount - 1)}
+              disabled={ticketAmount <= 1}
             />
             <Typography variant='p1' color='cyan'>
               {ticketAmount}
@@ -74,11 +77,12 @@ export default function detail() {
               className='rounded-full border-0'
               iconClassName='font-bold text-white'
               icon={AiOutlinePlus}
+              onClick={() => setTicketAmount(ticketAmount + 1)}
             />
           </div>
           <div className='flex items-center gap-3 w-full justify-between my-4'>
             <Typography variant='b1' color='cyan'>
-              Rp 150,000
+              Rp {ticketPrice}
             </Typography>
             <Button>Book Now</Button>
           </div>
