@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
+import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { AiOutlineHome } from 'react-icons/ai';
 
@@ -21,6 +22,7 @@ type RegisterForm = {
   role: string;
   name: string;
   password: string;
+  organizationName: string;
 };
 
 export default function RegisterPage() {
@@ -52,7 +54,13 @@ export default function RegisterPage() {
       email: data.email,
       password: data.password,
       role: data.role,
+      organizationName: data.organizationName ?? '',
     });
+  };
+
+  const [userRoleVar, setUserRoleVar] = React.useState('');
+  const userRole = (role: string) => {
+    setUserRoleVar(role);
   };
 
   return (
@@ -117,8 +125,21 @@ export default function RegisterPage() {
                           required: 'Role shouldn`t be empty',
                         }}
                         options={role}
+                        handleChange={userRole}
                       />
                     </div>
+                    {userRoleVar === 'eo' && (
+                      <div className='mt-5'>
+                        <Input
+                          id='organizationName'
+                          label='Organization Name'
+                          placeholder='Input Organization Name'
+                          validation={{
+                            required: 'Organization Name shouldn`t be empty',
+                          }}
+                        />
+                      </div>
+                    )}
                     <div className='mt-5'>
                       <Input
                         id='password'
