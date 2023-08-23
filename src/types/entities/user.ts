@@ -1,7 +1,7 @@
 export interface User {
-  role: 'user' | 'admin' | 'event_organizer';
+  role: 'CUSTOMER' | 'ADMIN' | 'EO';
+  id: string;
   username: string;
-  email: string;
 }
 
 export interface withToken {

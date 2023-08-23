@@ -103,9 +103,6 @@ export default function MobileNavigation() {
                     >
                       {user?.username ?? 'Testing Testing'}
                     </Typography>
-                    <Typography variant='c2' className='text-typo-white'>
-                      {user?.email ?? 'testing@gmail.com'}
-                    </Typography>
                   </div>
                 </section>
               </div>
