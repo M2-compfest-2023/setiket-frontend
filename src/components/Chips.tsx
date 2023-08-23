@@ -17,6 +17,7 @@ type CardProps = {
   variant?: keyof typeof ChipsVariant;
   className?: string;
   children?: string;
+  icon?: IconType
 };
 
 export default function Chips({
@@ -24,6 +25,7 @@ export default function Chips({
   variant = 'primary',
   children = '',
   className,
+  icon,
 }: CardProps) {
   return (
     <div
