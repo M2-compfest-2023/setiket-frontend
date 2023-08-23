@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { BiLogOut } from 'react-icons/bi';
 
 import Button from '@/components/buttons/Button';
+import Button from '@/components/buttons/Button';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import Logo from '@/components/Logo';
 import NextImage from '@/components/NextImage';
