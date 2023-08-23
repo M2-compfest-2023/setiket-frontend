@@ -43,6 +43,7 @@ export default function DashboardLayout({
             Back
           </Button>
         )}
+        
         <DesktopNavigation />
 
         <div className='bg-white flex flex-col lg:pl-72'>
@@ -50,7 +51,7 @@ export default function DashboardLayout({
 
           <main
             className={clsxm(
-              'bg-typo-surface min-h-screen px-4 py-10 md:px-10 md:py-16',
+              'bg-typo-surface min-h-screen px-4 py-8 md:px-8 md:py-10',
               className
             )}
             tabIndex={-1}

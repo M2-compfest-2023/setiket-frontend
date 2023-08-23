@@ -9,6 +9,7 @@ import { navigations } from '@/constants/navigations';
 import clsxm from '@/lib/clsxm';
 import useAuthStore from '@/store/useAuthStore';
 import type { Navigation } from '@/types/navigate';
+import Typography from '@/components/Typography';
 
 type NavigationProps = React.ComponentPropsWithoutRef<'nav'>;
 
@@ -25,7 +26,7 @@ export default function Navigation({ className, ...rest }: NavigationProps) {
         )}
       </div>
     </nav>
-  );
+);
 }
 
 function NestedNavigation({
@@ -149,27 +150,24 @@ function NavigationLink({
     <UnstyledLink
       href={navigation.href}
       className={clsxm(
-        !isActive
-          ? 'md:hover:bg-[#687083] text-typo-white'
-          : navigation.activeClassName
-          ? navigation.activeClassName
-          : 'md:hover:bg-[#687083]/90 text-typo-white',
-        // : "md:hover:bg-success-30 text-typo-white",
-        'group my-0.5 flex items-center px-6 py-2.5 text-sm font-medium transition-opacity hover:text-typo-white',
+        !isActive ? 'md:hover:bg-gradient-to-r md:hover:from-gradient-100 md:hover:to-gradient-200' : navigation.activeClassName? navigation.activeClassName: 'md:hover:bg-[#687083]/90 ',
+        'group flex flex-1 items-center px-6 py-2 transition-opacity',
 
         navigation.className,
         className
       )}
-      style={{ paddingLeft: gen > 0 ? `${24 * (gen + 1)}px` : '' }}
       aria-current={isActive ? 'page' : undefined}
     >
-      <navigation.icon
-        className={clsx('mr-3 flex-shrink-0', 'text-lg')}
-        aria-hidden='true'
-      />
-      <span className='truncate font-primary font-semibold'>
+      <navigation.icon className='mr-3 flex-shrink-0 text-lg text-cyan-800 group-hover:text-white'/>
+      <Typography
+        variant='p2'
+        weight='semibold'
+        color='cyan'
+        className='group-hover:text-white'
+      >
         {navigation.name}
-      </span>
+      </Typography>
+
     </UnstyledLink>
   );
 }
