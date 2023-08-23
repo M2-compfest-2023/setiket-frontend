@@ -59,7 +59,7 @@ export default function DesktopNavigation() {
                 variant='c2'
                 className='md:leading-tight text-typo-white'
               >
-                {user.email}
+                {user.username}
               </Typography>
             </div>
           </section>

@@ -15,12 +15,12 @@ export type InputProps = {
 } & React.ComponentPropsWithoutRef<'input'>;
 
 export default function Datepicker({
-  id, 
+  id,
   label,
   readOnly = false,
-  helperText,
-  helperTextClassName,
-  hideError,
+  // helperText,
+  // helperTextClassName,
+  // hideError,
   validation,
   labelClassName,
   className,
@@ -35,7 +35,7 @@ export default function Datepicker({
 
   return (
     <div className='w-full space-y-1.5 rounded-md'>
-        {label && (
+      {label && (
         <label htmlFor={id} className='flex space-x-1'>
           <Typography
             font='inter'
@@ -49,39 +49,34 @@ export default function Datepicker({
             <Typography className='text-danger-50'>*</Typography>
           )}
         </label>
-        )}
+      )}
 
-        <div className='w-full flex relative rounded-md'>
-          <div className='absolute w-full h-full rounded-md ring-1 ring-inset ring-typo-outline pointer-events-none' />
+      <div className='w-full flex relative rounded-md'>
+        <div className='absolute w-full h-full rounded-md ring-1 ring-inset ring-typo-outline pointer-events-none' />
 
-            <div
-              className={clsxm(
-                'relative w-full rounded-md',
-              )}
-            >
-
-              <input
-                {...register(id, validation)}
-                type='date'
-                id={id}
-                name={id}
-                readOnly={readOnly}
-                disabled={readOnly}
-                className={clsxm(
-                  'w-full h-full px-3 py-3 rounded-md border-none',
-                  'focus:ring-2 focus:ring-inset',
-                  'bg-transparent font-primary text-cyan-800 text-sm',
-                  readOnly && 'cursor-not-allowed',
-                  error
-                    ? 'border-none focus:ring-danger-50 ring-1 ring-inset ring-danger-50 '
-                    : 'focus:ring-cyan-800',
-                  className
-                )}
-                aria-describedby={id}
-                {...rest}
-              />
-            </div>
-          </div>
+        <div className={clsxm('relative w-full rounded-md')}>
+          <input
+            {...register(id, validation)}
+            type='date'
+            id={id}
+            name={id}
+            readOnly={readOnly}
+            disabled={readOnly}
+            className={clsxm(
+              'w-full h-full px-3 py-3 rounded-md border-none',
+              'focus:ring-2 focus:ring-inset',
+              'bg-transparent font-primary text-cyan-800 text-sm',
+              readOnly && 'cursor-not-allowed',
+              error
+                ? 'border-none focus:ring-danger-50 ring-1 ring-inset ring-danger-50 '
+                : 'focus:ring-cyan-800',
+              className
+            )}
+            aria-describedby={id}
+            {...rest}
+          />
         </div>
+      </div>
+    </div>
   );
 }

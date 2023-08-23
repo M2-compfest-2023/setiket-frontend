@@ -3,7 +3,7 @@ import Typography from '@/components/Typography';
 import DashboardLayout from '@/layouts/dashboard/DashboardLayout';
 import MascotCard from '@/pages/dashboard/home/components/MascotCard';
 
-export default withAuth(DashboardAdminPage, 'admin');
+export default withAuth(DashboardAdminPage, 'ADMIN');
 
 function DashboardAdminPage() {
   return (

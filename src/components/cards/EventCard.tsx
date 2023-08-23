@@ -30,9 +30,7 @@ type CardProps = {
   eventId: string;
 };
 
-export default function EventCard({ 
-  size,
-  variant,
+export default function EventCard({
   className,
   province,
   city,
@@ -41,8 +39,7 @@ export default function EventCard({
   starttime,
   ticketPrice,
   eventId,
- }: CardProps) {
-
+}: CardProps) {
   const link = '/events/detail/'.concat(eventId);
   return (
     <Link href={link}>

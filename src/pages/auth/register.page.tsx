@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
+import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { AiOutlineHome } from 'react-icons/ai';
 
@@ -16,10 +17,12 @@ import api from '@/lib/api';
 import AuthIllustration from '@/pages/auth/AuthIllustration';
 
 type RegisterForm = {
-  name: string;
+  username: string;
   email: string;
-  no_telp: string;
+  role: string;
+  name: string;
   password: string;
+  organizationName: string;
 };
 
 export default function RegisterPage() {
@@ -30,14 +33,15 @@ export default function RegisterPage() {
   const { handleSubmit } = methods;
   const role = [
     { value: 'customer', label: 'Customer' },
-    { value: 'event_organizer', label: 'Event Organizer' },
+    { value: 'eo', label: 'Event Organizer' },
   ];
+
   const { mutate: handleRegister, isLoading } = useMutationToast<
     void,
     RegisterForm
   >(
     useMutation(async (data) => {
-      await api.post('/create_user', data);
+      await api.post(`/auth/register/customer`, data);
 
       router.push('/login');
     })
@@ -45,11 +49,18 @@ export default function RegisterPage() {
 
   const onSubmit = (data: RegisterForm) => {
     handleRegister({
+      username: data.username,
       name: data.name,
       email: data.email,
       password: data.password,
-      no_telp: data.no_telp,
+      role: data.role,
+      organizationName: data.organizationName ?? '',
     });
+  };
+
+  const [userRoleVar, setUserRoleVar] = React.useState('');
+  const userRole = (role: string) => {
+    setUserRoleVar(role);
   };
 
   return (
@@ -76,10 +87,18 @@ export default function RegisterPage() {
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <div>
                       <Input
-                        id='name'
+                        id='username'
                         label='Username'
                         placeholder='Input Username'
                         validation={{ required: 'Username shouldn`t be empty' }}
+                      />
+                    </div>
+                    <div className='mt-5'>
+                      <Input
+                        id='name'
+                        label='Name'
+                        placeholder='Input Name'
+                        validation={{ required: 'Name shouldn`t be empty' }}
                       />
                     </div>
                     <div className='mt-5'>
@@ -99,15 +118,28 @@ export default function RegisterPage() {
                     </div>
                     <div className='mt-5'>
                       <SearchableSelectInput
-                        id='Role'
+                        id='role'
                         label='Role'
                         placeholder='Select Role'
                         validation={{
                           required: 'Role shouldn`t be empty',
                         }}
                         options={role}
+                        handleChange={userRole}
                       />
                     </div>
+                    {userRoleVar === 'eo' && (
+                      <div className='mt-5'>
+                        <Input
+                          id='organizationName'
+                          label='Organization Name'
+                          placeholder='Input Organization Name'
+                          validation={{
+                            required: 'Organization Name shouldn`t be empty',
+                          }}
+                        />
+                      </div>
+                    )}
                     <div className='mt-5'>
                       <Input
                         id='password'

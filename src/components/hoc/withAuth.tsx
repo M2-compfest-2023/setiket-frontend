@@ -15,7 +15,7 @@ export interface WithAuthProps {
   user: User;
 }
 
-const USER_ROUTE = '/dashboard';
+const USER_ROUTE = '/';
 const ADMIN_ROUTE = '/admin';
 const LOGIN_ROUTE = '/login';
 
@@ -37,7 +37,17 @@ export enum RouteRole {
    * For all authenticated admin
    * will push to login if user is not authenticated
    */
-  admin,
+  ADMIN,
+  /**
+   * For all authenticated forda
+   * will push to login if user is not authenticated
+   * */
+  EO,
+  /**
+   * For all authenticated forda
+   * will push to login if user is not authenticated
+   * */
+  CUSTOMER,
 }
 
 /**
@@ -77,7 +87,7 @@ export default function withAuth<T>(
       }
       const loadUser = async () => {
         try {
-          const res = await api.get<ApiReturn<User>>('/me');
+          const res = await api.post<ApiReturn<User>>('/auth/me');
 
           if (!res.data.data) {
             toast.error('Sesi login tidak valid');
@@ -118,7 +128,7 @@ export default function withAuth<T>(
             if (query?.redirect) {
               router.replace(query.redirect as string);
             } else {
-              if (user?.role === 'admin') {
+              if (user?.role === 'ADMIN') {
                 router.replace(
                   `${ADMIN_ROUTE}?redirect=${router.asPath}`,
                   `${ADMIN_ROUTE}`
@@ -132,12 +142,17 @@ export default function withAuth<T>(
             }
             // Admin
           }
-          if (user?.role === 'user') {
-            if (routeRole === 'admin') {
+          if (user?.role === 'EO') {
+            if (routeRole === 'ADMIN') {
               router.replace(USER_ROUTE);
             }
           }
-          if (user?.role === 'admin') {
+          if (user?.role === 'CUSTOMER') {
+            if (routeRole === 'ADMIN') {
+              router.replace(USER_ROUTE);
+            }
+          }
+          if (user?.role === 'ADMIN') {
             if (routeRole === 'user') {
               router.replace(ADMIN_ROUTE);
             }
@@ -146,8 +161,10 @@ export default function withAuth<T>(
           if (
             routeRole !== 'public' &&
             routeRole !== 'optional' &&
-            routeRole !== 'admin' &&
-            routeRole !== 'user'
+            routeRole !== 'ADMIN' &&
+            routeRole !== 'user' &&
+            routeRole !== 'EO' &&
+            routeRole !== 'CUSTOMER'
           ) {
             router.replace(
               `${LOGIN_ROUTE}?redirect=${router.asPath}`,
@@ -157,14 +174,21 @@ export default function withAuth<T>(
             if (
               routeRole !== 'public' &&
               routeRole !== 'optional' &&
-              routeRole !== 'admin' &&
-              routeRole !== 'user'
+              routeRole !== 'ADMIN' &&
+              routeRole !== 'user' &&
+              routeRole !== 'EO' &&
+              routeRole !== 'CUSTOMER'
             ) {
               router.replace(
                 `${LOGIN_ROUTE}?redirect=${router.asPath}`,
                 `${LOGIN_ROUTE}`
               );
-            } else if (routeRole === 'admin' || routeRole === 'user') {
+            } else if (
+              routeRole === 'ADMIN' ||
+              routeRole === 'user' ||
+              routeRole === 'EO' ||
+              routeRole === 'CUSTOMER'
+            ) {
               router.replace(
                 `${LOGIN_ROUTE}?redirect=${router.asPath}`,
                 `${LOGIN_ROUTE}`
@@ -193,10 +217,13 @@ export default function withAuth<T>(
     }
 
     if (isAuthenticated) {
-      if (routeRole === 'admin' && user?.role !== 'admin') {
+      if (routeRole === 'ADMIN' && user?.role !== 'ADMIN') {
         return <Forbidden />;
       }
-      if (routeRole === 'user' && user?.role !== 'user') {
+      if (routeRole === 'EO' && user?.role !== 'EO') {
+        return <Forbidden />;
+      }
+      if (routeRole === 'CUSTOMER' && user?.role !== 'CUSTOMER') {
         return <Forbidden />;
       }
     }

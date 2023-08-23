@@ -49,7 +49,7 @@ export default function SearchableSelectInput({
         <Typography
           font='inter'
           variant='p3'
-          weight='semibold' 
+          weight='semibold'
           className={labelClassName}
         >
           {label}

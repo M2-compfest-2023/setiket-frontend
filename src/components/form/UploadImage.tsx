@@ -17,7 +17,6 @@ import ImagePreviewCard from '@/components/Image/ImagePreviewCard';
 import Typography from '@/components/Typography';
 import useMutationToast from '@/hooks/useMutationToast';
 import clsxm from '@/lib/clsxm';
-import useAuthStore from '@/store/useAuthStore';
 import { ApiReturn } from '@/types/api';
 
 type DropzoneStoreInputProps = {
@@ -59,7 +58,7 @@ export default function DropzoneStoreInput({
 
   const dropzoneRef = React.useRef<HTMLDivElement>(null);
 
-  const user = useAuthStore.useUser();
+  // const user = useAuthStore.useUser();
 
   React.useEffect(() => {
     error && dropzoneRef.current?.focus();
@@ -128,14 +127,14 @@ export default function DropzoneStoreInput({
         const formdata = new FormData();
         formdata.append('file', acceptedFiles[0]);
         formdata.append('name', id);
-        formdata.append('email', user ? user.email : '');
+        // formdata.append('email', user ? user.email : '');
         formdata.append('location', location ? location : '');
 
         handleUploadFile(formdata);
       }
     },
 
-    [setValue, id, uploadedImageUrl, setError, user, location, handleUploadFile]
+    [setValue, id, uploadedImageUrl, setError, location, handleUploadFile]
   );
 
   const onDelete = () => {
