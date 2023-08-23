@@ -44,10 +44,7 @@ export default function TextArea({
     <div className='w-full space-y-1.5'>
       {label && (
         <label htmlFor={id} className='flex space-x-1'>
-          <Typography
-            className='font-semibold text-typo-primary'
-            font={'ubuntu'}
-          >
+          <Typography className='font-semibold text-typo-primary' variant='p3'>
             {label}
           </Typography>
           {validation?.required && (
@@ -81,7 +78,7 @@ export default function TextArea({
         />
 
         <Typography
-          variant='c1'
+          variant='p3'
           className='absolute right-3 bottom-2.5 text-typo-label'
         >
           {value.length}/{maxLength}

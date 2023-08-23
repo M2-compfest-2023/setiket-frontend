@@ -42,7 +42,6 @@ export default function Checkbox({
   size = 'base',
   color = 'primary',
   labelClassName,
-  labelVariant = 'p3',
   ...rest
 }: CheckboxProps) {
   const {

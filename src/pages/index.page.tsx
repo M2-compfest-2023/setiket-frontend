@@ -93,14 +93,51 @@ export default function Home() {
         </Typography>
 
         <div className='flex overflow-x-auto no-scrollbar gap-7 py-5'>
-          <EventCard city='Bekasi' province='Jawa Barat' eventName='Festival Kota' ticketPrice='50,000' startdate='dd/mm/yyyy' starttime='00:00 - 24:00' eventId='1' className='hover:shadow-xl hover:scale-105 duration-150'/>
-          <EventCard city='Bekasi' province='Jawa Barat' eventName='Festival Kota' ticketPrice='50,000' startdate='dd/mm/yyyy' starttime='00:00 - 24:00' eventId='1' className='hover:shadow-xl hover:scale-105 duration-150'/>
-          <EventCard city='Bekasi' province='Jawa Barat' eventName='Festival Kota' ticketPrice='50,000' startdate='dd/mm/yyyy' starttime='00:00 - 24:00' eventId='1' className='hover:shadow-xl hover:scale-105 duration-150'/>
-          <EventCard city='Bekasi' province='Jawa Barat' eventName='Festival Kota' ticketPrice='50,000' startdate='dd/mm/yyyy' starttime='00:00 - 24:00' eventId='1' className='hover:shadow-xl hover:scale-105 duration-150'/>
+          <EventCard
+            city='Bekasi'
+            province='Jawa Barat'
+            eventName='Festival Kota'
+            ticketPrice='50,000'
+            startdate='dd/mm/yyyy'
+            starttime='00:00 - 24:00'
+            eventId='1'
+            className='hover:shadow-xl hover:scale-105 duration-150'
+          />
+          <EventCard
+            city='Bekasi'
+            province='Jawa Barat'
+            eventName='Festival Kota'
+            ticketPrice='50,000'
+            startdate='dd/mm/yyyy'
+            starttime='00:00 - 24:00'
+            eventId='1'
+            className='hover:shadow-xl hover:scale-105 duration-150'
+          />
+          <EventCard
+            city='Bekasi'
+            province='Jawa Barat'
+            eventName='Festival Kota'
+            ticketPrice='50,000'
+            startdate='dd/mm/yyyy'
+            starttime='00:00 - 24:00'
+            eventId='1'
+            className='hover:shadow-xl hover:scale-105 duration-150'
+          />
+          <EventCard
+            city='Bekasi'
+            province='Jawa Barat'
+            eventName='Festival Kota'
+            ticketPrice='50,000'
+            startdate='dd/mm/yyyy'
+            starttime='00:00 - 24:00'
+            eventId='1'
+            className='hover:shadow-xl hover:scale-105 duration-150'
+          />
           <IconCard
             Icon={FaChevronCircleRight}
             link='/events'
             className='hover:shadow-xl hover:scale-105 duration-150'
+            text='See More'
           />
         </div>
 

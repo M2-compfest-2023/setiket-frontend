@@ -23,12 +23,14 @@ type CardProps = {
   Icon?: IconType;
   className?: string;
   link?: string;
+  text?: string;
 };
 
 export default function IconCard({
   className,
   Icon = BsFillPlusCircleFill,
   link = '/',
+  text,
 }: CardProps) {
   return (
     <Link href={link}>
@@ -43,7 +45,7 @@ export default function IconCard({
           className='text-cyan-700 group-hover:text-white'
           variant='b2'
         >
-          See more
+          {text}
         </Typography>
       </div>
     </Link>

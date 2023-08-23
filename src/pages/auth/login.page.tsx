@@ -37,17 +37,19 @@ function LoginPage() {
     LoginForm
   >(
     useMutation(async (data) => {
-      const res = await api.post('/login_user', data);
-      const { token } = res.data.data;
+      const res = await api.post('/auth/login', data);
+      const token = res.data.data.access_token;
       setToken(token);
 
-      const user = await api.get<ApiReturn<User>>('/me');
-
+      const user = await api.post<ApiReturn<User>>('/auth/me');
       if (!user.data.data) {
         throw new Error('Sesi login tidak valid');
       }
       login({ ...user.data.data, token });
-      router.push('/dashboard');
+      if (user.data.data.role === 'ADMIN') {
+        router.push('/dashboard');
+      }
+      router.push('/');
     })
   );
 

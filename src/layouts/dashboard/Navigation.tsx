@@ -1,15 +1,17 @@
-import { Disclosure } from '@headlessui/react';
-import clsx from 'clsx';
-import { useRouter } from 'next/router';
 import * as React from 'react';
+import { useRouter } from 'next/router';
+import clsx from 'clsx';
+import clsxm from '@/lib/clsxm';
+
 import { FiChevronDown } from 'react-icons/fi';
 
+import { Disclosure } from '@headlessui/react';
 import UnstyledLink from '@/components/links/UnstyledLink';
+import Typography from '@/components/Typography';
+
 import { navigations } from '@/constants/navigations';
-import clsxm from '@/lib/clsxm';
 import useAuthStore from '@/store/useAuthStore';
 import type { Navigation } from '@/types/navigate';
-import Typography from '@/components/Typography';
 
 type NavigationProps = React.ComponentPropsWithoutRef<'nav'>;
 
@@ -26,7 +28,7 @@ export default function Navigation({ className, ...rest }: NavigationProps) {
         )}
       </div>
     </nav>
-);
+  );
 }
 
 function NestedNavigation({
@@ -131,7 +133,6 @@ function NestedNavigation({
 function NavigationLink({
   navigation,
   className,
-  gen,
 }: {
   navigation: Navigation;
   className?: string;
@@ -150,7 +151,11 @@ function NavigationLink({
     <UnstyledLink
       href={navigation.href}
       className={clsxm(
-        !isActive ? 'md:hover:bg-gradient-to-r md:hover:from-gradient-100 md:hover:to-gradient-200' : navigation.activeClassName? navigation.activeClassName: 'md:hover:bg-[#687083]/90 ',
+        !isActive
+          ? 'md:hover:bg-gradient-to-r md:hover:from-gradient-100 md:hover:to-gradient-200'
+          : navigation.activeClassName
+          ? navigation.activeClassName
+          : 'md:hover:bg-[#687083]/90 ',
         'group flex flex-1 items-center px-6 py-2 transition-opacity',
 
         navigation.className,
@@ -158,7 +163,7 @@ function NavigationLink({
       )}
       aria-current={isActive ? 'page' : undefined}
     >
-      <navigation.icon className='mr-3 flex-shrink-0 text-lg text-cyan-800 group-hover:text-white'/>
+      <navigation.icon className='mr-3 flex-shrink-0 text-lg text-cyan-800 group-hover:text-white' />
       <Typography
         variant='p2'
         weight='semibold'
@@ -167,7 +172,6 @@ function NavigationLink({
       >
         {navigation.name}
       </Typography>
-
     </UnstyledLink>
   );
 }

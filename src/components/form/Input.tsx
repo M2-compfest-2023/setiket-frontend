@@ -11,6 +11,7 @@ import clsxm from '@/lib/clsxm';
 export type InputProps = {
   id: string;
   label?: string;
+  labelClassName?: string;
   helperText?: string;
   helperTextClassName?: string;
   hideError?: boolean;
@@ -26,6 +27,7 @@ export type InputProps = {
 export default function Input({
   id,
   label,
+  labelClassName,
   helperText,
   hideError = false,
   validation,
@@ -72,7 +74,11 @@ export default function Input({
         {prefix && (
           <Typography
             variant='c1'
-            className='flex items-center px-3 bg-typo-light text-typo-secondary rounded-l-md text-sm'
+            color='secondary'
+            className={clsxm(
+              'flex items-center px-3 bg-typo-light rounded-l-md text-sm',
+              labelClassName
+            )}
           >
             {prefix}
           </Typography>
