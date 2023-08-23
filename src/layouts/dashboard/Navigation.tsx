@@ -6,6 +6,7 @@ import { FiChevronDown } from 'react-icons/fi';
 
 import UnstyledLink from '@/components/links/UnstyledLink';
 import Typography from '@/components/Typography';
+import Typography from '@/components/Typography';
 import { navigations } from '@/constants/navigations';
 import clsxm from '@/lib/clsxm';
 import useAuthStore from '@/store/useAuthStore';
