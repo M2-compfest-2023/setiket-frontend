@@ -2,7 +2,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { IconType } from 'react-icons';
-import { AiFillEdit } from 'react-icons/ai';
+import { AiFillEdit, AiOutlineCheckCircle } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { MdOutlineEventNote } from 'react-icons/md';
@@ -115,6 +115,12 @@ export default function UserInfo() {
             onClick={toggleVisibility}
           >
             Waiting Confirmation
+          </Chips>
+          <Chips
+            variant='blue'
+            Icon={AiOutlineCheckCircle}
+          >
+            Approved
           </Chips>
         </div>
 
