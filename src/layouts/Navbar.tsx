@@ -88,7 +88,7 @@ export default function Navbar() {
               </UnstyledLink>
             </li>
             <li>
-              <UnstyledLink href='/about' className='flex p-2.5'>
+              <UnstyledLink href='/mytickets' className='flex p-2.5'>
                 <Typography
                   font='inter'
                   color='cyan'
@@ -97,6 +97,19 @@ export default function Navbar() {
                   className='hover:text-cyan-600'
                 >
                   My Tickets
+                </Typography>
+              </UnstyledLink>
+            </li>
+            <li>
+              <UnstyledLink href='/myevents' className='flex p-2.5'>
+                <Typography
+                  font='inter'
+                  color='cyan'
+                  variant='p2'
+                  weight='semibold'
+                  className='hover:text-cyan-600'
+                >
+                  My Events
                 </Typography>
               </UnstyledLink>
             </li>

@@ -23,18 +23,29 @@ type CardProps = {
   Icon?: IconType;
   className?: string;
   link?: string;
+  text?: string;
 };
 
 export default function IconCard({
   className,
   Icon = BsFillPlusCircleFill,
   link = '/',
+  size = 'base',
+  text,
 }: CardProps) {
   return (
     <Link href={link}>
       <div
         className={clsxm(
           'w-[310px] h-[160px] bg-white hover:bg-gradient-to-r group from-gradient-100 to-gradient-200 rounded-3xl px-5 py-3 shadow-lg flex flex-col place-items-center justify-center gap-3 transition duration-500 ease-in-out',
+          [
+            size === 'base' && ['w-[310px] h-[160px]'],
+            size === 'sm' && ['w-[280px] h-[160px]'],
+          ],
+          [
+            size === 'base' && ['w-[310px] h-[160px]'],
+            size === 'sm' && ['w-[280px] h-[160px]'],
+          ],
           className
         )}
       >
@@ -43,7 +54,7 @@ export default function IconCard({
           className='text-cyan-700 group-hover:text-white'
           variant='b2'
         >
-          See more
+          {text}
         </Typography>
       </div>
     </Link>

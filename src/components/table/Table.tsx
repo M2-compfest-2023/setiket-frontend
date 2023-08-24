@@ -6,7 +6,7 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table';
-import * as React from 'react';
+import { useState } from 'react';
 
 import Filter from '@/components/table/Filter';
 import TBody from '@/components/table/TBody';
@@ -28,8 +28,8 @@ export default function Table<T extends object>({
   withFilter = false,
   ...rest
 }: TableProps<T>) {
-  const [globalFilter, setGlobalFilter] = React.useState('');
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [globalFilter, setGlobalFilter] = useState('');
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable({
     data,

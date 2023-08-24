@@ -53,7 +53,6 @@ export default function Home() {
           <div className='flex'>
             <ButtonLink
               href='#events'
-              size='base'
               variant='secondary'
               className='text-white border-0 my-5'
             >
@@ -61,7 +60,6 @@ export default function Home() {
             </ButtonLink>
             <ButtonLink
               href='/'
-              size='base'
               variant='primary'
               className='text-white border-0 m-5'
             >
@@ -92,7 +90,7 @@ export default function Home() {
           Latest events
         </Typography>
 
-        <div className='flex overflow-x-auto no-scrollbar gap-7 py-5'>
+        <div className='flex shrink-0 overflow-x-auto no-scrollbar gap-7 py-5'>
           <EventCard
             city='Bekasi'
             province='Jawa Barat'
@@ -100,7 +98,7 @@ export default function Home() {
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
-            eventId='1'
+            link='/events/detail/1'
             className='hover:shadow-xl hover:scale-105 duration-150'
           />
           <EventCard
@@ -110,7 +108,7 @@ export default function Home() {
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
-            eventId='1'
+            link='/events/detail/1'
             className='hover:shadow-xl hover:scale-105 duration-150'
           />
           <EventCard
@@ -120,7 +118,7 @@ export default function Home() {
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
-            eventId='1'
+            link='/events/detail/1'
             className='hover:shadow-xl hover:scale-105 duration-150'
           />
           <EventCard
@@ -130,7 +128,7 @@ export default function Home() {
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
-            eventId='1'
+            link='/events/detail/1'
             className='hover:shadow-xl hover:scale-105 duration-150'
           />
           <IconCard
