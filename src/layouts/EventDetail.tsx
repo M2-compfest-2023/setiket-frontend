@@ -9,40 +9,30 @@ import Chips from '@/components/Chips';
 import Typography from '@/components/Typography';
 import clsxm from '@/lib/clsxm';
 
-type CardProps = {
+export type CardProps = {
+  content: {
+    eventName?: string;
+    eventCategory?: string;
+    province?: string;
+    city?: string;
+    eventOrganization?: string;
+    startDate?: string;
+    endDate?: string;
+    startTime?: string;
+    endTime?: string;
+    description?: string;
+    purchaseTime?: string;
+    totalTickets?: number;
+    totalPrice?: string;
+  };
   className?: string;
-  eventName?: string;
-  eventCategory?: string;
-  province?: string;
-  city?: string;
-  eventOrganization?: string;
-  startDate?: string;
-  endDate?: string;
-  startTime?: string;
-  endTime?: string;
-  description?: string;
-  purchaseTime?: string;
-  totalTickets?: number;
-  totalPrice?: string;
   iconButton?: IconType;
   iconButtonOnClick?: MouseEventHandler;
 };
 
 export default function EventDetail({
   className,
-  eventName,
-  eventCategory,
-  province,
-  city,
-  eventOrganization,
-  startDate,
-  endDate,
-  startTime,
-  endTime,
-  description,
-  purchaseTime,
-  totalTickets,
-  totalPrice,
+  content,
   iconButton,
   iconButtonOnClick,
 }: CardProps) {
@@ -54,9 +44,9 @@ export default function EventDetail({
       )}
     >
       <div className='flex justify-between'>
-        {eventName && (
+        {content.eventName && (
           <Typography variant='h3' font='ubuntu' color='cyan'>
-            {eventName}
+            {content.eventName}
           </Typography>
         )}
         {iconButton && (
@@ -72,36 +62,41 @@ export default function EventDetail({
       </div>
 
       <div className='flex my-4 gap-5 items-center'>
-        {eventCategory && <Chips>{eventCategory}</Chips>}
+        {content.eventCategory && <Chips>{content.eventCategory}</Chips>}
 
-        {city && (
+        {content.city && (
           <Typography variant='p2' color='secondary'>
-            <FaRegMap className='inline-block' /> {province}, {city}
+            <FaRegMap className='inline-block' /> {content.province},{' '}
+            {content.city}
           </Typography>
         )}
       </div>
 
       <div className='flex flex-col gap-5'>
-        {eventOrganization && (
+        {content.eventOrganization && (
           <Typography variant='p2'>
-            <IoIosPeople className='inline-block mr-3' /> {eventOrganization}
+            <IoIosPeople className='inline-block mr-3' />{' '}
+            {content.eventOrganization}
           </Typography>
         )}
-        {startDate && (
+        {content.startDate && (
           <Typography variant='p2'>
-            <BsFillCalendarFill className='inline-block mr-3' /> {startDate}
-            {endDate && ` - ${endDate}`}
+            <BsFillCalendarFill className='inline-block mr-3' />{' '}
+            {content.startDate}
+            {content.endDate && ` - ${content.endDate}`}
           </Typography>
         )}
-        {startTime && (
+        {content.startTime && (
           <Typography variant='p2'>
-            <FaClock className='inline-block mr-3' /> {startTime}
-            {endTime && ` - ${endTime}`}
+            <FaClock className='inline-block mr-3' /> {content.startTime}
+            {content.endTime && ` - ${content.endTime}`}
           </Typography>
         )}
-        {description && <Typography variant='p2'>{description}</Typography>}
+        {content.description && (
+          <Typography variant='p2'>{content.description}</Typography>
+        )}
 
-        {purchaseTime && totalPrice && totalTickets && (
+        {content.purchaseTime && content.totalPrice && content.totalTickets && (
           <div className='flex flex-col gap-2'>
             <hr className='h-px my-2 border-0 bg-gray-300' />
             <Typography variant='b2' color='cyan'>
@@ -111,19 +106,19 @@ export default function EventDetail({
               <Typography variant='p2' weight='semibold'>
                 Purchased on
               </Typography>
-              <Typography variant='p2'>{purchaseTime}</Typography>
+              <Typography variant='p2'>{content.purchaseTime}</Typography>
             </div>
             <div className='flex justify-between'>
               <Typography variant='p2' weight='semibold'>
                 Total tickets
               </Typography>
-              <Typography variant='p2'>{totalTickets}</Typography>
+              <Typography variant='p2'>{content.totalTickets}</Typography>
             </div>
             <div className='flex justify-between'>
               <Typography variant='p2' weight='semibold'>
                 Total price
               </Typography>
-              <Typography variant='p2'>Rp {totalPrice}</Typography>
+              <Typography variant='p2'>Rp {content.totalPrice}</Typography>
             </div>
           </div>
         )}

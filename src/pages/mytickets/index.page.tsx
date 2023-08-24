@@ -19,18 +19,41 @@ export default function MyTickets() {
   });
 
   const [isVisible, setIsVisible] = useState(false);
+  const [eventContent, setEventContent] = useState({});
 
   // Function to toggle visibility
-  const toggleVisibility = () => {
+  const toggleVisibility = (eventName?: string) => {
+    setEventContent({
+      eventName: eventName,
+      eventCategory: 'Exhibition',
+      province: 'Province',
+      city: 'City',
+      eventOrganization: 'Event Organization',
+      startDate: 'dd/mm/yyyy',
+      endDate: 'dd/mm/yyyy',
+      startTime: '00:00',
+      endTime: '24:00',
+      description: `Experience Van Gogh is art like never before at the immersive show in
+      Bangkok. State-of-the-art technology brings his masterpieces to life,
+      offering a captivating journey through the mind of a legendary artist.
+      Explore Van Goh is work and life from 1880 to 1890, and experience his
+      time in Arles, Saint Rémy, and Auvers-sur-Oise. View his masterpieces
+      in hyper-fine detail, with special attention to color and technique.
+      Discover the sources of his inspiration through augmented photographs
+      and videos`,
+      purchaseTime: 'dd/mm/yyyy',
+      totalTickets: 3,
+      totalPrice: '150000',
+    });
     setIsVisible(!isVisible);
   };
 
   return (
     <Layout withNavbar={true} withFooter={true}>
       <div className='min-h-screen'>
-        <div className='flex justify-end px-10 py-5'>
+        <div className='flex justify-end px-10 py-5 w-full'>
           <FormProvider {...searchMethod}>
-            <form action=''>
+            <form action='' className='flex gap-5 items-center'>
               <Input
                 id='keyword'
                 placeholder='search event name'
@@ -51,7 +74,7 @@ export default function MyTickets() {
             eventId='1'
             size='sm'
             buttonText='See detail'
-            buttonOnClik={toggleVisibility}
+            buttonOnClik={() => toggleVisibility('Festival Kota 1')}
           />
           <EventCard
             eventName='Festival Kota 2'
@@ -60,7 +83,7 @@ export default function MyTickets() {
             eventId='1'
             size='sm'
             buttonText='See detail'
-            buttonOnClik={toggleVisibility}
+            buttonOnClik={() => toggleVisibility('Festival Kota 2')}
           />
           <EventCard
             eventName='Festival Kota 3'
@@ -69,7 +92,7 @@ export default function MyTickets() {
             eventId='1'
             size='sm'
             buttonText='See detail'
-            buttonOnClik={toggleVisibility}
+            buttonOnClik={() => toggleVisibility('Festival Kota 3')}
           />
         </div>
       </div>
@@ -79,28 +102,9 @@ export default function MyTickets() {
           <Modal>
             <EventDetail
               className='w-[70%] h-[80vh] overflow-y-scroll no-scrollbar'
-              eventName='Van Gogh Alive Immersive Show in Bangkok'
-              eventCategory='Exhibition'
-              province='Province'
-              city='City'
-              eventOrganization='Event Organization'
-              startDate='dd/mm/yyyy'
-              endDate='dd/mm/yyyy'
-              startTime='00:00'
-              endTime='24:00'
-              description='Experience Van Gogh is art like never before at the immersive show in
-            Bangkok. State-of-the-art technology brings his masterpieces to life,
-            offering a captivating journey through the mind of a legendary artist.
-            Explore Van Goh is work and life from 1880 to 1890, and experience his
-            time in Arles, Saint Rémy, and Auvers-sur-Oise. View his masterpieces
-            in hyper-fine detail, with special attention to color and technique.
-            Discover the sources of his inspiration through augmented photographs
-            and videos'
-              purchaseTime='dd/mm/yyyy'
-              totalTickets={3}
-              totalPrice='150000'
+              content={eventContent}
               iconButton={BsXCircleFill}
-              iconButtonOnClick={toggleVisibility}
+              iconButtonOnClick={() => toggleVisibility()}
             />
           </Modal>
         )}

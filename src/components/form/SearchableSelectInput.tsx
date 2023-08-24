@@ -6,7 +6,7 @@ import Select, { components, MultiValue, StylesConfig } from 'react-select';
 import Typography from '@/components/Typography';
 
 export type SearchableSelectInputProps = {
-  label: string | null;
+  label?: string | null;
   id: string;
   placeholder?: React.ReactNode;
   helperText?: string;
@@ -41,11 +41,9 @@ export default function SearchableSelectInput({
   } = useFormContext();
   const error = get(errors, id);
 
-  const withLabel = label !== null;
-
   return (
     <div className={containerClassName}>
-      {withLabel && (
+      {label && (
         <Typography
           font='inter'
           variant='p3'
