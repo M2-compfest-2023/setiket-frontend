@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import { BiLogOut } from 'react-icons/bi';
 
 import Button from '@/components/buttons/Button';
-import Button from '@/components/buttons/Button';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import Logo from '@/components/Logo';
 import NextImage from '@/components/NextImage';
@@ -10,7 +9,11 @@ import Typography from '@/components/Typography';
 import Navigation from '@/layouts/dashboard/Navigation';
 import useAuthStore from '@/store/useAuthStore';
 
-export default function DesktopNavigation() {
+type NavigationProps = {
+  action?: ((index: number) => void) | undefined;
+};
+
+export default function DesktopNavigation({ action }: NavigationProps) {
   const logout = useAuthStore.useLogout();
   const user = useAuthStore.useUser();
   const router = useRouter();
@@ -65,7 +68,7 @@ export default function DesktopNavigation() {
       {/* Sidebar component */}
       <div className='mt-8 flex h-0 flex-1 flex-col overflow-y-auto'>
         {/* Navigation */}
-        <Navigation />
+        <Navigation action={action} />
       </div>
 
       <div

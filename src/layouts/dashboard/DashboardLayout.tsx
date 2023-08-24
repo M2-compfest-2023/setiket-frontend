@@ -13,6 +13,7 @@ type DashboardLayoutProps = {
   className?: string;
   backUrl?: string;
   showBackButton?: boolean;
+  action?: ((index: number) => void) | undefined;
 };
 
 export default function DashboardLayout({
@@ -20,6 +21,7 @@ export default function DashboardLayout({
   className,
   backUrl,
   showBackButton = false,
+  action,
 }: DashboardLayoutProps) {
   //#region  //*=========== Store ===========
   const open = useDialogStore.useOpen();
@@ -44,7 +46,7 @@ export default function DashboardLayout({
           </Button>
         )}
 
-        <DesktopNavigation />
+        <DesktopNavigation action={action} />
 
         <div className='bg-white flex flex-col lg:pl-72'>
           <MobileNavigation />

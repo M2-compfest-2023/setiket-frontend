@@ -9,18 +9,21 @@ export const navigations: Navigation[] = [
     href: '/admin/notifications',
     exactMatch: true,
     icon: BsBellFill,
+    componentIndex: 0,
   },
   {
     name: 'Users Overview',
     href: '/admin/users',
     exactMatch: true,
     icon: BsPeopleFill,
+    componentIndex: 1,
   },
   {
     name: 'Events Overview',
     href: '/admin/events  ',
     exactMatch: true,
     icon: MdOutlineEventNote,
+    componentIndex: 2,
   },
   // {
   //   name: 'Event',
