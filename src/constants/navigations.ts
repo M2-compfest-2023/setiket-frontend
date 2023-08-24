@@ -1,7 +1,5 @@
-import { BsJournalMedical } from 'react-icons/bs';
 import { BsBellFill, BsPeopleFill } from 'react-icons/bs';
 import { MdOutlineEventNote } from 'react-icons/md';
-import { RiAdminFill } from 'react-icons/ri';
 
 import { Navigation } from '@/types/navigate';
 

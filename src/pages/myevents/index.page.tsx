@@ -70,7 +70,7 @@ export default function MyEvents() {
             Icon={BsFillPlusCircleFill}
             link='/myevents/add'
             className='hover:shadow-xl'
-            text='Add event'
+            // text='Add event'
             size='sm'
           />
         </div>

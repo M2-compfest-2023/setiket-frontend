@@ -10,30 +10,25 @@ import Layout from '@/layouts/Layout';
 export default function Detail() {
   const [ticketAmount, setTicketAmount] = useState(1);
   const ticketPrice = 150000;
+  const eventProps = {
+    eventName: 'Van Gogh Alive Immersive Show in Bangkok',
+    eventCategory: 'Exhibition',
+    province: 'Province',
+    city: 'City',
+    eventOrganization: 'Event Organization',
+    startDate: 'dd/mm/yyyy',
+    endDate: 'dd/mm/yyyy',
+    startTime: '00:00',
+    endTime: '24:00',
+    description:
+      'Experience Van Gogh is art like never before at the immersive show in Bangkok. State-of-the-art technology brings his masterpieces to life, offering a captivating journey through the mind of a legendary artist. Explore Van Goh is work and life from 1880 to 1890, and experience his time in Arles, Saint Rémy, and Auvers-sur-Oise. View his masterpieces in hyper-fine detail, with special attention to color and technique. Discover the sources of his inspiration through augmented photographs and videos',
+  };
 
   return (
     <Layout withNavbar={true} withFooter={true}>
       <div className='flex px-10 py-4 min-h-screen gap-5'>
         <div className='w-[70%]'>
-          <EventDetail
-            eventName='Van Gogh Alive Immersive Show in Bangkok'
-            eventCategory='Exhibition'
-            province='Province'
-            city='City'
-            eventOrganization='Event Organization'
-            startDate='dd/mm/yyyy'
-            endDate='dd/mm/yyyy'
-            startTime='00:00'
-            endTime='24:00'
-            description='Experience Van Gogh is art like never before at the immersive show in
-            Bangkok. State-of-the-art technology brings his masterpieces to life,
-            offering a captivating journey through the mind of a legendary artist.
-            Explore Van Goh is work and life from 1880 to 1890, and experience his
-            time in Arles, Saint Rémy, and Auvers-sur-Oise. View his masterpieces
-            in hyper-fine detail, with special attention to color and technique.
-            Discover the sources of his inspiration through augmented photographs
-            and videos'
-          />
+          <EventDetail content={eventProps} />
         </div>
 
         {/* role customer */}
