@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router';
 import { BiLogOut } from 'react-icons/bi';
 
+import Button from '@/components/buttons/Button';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import Logo from '@/components/Logo';
 import NextImage from '@/components/NextImage';
 import Typography from '@/components/Typography';
 import Navigation from '@/layouts/dashboard/Navigation';
 import useAuthStore from '@/store/useAuthStore';
-import Button from '@/components/buttons/Button';
 
 export default function DesktopNavigation() {
   const logout = useAuthStore.useLogout();
@@ -20,7 +20,6 @@ export default function DesktopNavigation() {
 
   return (
     <div className='hidden lg:fixed lg:inset-y-0 lg:flex lg:w-60 lg:flex-col bg-gray-100 lg:pt-[30px] lg:pb-4'>
-
       <div className='relative flex flex-col items-center justify-center mt-8'>
         <div className='flex items-center justify-center'>
           <UnstyledLink
@@ -54,10 +53,7 @@ export default function DesktopNavigation() {
                 {user.username}
               </Typography>
 
-              <Typography
-                variant='c2'
-                className='md:leading-tight '
-              >
+              <Typography variant='c2' className='md:leading-tight '>
                 {user.username}
               </Typography>
             </div>
@@ -71,9 +67,16 @@ export default function DesktopNavigation() {
         <Navigation />
       </div>
 
-      <div className='mb-10 px-10 w-full flex justify-center' onClick={handleLogout}>
-        <Button className='mx-auto rounded-md w-full' size='sm' variant='danger'>
-          <BiLogOut className='text-white h-full mx-1 hover:opacity-100 inline-block'/>
+      <div
+        className='mb-10 px-10 w-full flex justify-center'
+        onClick={handleLogout}
+      >
+        <Button
+          className='mx-auto rounded-md w-full'
+          size='sm'
+          variant='danger'
+        >
+          <BiLogOut className='text-white h-full mx-1 hover:opacity-100 inline-block' />
           Log Out
         </Button>
       </div>

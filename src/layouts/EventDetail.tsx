@@ -31,8 +31,8 @@ export type CardProps = {
 };
 
 export default function EventDetail({
-  className,
   content,
+  className,
   iconButton,
   iconButtonOnClick,
 }: CardProps) {
