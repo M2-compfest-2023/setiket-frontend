@@ -43,7 +43,7 @@ export default function DashboardLayout({
             Back
           </Button>
         )}
-        
+
         <DesktopNavigation />
 
         <div className='bg-white flex flex-col lg:pl-72'>
