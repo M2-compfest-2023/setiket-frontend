@@ -20,7 +20,7 @@ export default function TBody<T extends RowData>({
       {isLoading ? (
         <tr>
           <td
-            className='truncate whitespace-nowrap py-4 px-3 col-span-full text-typo-icon text-center'
+            className='truncate whitespace-nowrap py-4 px-3 col-span-full text-white text-center'
             colSpan={table.getAllColumns().length}
           >
             Loading...
@@ -29,17 +29,17 @@ export default function TBody<T extends RowData>({
       ) : table.getRowModel().rows.length == 0 ? (
         <tr>
           <td
-            className='truncate whitespace-nowrap py-4 px-3 col-span-full text-typo-icon text-center'
+            className='truncate whitespace-nowrap py-4 px-3 col-span-full text-white text-center'
             colSpan={table.getAllColumns().length}
           >
             No Data
           </td>
         </tr>
       ) : (
-        table.getRowModel().rows.map((row, index) => (
+        table.getRowModel().rows.map((row) => (
           <tr
             key={row.id}
-            className={clsxm(index % 2 === 0 ? 'bg-white' : 'bg-typo-light')}
+            className={clsxm('bg-black/20')}
           >
             {row.getVisibleCells().map((cell) => {
               return (
@@ -49,6 +49,8 @@ export default function TBody<T extends RowData>({
                   title={cell.getValue() as string}
                   className='truncate whitespace-nowrap py-4 px-3'
                   style={{ maxWidth: cell.column.getSize() }}
+                  variant='p3'
+                  color='white'
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </Typography>

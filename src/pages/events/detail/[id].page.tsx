@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
@@ -8,6 +9,8 @@ import EventDetail from '@/layouts/EventDetail';
 import Layout from '@/layouts/Layout';
 
 export default function Detail() {
+  const router = useRouter();
+
   const [ticketAmount, setTicketAmount] = useState(1);
   const ticketPrice = 150000;
   const eventProps = {
@@ -79,7 +82,7 @@ export default function Detail() {
           >
             50 tickets sold
           </Typography>
-          <Button>See detail</Button>
+          <Button onClick={() => router.push('/events/salesData/1')}>See detail</Button>
         </div>
 
         {/* role admin */}

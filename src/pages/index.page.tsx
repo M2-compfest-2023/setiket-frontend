@@ -59,7 +59,7 @@ export default function Home() {
               Book tickets
             </ButtonLink>
             <ButtonLink
-              href='/'
+              href='#howToOrder'
               variant='primary'
               className='text-white border-0 m-5'
             >
@@ -159,7 +159,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className='min-h-screen p-5 sm:p-10'>
+      <div className='min-h-screen p-5 sm:p-10' id='howToOrder'>
         <Typography
           className='my-1 sm:my-5 text-center mx-auto'
           variant='h3'

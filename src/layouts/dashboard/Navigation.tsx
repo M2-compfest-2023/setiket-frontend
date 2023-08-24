@@ -28,7 +28,8 @@ export default function Navigation({
 function NavigationControl({
   navigation,
   className,
-}: // gen,
+  action
+}: 
 {
   navigation: Navigation;
   className?: string;
@@ -36,7 +37,7 @@ function NavigationControl({
 }) {
   return (
     <div
-      // onClick={() => action && action(navigation.componentIndex)}
+      onClick={() => action && action(navigation.componentIndex)}
       className={clsxm(
         'md:hover:bg-gradient-to-r md:hover:from-gradient-100 md:hover:to-gradient-200',
         'group flex flex-1 items-center px-6 py-2 transition-opacity',
