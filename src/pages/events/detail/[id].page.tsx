@@ -7,11 +7,14 @@ import IconButton from '@/components/buttons/IconButton';
 import Typography from '@/components/Typography';
 import EventDetail from '@/layouts/EventDetail';
 import Layout from '@/layouts/Layout';
+import Modal from '@/layouts/Modal';
 
 export default function Detail() {
   const router = useRouter();
 
   const [ticketAmount, setTicketAmount] = useState(1);
+  const [isVisible, setIsVisible] = useState(false);
+
   const ticketPrice = 150000;
   const eventProps = {
     eventName: 'Van Gogh Alive Immersive Show in Bangkok',
@@ -65,7 +68,7 @@ export default function Detail() {
             <Typography variant='b1' color='cyan'>
               Rp {ticketPrice}
             </Typography>
-            <Button>Book Now</Button>
+            <Button onClick={() => setIsVisible(!isVisible)}>Book Now</Button>
           </div>
         </div>
 
@@ -82,7 +85,9 @@ export default function Detail() {
           >
             50 tickets sold
           </Typography>
-          <Button onClick={() => router.push('/events/salesData/1')}>See detail</Button>
+          <Button onClick={() => router.push('/events/salesData/1')}>
+            See detail
+          </Button>
         </div>
 
         {/* role admin */}
@@ -99,6 +104,33 @@ export default function Detail() {
           {/* <Button size='sm' variant='primary' disabled>
                 Approved
               </Button> */}
+        </div>
+
+        <div className='relative z-[110]'>
+          {isVisible && (
+            <Modal className='flex flex-col'>
+              <div className='md:w-[40%] bg-white rounded-xl px-8 py-5'>
+                <Typography
+                  className='text-center'
+                  variant='p1'
+                  weight='semibold'
+                  font='inter'
+                  color='cyan'
+                >
+                  Do you want to proceed with purchasing the event tickets?
+                </Typography>
+                <div className='flex justify-evenly mt-5'>
+                  <Button
+                    variant='danger'
+                    onClick={() => setIsVisible(!isVisible)}
+                  >
+                    No
+                  </Button>
+                  <Button>Yes</Button>
+                </div>
+              </div>
+            </Modal>
+          )}
         </div>
       </div>
     </Layout>
