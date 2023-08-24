@@ -185,8 +185,7 @@ export default function Events() {
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
-            eventId='1'
-            className='hover:bg-gray-100'
+            link='/events/detail/1'
           />
           <EventCard
             city='Bekasi'
@@ -195,8 +194,7 @@ export default function Events() {
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
-            eventId='1'
-            className='hover:bg-gray-100'
+            link='/events/detail/1'
           />
           <EventCard
             city='Bekasi'
@@ -205,8 +203,7 @@ export default function Events() {
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
-            eventId='1'
-            className='hover:bg-gray-100'
+            link='/events/detail/1'
           />
           <EventCard
             city='Bekasi'
@@ -215,8 +212,7 @@ export default function Events() {
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
-            eventId='1'
-            className='hover:bg-gray-100'
+            link='/events/detail/1'
           />
           <EventCard
             city='Bekasi'
@@ -225,8 +221,7 @@ export default function Events() {
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
-            eventId='1'
-            className='hover:bg-gray-100'
+            link='/events/detail/1'
           />
           <EventCard
             city='Bekasi'
@@ -235,8 +230,7 @@ export default function Events() {
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
-            eventId='1'
-            className='hover:bg-gray-100'
+            link='/events/detail/1'
           />
           <EventCard
             city='Bekasi'
@@ -245,8 +239,7 @@ export default function Events() {
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
-            eventId='1'
-            className='hover:bg-gray-100'
+            link='/events/detail/1'
           />
           <EventCard
             city='Bekasi'
@@ -255,8 +248,7 @@ export default function Events() {
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
-            eventId='1'
-            className='hover:bg-gray-100'
+            link='/events/detail/1'
           />
           <EventCard
             city='Bekasi'
@@ -265,8 +257,7 @@ export default function Events() {
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
-            eventId='1'
-            className='hover:bg-gray-100'
+            link='/events/detail/1'
           />
           <EventCard
             city='Bekasi'
@@ -275,8 +266,7 @@ export default function Events() {
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
-            eventId='1'
-            className='hover:bg-gray-100'
+            link='/events/detail/1'
           />
         </div>
       </div>
