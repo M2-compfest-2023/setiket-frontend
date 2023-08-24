@@ -9,6 +9,7 @@ import Input from '@/components/form/Input';
 import SearchableSelectInput from '@/components/form/SearchableSelectInput';
 import PrimaryLink from '@/components/links/PrimaryLink';
 import SEO from '@/components/SEO';
+import { showToast, SUCCESS_TOAST } from '@/components/Toast';
 import Typography from '@/components/Typography';
 import { REG_EMAIL, REG_PASSWORD } from '@/constants/regex';
 import useMutationToast from '@/hooks/useMutationToast';
@@ -41,8 +42,10 @@ export default function RegisterPage() {
     RegisterForm
   >(
     useMutation(async (data) => {
-      await api.post(`/auth/register/customer`, data);
+      if (data.role == 'eo') await api.post(`/auth/register/eo`, data);
+      else await api.post(`/auth/register/customer`, data);
 
+      showToast('Berhasil register', SUCCESS_TOAST);
       router.push('/login');
     })
   );

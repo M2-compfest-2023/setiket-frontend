@@ -66,7 +66,7 @@ export default function Detail() {
           </div>
         </div>
 
-        {/* role EO */}
+        {/* role EVENTORGANIZER */}
         <div className='flex flex-col gap-3 w-[30%] items-center justify-center bg-white rounded-2xl shadow-xl h-[160px] p-5'>
           <Typography variant='b2' weight='semibold' className='mx-auto'>
             Sales Data

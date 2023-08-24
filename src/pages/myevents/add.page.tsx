@@ -1,3 +1,6 @@
+import { useMutation, useQuery } from '@tanstack/react-query';
+import router from 'next/router';
+import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { FaBackward } from 'react-icons/fa';
 
@@ -7,130 +10,196 @@ import Input from '@/components/form/Input';
 import SearchableSelectInput from '@/components/form/SearchableSelectInput';
 import TextArea from '@/components/form/TextArea';
 import PrimaryLink from '@/components/links/PrimaryLink';
+import { DANGER_TOAST, showToast, SUCCESS_TOAST } from '@/components/Toast';
 import Typography from '@/components/Typography';
-import { categories } from '@/contents/categories';
+import useDialog from '@/hooks/useDialog';
+import useMutationToast from '@/hooks/useMutationToast';
 import Layout from '@/layouts/Layout';
+import api from '@/lib/api';
+import { ApiReturn } from '@/types/api';
 
 type AddEventForm = {
-  eventName: string;
-  category: string;
-  province: string;
-  city: string;
-  startDate: string;
-  startTime: string;
-  endDate: string;
-  endTime: string;
+  title: string;
+  category_id: number;
+  city_id: number;
+  start_date: string;
+  end_date: string;
   description: string;
-  ticketProvided: number;
+  ticket_total: number;
+  location: string;
 };
 
 export default function AddEvent() {
-  const categorySelect = categories.map((category) => ({
-    value: category.href,
-    label: category.name,
-  }));
+  const category = useQuery<ApiReturn<{ id: string; category_name: string }[]>>(
+    ['/category']
+  );
+
+  const provinsi = useQuery<ApiReturn<{ id: string; name: string }[]>>([
+    '/location/province',
+  ]);
+
+  const [kabupaten, setKabupaten] = useState<
+    { id: string; name: string }[] | undefined
+  >(undefined);
+
+  const getKabupaten = (provinsiId: string) => {
+    api
+      .get<ApiReturn<{ id: string; name: string }[]>>(
+        `/location/city/${provinsiId}`
+      )
+      .then((res) => {
+        setKabupaten(res.data.data);
+      });
+  };
 
   const searchMethod = useForm<AddEventForm>({
     mode: 'onTouched',
   });
+  const { handleSubmit } = searchMethod;
+  const dialog = useDialog();
 
-  //static data, delete this
-  const provinces = [
-    { value: 'dki-jakarta', label: 'DKI Jakarta' },
-    { value: 'jawa-barat', label: 'Jawa Barat' },
-    { value: 'jawa-timur', label: 'Jawa Timur' },
-    { value: 'jawa-tengah ', label: 'Jawa Barat' },
-  ];
-  const cities_in_selected_province = [{ value: '', label: '' }];
+  const { mutate: handleRegister, isLoading } = useMutationToast<
+    void,
+    AddEventForm
+  >(
+    useMutation(async (data) => {
+      await api.post(`/events`, data);
+    })
+  );
+
+  const onSubmit = (data: AddEventForm) => {
+    const y = parseInt(data.ticket_total.toString());
+    data.ticket_total = y;
+    dialog({
+      title: 'Pastikan Informasi yang Anda Isi Benar',
+      description:
+        'Apakah Anda yakin bahwa informasi yang Anda isi sudah benar?',
+      submitText: 'Sudah Benar',
+    }).then(() =>
+      handleRegister(data, {
+        onSuccess: () => {
+          showToast('Berhasil membuat event', SUCCESS_TOAST);
+          router.push('/myevents');
+        },
+        onError: () => {
+          showToast('Periksa kembali data yang anda masukkan', DANGER_TOAST);
+        },
+      })
+    );
+  };
 
   return (
-    <Layout withFooter={true}>
-      <div className='flex flex-col gap-4 mx-4 sm:mx-10 my-8 min-h-screen'>
+    <Layout withFooter withNavbar>
+      <div className='mt-6'>
         <PrimaryLink
           href='/myevents'
           size='medium'
           variant='primary'
-          className='justify-start'
+          className='w-1/4 mt-4 mx-4 sm:mx-10'
         >
           <Typography variant='p2' className='text-primary-50' weight='medium'>
             <FaBackward className='mr-2 inline-block' />
             Back to My Events page
           </Typography>
         </PrimaryLink>
+        <div className='flex items-center justify-center flex-col gap-4 mx-4 sm:mx-10 my-8'>
+          <Typography variant='h4' font='ubuntu' color='cyan'>
+            Event Form
+          </Typography>
 
-        <Typography variant='h4' font='ubuntu' color='cyan'>
-          Event Form
-        </Typography>
-
-        <FormProvider {...searchMethod}>
-          <form action='' className='flex flex-col gap-3 w-[50%]'>
-            <Input
-              id='keyword'
-              placeholder='Event Name'
-              label='Event Name'
-              required
-            />
-
-            <SearchableSelectInput
-              id='category'
-              label='Category'
-              placeholder='Select category'
-              options={categorySelect}
-              required
-            />
-
-            <Typography variant='b3'>Location</Typography>
-
-            <div className='flex gap-5'>
-              <SearchableSelectInput
-                id='province'
-                label='Province'
-                placeholder='Select province'
-                options={provinces}
-                containerClassName='w-[50%]'
+          <FormProvider {...searchMethod}>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className='flex flex-col gap-3 w-[50%]'
+            >
+              <Input
+                id='title'
+                placeholder='Event Name'
+                label='Event Name'
                 required
               />
 
               <SearchableSelectInput
-                id='city'
-                label='City'
-                placeholder='Select city'
-                options={cities_in_selected_province}
-                containerClassName='w-[50%]'
+                id='category_id'
+                label='Category'
+                placeholder='Select category'
+                options={
+                  category.data?.data.map((res) => ({
+                    value: res.id,
+                    label: res.category_name,
+                  })) || []
+                }
                 required
               />
-            </div>
 
-            <Typography variant='b3'>Datetime</Typography>
+              <Typography variant='b3'>Location</Typography>
 
-            <div className='flex gap-5'>
-              <Datepicker label='Start Date' id='startdate' required />
-              <Input id='startTime' label='Start Time' type='time' required />
-            </div>
-            <div className='flex gap-5'>
-              <Datepicker label='End Date' id='enddate' />
-              <Input id='endTime' label='End Time' type='time' />
-            </div>
+              <div className='flex gap-5'>
+                <SearchableSelectInput
+                  id='province'
+                  label='Province'
+                  placeholder='Select province'
+                  handleChange={getKabupaten}
+                  options={
+                    provinsi.data?.data?.map((prov) => ({
+                      value: prov.id,
+                      label: prov.name,
+                    })) || []
+                  }
+                  containerClassName='w-[50%]'
+                  required
+                />
 
-            <TextArea
-              id='description'
-              label='Description'
-              placeholder='Write event description here'
-              className='focus:ring-black'
-              maxLength={512}
-              required
-            />
+                <SearchableSelectInput
+                  id='city_id'
+                  label='City'
+                  placeholder='Select city'
+                  options={
+                    kabupaten?.map((kab) => ({
+                      value: kab.id,
+                      label: kab.name,
+                    })) || []
+                  }
+                  containerClassName='w-[50%]'
+                  required
+                />
+              </div>
+              <Input
+                id='location'
+                placeholder='Location'
+                label='Event Location'
+                required
+              />
 
-            <Input
-              id='ticketProvided'
-              label='Ticket Provided'
-              type='number'
-              required
-            />
+              <Typography variant='b3'>Date and Time</Typography>
 
-            <Button type='submit'>Submit</Button>
-          </form>
-        </FormProvider>
+              <div className='flex gap-5'>
+                <Datepicker label='Start Date' id='start_date' required />
+                <Datepicker label='End Date' id='end_date' />
+              </div>
+
+              <TextArea
+                id='description'
+                label='Description'
+                placeholder='Write event description here'
+                className='focus:ring-black'
+                maxLength={512}
+                required
+              />
+
+              <Input
+                id='ticket_total'
+                label='Ticket Provided'
+                type='number'
+                required
+              />
+
+              <Button type='submit' isLoading={isLoading}>
+                Submit
+              </Button>
+            </form>
+          </FormProvider>
+        </div>
       </div>
     </Layout>
   );

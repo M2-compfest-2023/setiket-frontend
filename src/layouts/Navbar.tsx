@@ -12,11 +12,14 @@ import Typography from '@/components/Typography';
 import { categories } from '@/contents/categories';
 import clsxm from '@/lib/clsxm';
 import { getToken } from '@/lib/cookies';
+import useAuthStore from '@/store/useAuthStore';
 
 export default function Navbar() {
   const token = getToken();
   const [isLogin, setIsLogin] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
+  const user = useAuthStore.useUser();
 
   useEffect(() => {
     if (token) {
@@ -87,32 +90,37 @@ export default function Navbar() {
                 </Typography>
               </UnstyledLink>
             </li>
-            <li>
-              <UnstyledLink href='/mytickets' className='flex p-2.5'>
-                <Typography
-                  font='inter'
-                  color='cyan'
-                  variant='p2'
-                  weight='semibold'
-                  className='hover:text-cyan-600'
-                >
-                  My Tickets
-                </Typography>
-              </UnstyledLink>
-            </li>
-            <li>
-              <UnstyledLink href='/myevents' className='flex p-2.5'>
-                <Typography
-                  font='inter'
-                  color='cyan'
-                  variant='p2'
-                  weight='semibold'
-                  className='hover:text-cyan-600'
-                >
-                  My Events
-                </Typography>
-              </UnstyledLink>
-            </li>
+            {user?.role === 'CUSTOMER' && (
+              <li>
+                <UnstyledLink href='/mytickets' className='flex p-2.5'>
+                  <Typography
+                    font='inter'
+                    color='cyan'
+                    variant='p2'
+                    weight='semibold'
+                    className='hover:text-cyan-600'
+                  >
+                    My Tickets
+                  </Typography>
+                </UnstyledLink>
+              </li>
+            )}
+            {user?.role === 'EVENTORGANIZER' && (
+              <li>
+                <UnstyledLink href='/myevents' className='flex p-2.5'>
+                  <Typography
+                    font='inter'
+                    color='cyan'
+                    variant='p2'
+                    weight='semibold'
+                    className='hover:text-cyan-600'
+                  >
+                    My Events
+                  </Typography>
+                </UnstyledLink>
+              </li>
+            )}
+
             <li>
               <UnstyledLink href='/about' className='flex p-2.5'>
                 <Typography
