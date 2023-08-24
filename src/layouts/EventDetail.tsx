@@ -33,6 +33,7 @@ export type CardProps = {
 export default function EventDetail({
   content,
   className,
+  content,
   iconButton,
   iconButtonOnClick,
 }: CardProps) {
@@ -44,9 +45,9 @@ export default function EventDetail({
       )}
     >
       <div className='flex justify-between'>
-        {content.eventName && (
+        {content.content.eventName && (
           <Typography variant='h3' font='ubuntu' color='cyan'>
-            {content.eventName}
+            {content.content.eventName}
           </Typography>
         )}
         {iconButton && (
@@ -62,66 +63,77 @@ export default function EventDetail({
       </div>
 
       <div className='flex my-4 gap-5 items-center'>
-        {content.eventCategory && <Chips>{content.eventCategory}</Chips>}
+        {content.content.eventCategory && (
+          <Chips>{content.content.eventCategory}</Chips>
+        )}
 
-        {content.city && (
+        {content.content.city && (
           <Typography variant='p2' color='secondary'>
-            <FaRegMap className='inline-block' /> {content.province},{' '}
-            {content.city}
+            <FaRegMap className='inline-block' /> {content.content.province},{' '}
+            {content.content.city}
           </Typography>
         )}
       </div>
 
       <div className='flex flex-col gap-5'>
-        {content.eventOrganization && (
+        {content.content.eventOrganization && (
           <Typography variant='p2'>
             <IoIosPeople className='inline-block mr-3' />{' '}
             {content.eventOrganization}
           </Typography>
         )}
-        {content.startDate && (
+        {content.content.startDate && (
           <Typography variant='p2'>
             <BsFillCalendarFill className='inline-block mr-3' />{' '}
             {content.startDate}
             {content.endDate && ` - ${content.endDate}`}
           </Typography>
         )}
-        {content.startTime && (
+        {content.content.startTime && (
           <Typography variant='p2'>
-            <FaClock className='inline-block mr-3' /> {content.startTime}
-            {content.endTime && ` - ${content.endTime}`}
+            <FaClock className='inline-block mr-3' />{' '}
+            {content.content.startTime}
+            {content.content.endTime && ` - ${content.content.endTime}`}
           </Typography>
         )}
-        {content.description && (
-          <Typography variant='p2'>{content.description}</Typography>
+        {content.content.description && (
+          <Typography variant='p2'>{content.content.description}</Typography>
         )}
 
-        {content.purchaseTime && content.totalPrice && content.totalTickets && (
-          <div className='flex flex-col gap-2'>
-            <hr className='h-px my-2 border-0 bg-gray-300' />
-            <Typography variant='b2' color='cyan'>
-              Purchase Summary
-            </Typography>
-            <div className='flex justify-between'>
-              <Typography variant='p2' weight='semibold'>
-                Purchased on
+        {content.content.purchaseTime &&
+          content.content.totalPrice &&
+          content.content.totalTickets && (
+            <div className='flex flex-col gap-2'>
+              <hr className='h-px my-2 border-0 bg-gray-300' />
+              <Typography variant='b2' color='cyan'>
+                Purchase Summary
               </Typography>
-              <Typography variant='p2'>{content.purchaseTime}</Typography>
+              <div className='flex justify-between'>
+                <Typography variant='p2' weight='semibold'>
+                  Purchased on
+                </Typography>
+                <Typography variant='p2'>
+                  {content.content.purchaseTime}
+                </Typography>
+              </div>
+              <div className='flex justify-between'>
+                <Typography variant='p2' weight='semibold'>
+                  Total tickets
+                </Typography>
+                <Typography variant='p2'>
+                  {content.content.totalTickets}
+                </Typography>
+              </div>
+              <div className='flex justify-between'>
+                <Typography variant='p2' weight='semibold'>
+                  Total price
+                </Typography>
+                <Typography variant='p2'>
+                  Rp {content.content.totalPrice}
+                </Typography>
+              </div>
             </div>
-            <div className='flex justify-between'>
-              <Typography variant='p2' weight='semibold'>
-                Total tickets
-              </Typography>
-              <Typography variant='p2'>{content.totalTickets}</Typography>
-            </div>
-            <div className='flex justify-between'>
-              <Typography variant='p2' weight='semibold'>
-                Total price
-              </Typography>
-              <Typography variant='p2'>Rp {content.totalPrice}</Typography>
-            </div>
-          </div>
-        )}
+          )}
       </div>
     </div>
   );

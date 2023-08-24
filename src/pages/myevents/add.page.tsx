@@ -1,17 +1,15 @@
-import { FaBackward } from 'react-icons/fa';
 import { FormProvider, useForm } from 'react-hook-form';
+import { FaBackward } from 'react-icons/fa';
 
-import Layout from '@/layouts/Layout';
-import PrimaryLink from '@/components/links/PrimaryLink';
 import Button from '@/components/buttons/Button';
-import Typography from '@/components/Typography';
-
-import Input from '@/components/form/Input';
-import TextArea from '@/components/form/TextArea';
 import Datepicker from '@/components/form/Datepicker';
+import Input from '@/components/form/Input';
 import SearchableSelectInput from '@/components/form/SearchableSelectInput';
-
+import TextArea from '@/components/form/TextArea';
+import PrimaryLink from '@/components/links/PrimaryLink';
+import Typography from '@/components/Typography';
 import { categories } from '@/contents/categories';
+import Layout from '@/layouts/Layout';
 
 type AddEventForm = {
   eventName: string;
