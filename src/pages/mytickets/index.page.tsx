@@ -22,7 +22,6 @@ export default function MyTickets() {
 
   // Function to toggle visibility
   const toggleVisibility = () => {
-    console.log('halo');
     setIsVisible(!isVisible);
   };
 
@@ -46,7 +45,7 @@ export default function MyTickets() {
           id='events'
         >
           <EventCard
-            eventName='Festival Kota'
+            eventName='Festival Kota 1'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
             eventId='1'
@@ -55,7 +54,7 @@ export default function MyTickets() {
             buttonOnClik={toggleVisibility}
           />
           <EventCard
-            eventName='Festival Kota'
+            eventName='Festival Kota 2'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
             eventId='1'
@@ -64,7 +63,7 @@ export default function MyTickets() {
             buttonOnClik={toggleVisibility}
           />
           <EventCard
-            eventName='Festival Kota'
+            eventName='Festival Kota 3'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
             eventId='1'
