@@ -18,6 +18,7 @@ type TableProps<T extends object> = {
   columns: ColumnDef<T>[];
   omitSort?: boolean;
   withFilter?: boolean;
+  filterClassName?: string;
 } & React.ComponentPropsWithoutRef<'div'>;
 
 export default function Table<T extends object>({
@@ -26,6 +27,7 @@ export default function Table<T extends object>({
   data,
   omitSort = false,
   withFilter = false,
+  filterClassName,
   ...rest
 }: TableProps<T>) {
   const [globalFilter, setGlobalFilter] = useState('');
@@ -46,13 +48,15 @@ export default function Table<T extends object>({
   });
   return (
     <div className={clsxm('flex flex-col', className)} {...rest}>
-      {withFilter && <Filter table={table} />}
+      <div className='flex justify-end'>
+        {withFilter && <Filter table={table} className={filterClassName} />}
+      </div>
       <div className='-my-2 -mx-4 mt-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
         <div className='inline-block min-w-full py-2 align-middle md:px-6 lg:px-8'>
-          <div className='overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg'>
+          <div className='overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-xl'>
             <table className='min-w-full divide-y divide-gray-300'>
               <THead table={table} omitSort={omitSort} />
-              <TBody table={table} />
+              <TBody table={table}/>
             </table>
           </div>
         </div>

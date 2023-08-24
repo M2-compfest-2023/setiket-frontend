@@ -41,17 +41,18 @@ export default function Filter<T extends RowData>({
           setFilter(String(e.target.value));
         }}
         className={clsxm(
-          'block rounded-lg pl-9 pr-20 text-base shadow-sm transition duration-100',
-          'border-typo-outline focus:border-typo-icon focus:ring-0',
+          'block rounded-lg pl-9 pr-10 text-base shadow-sm transition duration-100',
+          'border-gray-200 focus:border-white focus:ring-0',
           'placeholder:text-typo-icon',
-          'caret-primary-40'
+          'caret-primary-40',
+          className
         )}
         placeholder={placeholder}
       />
       {table.getState().globalFilter !== '' && (
         <div className='absolute inset-y-0 right-0 flex items-center pr-3'>
           <button type='button' onClick={handleClearFilter} className='p-1'>
-            <FiXCircle className='text-typo-icons text-xl text-danger-50' />
+            <FiXCircle className='text-white text-xl ' />
           </button>
         </div>
       )}
