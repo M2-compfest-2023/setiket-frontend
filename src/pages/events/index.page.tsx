@@ -211,16 +211,6 @@ export default function Events() {
               ticketPrice={event.price}
             />
           ))}
-
-          <EventCard
-            city='Bekasi'
-            province='Jawa Barat'
-            eventName='Festival Kota'
-            ticketPrice='50,000'
-            startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
-            link='/events/detail/1'
-          />
         </div>
       </div>
     </Layout>
