@@ -55,8 +55,8 @@ export default function EventOverview({ className }: Props) {
             <Button
               variant='secondary'
               size='sm'
-              onClick={() =>
-                router.push(`/events/detail/1`) // ini 1 diganti id atau pk
+              onClick={
+                () => router.push(`/events/detail/1`) // ini 1 diganti id atau pk
               }
             >
               See Detail

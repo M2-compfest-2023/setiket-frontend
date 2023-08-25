@@ -55,7 +55,9 @@ export default function UsersOverview({ className }: Props) {
             <Button
               variant='secondary'
               size='sm'
-              onClick={() => router.push(`/admin/userInfo/${info.row.original.username}`)}
+              onClick={() =>
+                router.push(`/admin/userInfo/${info.row.original.username}`)
+              }
             >
               See Detail
             </Button>

@@ -38,7 +38,8 @@ export default function Chips({
 }: // icon,
 ChipProps) {
   return (
-    <div onClick={onClick}
+    <div
+      onClick={onClick}
       className={clsxm(
         [
           variant === 'primary' && ['from-gradient-100 to-gradient-200'],
@@ -57,7 +58,7 @@ ChipProps) {
         {children}
       </Typography>
 
-      {Icon && (<Icon className='text-white mx-2'/>)}
+      {Icon && <Icon className='text-white mx-2' />}
     </div>
   );
 }

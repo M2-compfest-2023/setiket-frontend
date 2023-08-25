@@ -37,10 +37,7 @@ export default function TBody<T extends RowData>({
         </tr>
       ) : (
         table.getRowModel().rows.map((row) => (
-          <tr
-            key={row.id}
-            className={clsxm('bg-black/20')}
-          >
+          <tr key={row.id} className={clsxm('bg-black/20')}>
             {row.getVisibleCells().map((cell) => {
               return (
                 <Typography

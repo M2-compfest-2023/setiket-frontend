@@ -60,7 +60,7 @@ export default function SalesData() {
   return (
     <Layout withFooter withNavbar>
       <div className='min-h-screen px-10 py-5'>
-      <Button
+        <Button
           leftIcon={IoMdArrowRoundBack}
           onClick={() => router.back()}
           variant='secondary'

@@ -28,9 +28,8 @@ export default function Navigation({
 function NavigationControl({
   navigation,
   className,
-  action
-}: 
-{
+  action,
+}: {
   navigation: Navigation;
   className?: string;
   action?: ((index: number) => void) | undefined;

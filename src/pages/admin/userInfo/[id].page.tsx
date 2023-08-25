@@ -116,10 +116,7 @@ export default function UserInfo() {
           >
             Waiting Confirmation
           </Chips>
-          <Chips
-            variant='blue'
-            Icon={AiOutlineCheckCircle}
-          >
+          <Chips variant='blue' Icon={AiOutlineCheckCircle}>
             Approved
           </Chips>
         </div>
