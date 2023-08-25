@@ -23,8 +23,15 @@ export default function Home() {
     <Layout withNavbar={true} withFooter={true}>
       <SEO title='Home' description='Home Page' />
 
-      <div className='flex w-full min-h-[90vh] px-20 py-17 justify-between'>
-        <div className='w-[60%] flex flex-col justify-center pr-5'>
+      <div className='md:flex md:flex-row-reverse w-full md:min-h-[90vh] px-5 md:px-20 md:py-17 justify-between'>
+        <NextImage
+          src='/images/home/man-with-gadget.png'
+          alt='man-with-gadget.png'
+          width={400}
+          height={400}
+          className='md:w-[40%] hidden md:block'
+        />
+        <div className='md:w-[60%] flex flex-col justify-center px-4 md:px-0 md:pr-5 text-center md:text-left'>
           <Typography
             className='mt-2'
             color='violet'
@@ -33,24 +40,34 @@ export default function Home() {
           >
             Empowering Experiences, One Click at a Time!
           </Typography>
-          <Typography className='mt-2' color='cyan' variant='h4' font='ubuntu'>
+          <NextImage
+            src='/images/home/man-with-gadget.png'
+            alt='man-with-gadget.png'
+            width={400}
+            height={400}
+            className='p-4 md:p-0 md:w-[40%] md:hidden'
+          />
+          <Typography
+            className='mt-2 text-left'
+            color='cyan'
+            variant='h4'
+            font='ubuntu'
+          >
             Where Innovation Meets Event Excellence.
           </Typography>
           <Typography
-            className='mt-2 text-cyan-700'
+            className='mt-2 text-justify md:text-left md:font-medium'
             variant='p3'
             font='inter'
-            weight='medium'
           >
             Unlock the Door to Unforgettable Experiences! At SEA Tickets, we are
             not just selling tickets, we are crafting memories. Seamlessly
             navigating between innovation and simplicity, we have created a
             seamless ticketing experience that puts you at the heart of every
             event. Whether you are a passionate organizer or an eager attendee,
-            our platform redefines convenience. Embark on a new era of event
-            excitement with SEA Tickets – Where Every Ticket Unfolds a Story.
+            our platform redefines convenience.
           </Typography>
-          <div className='flex'>
+          <div className='flex w-full'>
             <ButtonLink
               href='#events'
               variant='secondary'
@@ -67,18 +84,10 @@ export default function Home() {
             </ButtonLink>
           </div>
         </div>
-
-        <NextImage
-          src='/images/home/man-with-gadget.png'
-          alt='man-with-gadget.png'
-          width={400}
-          height={400}
-          className='w-[40%]'
-        />
       </div>
 
       <div
-        className='sm:min-h-screen bg-background-violet px-4 sm:px-20 py-4 flex flex-col justify-center'
+        className='md:min-h-screen bg-background-violet px-4 sm:px-20 py-4 flex flex-col justify-center'
         id='events'
       >
         <Typography

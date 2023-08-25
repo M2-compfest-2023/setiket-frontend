@@ -1,4 +1,5 @@
 import { Menu } from '@headlessui/react';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { CgClose } from 'react-icons/cg';
@@ -10,6 +11,7 @@ import UnstyledLink from '@/components/links/UnstyledLink';
 import NextImage from '@/components/NextImage';
 import Typography from '@/components/Typography';
 import { categories } from '@/contents/categories';
+import Popover from '@/layouts/dashboard/PopoverMenu';
 import clsxm from '@/lib/clsxm';
 import { getToken } from '@/lib/cookies';
 import useAuthStore from '@/store/useAuthStore';
@@ -18,6 +20,7 @@ export default function Navbar() {
   const token = getToken();
   const [isLogin, setIsLogin] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenPopover, setisOpenPopover] = useState(false);
 
   const user = useAuthStore.useUser();
 
@@ -38,7 +41,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className='sticky top-0 z-[100] w-full bg-typo-white font-primary'>
+    <header className='flex md:block px-5 md:px-0 sticky top-0 z-[100] w-full bg-typo-white font-primary'>
       <div className='flex flex-row items-center h-14 md:h-20 justify-between layout'>
         <UnstyledLink
           href='/'
@@ -49,13 +52,13 @@ export default function Navbar() {
             alt='logo'
             width='42'
             height='37'
-            className='w-7 md:w-10'
+            className='w-10'
           />
           <Typography
             font='ubuntu'
             variant='h4'
             color='cyan'
-            className='text-sm'
+            className='text-lg'
           >
             SeTicket 2023
           </Typography>
@@ -160,14 +163,25 @@ export default function Navbar() {
                   </ButtonLink>
                 </>
               ) : (
-                <ButtonLink
-                  href='/dashboard'
-                  size='base'
-                  variant='netral'
-                  className='border-typo-white text-typo-white bg-transparent'
-                >
-                  Dashboard
-                </ButtonLink>
+                <>
+                  <Image
+                    src='/images/avatar.png'
+                    width={40}
+                    height={40}
+                    alt='avatar.png'
+                    className='aspect-square'
+                    onMouseEnter={() => setisOpenPopover(true)}
+                    onMouseLeave={() => setisOpenPopover(false)}
+                  />
+                </>
+              )}
+              {isOpenPopover && (
+                <div className='absolute z-[110] end-7'>
+                  <Popover
+                    onMouseEnter={() => setisOpenPopover(true)}
+                    onMouseLeave={() => setisOpenPopover(false)}
+                  />
+                </div>
               )}
             </div>
           </ul>
@@ -306,19 +320,22 @@ export default function Navbar() {
                   </ButtonLink>
                 </>
               ) : (
-                <ButtonLink
-                  href='/dashboard'
-                  size='base'
-                  variant='netral'
-                  className='border-typo-white text-typo-white bg-transparent'
-                >
-                  Dashboard
-                </ButtonLink>
+                <>
+                  <ButtonLink
+                    href='/dashboard'
+                    size='base'
+                    variant='netral'
+                    className='border-typo-white text-typo-white bg-transparent'
+                  >
+                    Dashboard
+                  </ButtonLink>
+                </>
               )}
             </div>
           </ul>
         </nav>
       </div>
+
       <IconButton
         variant='label'
         icon={AiOutlineMenu}
