@@ -1,5 +1,5 @@
 export interface User {
-  role: 'CUSTOMER' | 'ADMIN' | 'EO';
+  role: 'CUSTOMER' | 'ADMIN' | 'EVENTORGANIZER';
   id: string;
   username: string;
 }

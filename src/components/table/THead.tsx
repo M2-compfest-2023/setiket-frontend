@@ -16,7 +16,7 @@ export default function THead<T extends RowData>({
   ...rest
 }: THeadProps<T>) {
   return (
-    <thead className={clsxm('bg-success-90 text-white', className)} {...rest}>
+    <thead className={clsxm('bg-black/30 text-white', className)} {...rest}>
       {table.getHeaderGroups().map((headerGroup) => (
         <tr key={headerGroup.id}>
           {headerGroup.headers.map((header, index) => (

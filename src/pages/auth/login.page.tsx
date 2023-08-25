@@ -8,6 +8,7 @@ import Input from '@/components/form/Input';
 import withAuth from '@/components/hoc/withAuth';
 import PrimaryLink from '@/components/links/PrimaryLink';
 import SEO from '@/components/SEO';
+import { showToast, SUCCESS_TOAST } from '@/components/Toast';
 import Typography from '@/components/Typography';
 import { REG_EMAIL } from '@/constants/regex';
 import useMutationToast from '@/hooks/useMutationToast';
@@ -46,6 +47,8 @@ function LoginPage() {
         throw new Error('Sesi login tidak valid');
       }
       login({ ...user.data.data, token });
+
+      showToast('Berhasil login', SUCCESS_TOAST);
       if (user.data.data.role === 'ADMIN') {
         router.push('/dashboard');
       }

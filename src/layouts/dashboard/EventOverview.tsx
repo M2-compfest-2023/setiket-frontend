@@ -1,6 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/router';
-import { BsPeopleFill } from 'react-icons/bs';
+import { MdOutlineEventNote } from 'react-icons/md';
 
 import Button from '@/components/buttons/Button';
 import Table from '@/components/table/Table';
@@ -9,39 +9,39 @@ import clsxm from '@/lib/clsxm';
 
 type Props = React.ComponentPropsWithoutRef<'div'>;
 
-export type UserOverviewColumn = {
-  username: string;
-  email: string;
-  role: string;
-  registrationTime: string;
+export type EventOverviewColumn = {
+  eventName: string;
+  eoUsername: string;
+  location: string;
+  status: string;
 };
 
-export default function UsersOverview({ className }: Props) {
+export default function EventOverview({ className }: Props) {
   const router = useRouter();
 
-  const columns: ColumnDef<UserOverviewColumn>[] = [
+  const columns: ColumnDef<EventOverviewColumn>[] = [
     {
-      id: 'username',
-      accessorKey: 'username',
-      header: 'Username',
-      size: 30,
-    },
-    {
-      id: 'email',
-      accessorKey: 'email',
-      header: 'Email',
+      id: 'eventName',
+      accessorKey: 'eventName',
+      header: 'Event Name',
       size: 40,
     },
     {
-      id: 'role',
-      accessorKey: 'role',
-      header: 'Role',
+      id: 'eoUsername',
+      accessorKey: 'eoUsername',
+      header: 'EO Username',
+      size: 30,
+    },
+    {
+      id: 'location',
+      accessorKey: 'location',
+      header: 'Location',
       size: 5,
     },
     {
-      id: 'registrationTime',
-      accessorKey: 'registrationTime',
-      header: 'Registrated On',
+      id: 'status',
+      accessorKey: 'status',
+      header: 'Status',
       size: 10,
     },
     {
@@ -49,13 +49,15 @@ export default function UsersOverview({ className }: Props) {
       accessorKey: 'action',
       header: 'Action',
       size: 15,
-      cell: (info) => {
+      cell: () => {
         return (
           <div className='flex flex-row justify-center'>
             <Button
               variant='secondary'
               size='sm'
-              onClick={() => router.push(`/admin/userInfo/${info.row.original.username}`)}
+              onClick={() =>
+                router.push(`/events/detail/1`) // ini 1 diganti id atau pk
+              }
             >
               See Detail
             </Button>
@@ -68,22 +70,22 @@ export default function UsersOverview({ className }: Props) {
   //static data, remove this
   const data = [
     {
-      username: 'fachryanwar',
-      email: 'fachryanwar2626@gmail.com',
-      role: 'customer',
-      registrationTime: 'dd/mm/yyyy',
+      eventName: 'Event 1',
+      eoUsername: 'fachryanwar',
+      location: 'Province, City',
+      status: 'waiting confirmation',
     },
     {
-      username: 'orang2',
-      email: 'orang2@gmail.com',
-      role: 'EO',
-      registrationTime: 'dd/mm/yyyy',
+      eventName: 'Event 2',
+      eoUsername: 'orang2',
+      location: 'Province, City',
+      status: 'approved',
     },
     {
-      username: 'orang3',
-      email: 'orang3@gmail.com',
-      role: 'EO',
-      registrationTime: 'dd/mm/yyyy',
+      eventName: 'Event 3',
+      eoUsername: 'orang3',
+      location: 'Province, City',
+      status: 'waiting confirmation',
     },
   ];
 
@@ -100,7 +102,7 @@ export default function UsersOverview({ className }: Props) {
         color='white'
         className='flex items-center'
       >
-        <BsPeopleFill className='inline-block mr-3' /> Users Overview
+        <MdOutlineEventNote className='inline-block mr-3' /> Events Overview
       </Typography>
 
       <hr className='h-px my-3 border-0 bg-white' />

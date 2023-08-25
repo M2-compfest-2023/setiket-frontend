@@ -42,7 +42,7 @@ export enum RouteRole {
    * For all authenticated forda
    * will push to login if user is not authenticated
    * */
-  EO,
+  EVENTORGANIZER,
   /**
    * For all authenticated forda
    * will push to login if user is not authenticated
@@ -142,7 +142,7 @@ export default function withAuth<T>(
             }
             // Admin
           }
-          if (user?.role === 'EO') {
+          if (user?.role === 'EVENTORGANIZER') {
             if (routeRole === 'ADMIN') {
               router.replace(USER_ROUTE);
             }
@@ -163,7 +163,7 @@ export default function withAuth<T>(
             routeRole !== 'optional' &&
             routeRole !== 'ADMIN' &&
             routeRole !== 'user' &&
-            routeRole !== 'EO' &&
+            routeRole !== 'EVENTORGANIZER' &&
             routeRole !== 'CUSTOMER'
           ) {
             router.replace(
@@ -176,7 +176,7 @@ export default function withAuth<T>(
               routeRole !== 'optional' &&
               routeRole !== 'ADMIN' &&
               routeRole !== 'user' &&
-              routeRole !== 'EO' &&
+              routeRole !== 'EVENTORGANIZER' &&
               routeRole !== 'CUSTOMER'
             ) {
               router.replace(
@@ -186,7 +186,7 @@ export default function withAuth<T>(
             } else if (
               routeRole === 'ADMIN' ||
               routeRole === 'user' ||
-              routeRole === 'EO' ||
+              routeRole === 'EVENTORGANIZER' ||
               routeRole === 'CUSTOMER'
             ) {
               router.replace(
@@ -220,7 +220,7 @@ export default function withAuth<T>(
       if (routeRole === 'ADMIN' && user?.role !== 'ADMIN') {
         return <Forbidden />;
       }
-      if (routeRole === 'EO' && user?.role !== 'EO') {
+      if (routeRole === 'EVENTORGANIZER' && user?.role !== 'EVENTORGANIZER') {
         return <Forbidden />;
       }
       if (routeRole === 'CUSTOMER' && user?.role !== 'CUSTOMER') {

@@ -21,7 +21,7 @@ export default function MyTickets() {
   const [isVisible, setIsVisible] = useState(false);
   const [eventContent, setEventContent] = useState({});
 
-  // Function to toggle visibility
+  // Function to toggle visibility and fill detail event content
   const toggleVisibility = (eventName?: string) => {
     setEventContent({
       eventName: eventName,
@@ -68,7 +68,7 @@ export default function MyTickets() {
           id='events'
         >
           <EventCard
-            eventName='Festival Kota'
+            eventName='Festival Kota 1'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
             eventId='1'
@@ -77,7 +77,7 @@ export default function MyTickets() {
             buttonOnClik={() => toggleVisibility('Festival Kota 1')}
           />
           <EventCard
-            eventName='Festival Kota'
+            eventName='Festival Kota 2'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
             eventId='1'
@@ -86,7 +86,7 @@ export default function MyTickets() {
             buttonOnClik={() => toggleVisibility('Festival Kota 2')}
           />
           <EventCard
-            eventName='Festival Kota'
+            eventName='Festival Kota 3'
             startdate='dd/mm/yyyy'
             starttime='00:00 - 24:00'
             eventId='1'
