@@ -1,7 +1,4 @@
-import 'swiper/css';
-
-import AOS from 'aos';
-import React, { useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { FaChevronCircleRight } from 'react-icons/fa';
 
 import CategoryCard from '@/components/cards/CategoryCard';
@@ -13,11 +10,11 @@ import SEO from '@/components/SEO';
 import Typography from '@/components/Typography';
 import { categories } from '@/contents/categories';
 import Layout from '@/layouts/Layout';
+import { ApiReturn } from '@/types/api';
+import { Event } from '@/types/entities/event';
 
 export default function Home() {
-  useEffect(() => {
-    AOS.init();
-  }, []);
+  const events = useQuery<ApiReturn<Event[]>>(['/events']);
 
   return (
     <Layout withNavbar={true} withFooter={true}>
@@ -100,46 +97,22 @@ export default function Home() {
         </Typography>
 
         <div className='flex shrink-0 overflow-x-auto no-scrollbar gap-7 py-5'>
-          <EventCard
-            city='Bekasi'
-            province='Jawa Barat'
-            eventName='Festival Kota'
-            ticketPrice='50,000'
-            startdate='dd/mm/yyyy'
-            // starttime='00:00 - 24:00'
-            link='/events/detail/1'
-            className='hover:shadow-xl hover:scale-105 duration-150'
-          />
-          <EventCard
-            city='Bekasi'
-            province='Jawa Barat'
-            eventName='Festival Kota'
-            ticketPrice='50,000'
-            startdate='dd/mm/yyyy'
-            // starttime='00:00 - 24:00'
-            link='/events/detail/1'
-            className='hover:shadow-xl hover:scale-105 duration-150'
-          />
-          <EventCard
-            city='Bekasi'
-            province='Jawa Barat'
-            eventName='Festival Kota'
-            ticketPrice='50,000'
-            startdate='dd/mm/yyyy'
-            // starttime='00:00 - 24:00'
-            link='/events/detail/1'
-            className='hover:shadow-xl hover:scale-105 duration-150'
-          />
-          <EventCard
-            city='Bekasi'
-            province='Jawa Barat'
-            eventName='Festival Kota'
-            ticketPrice='50,000'
-            startdate='dd/mm/yyyy'
-            // starttime='00:00 - 24:00'
-            link='/events/detail/1'
-            className='hover:shadow-xl hover:scale-105 duration-150'
-          />
+          {events.data?.data
+            ?.filter((event) => event.verified === true) // Filter events where verified is true
+            .slice(0, 5) // Limit to a maximum of 5 events
+            .map((event) => (
+              <EventCard
+                key={event.id}
+                eventName={event.title}
+                startDate={event.start_date.substring(0, 10)}
+                endDate={event.end_date.substring(0, 10)}
+                startTime={event.start_date.substring(11, 16)}
+                endTime={event.end_date.substring(11, 16)}
+                link={`/events/detail/${event.id}`}
+                ticketPrice={event.price}
+                className='hover:shadow-xl hover:scale-105 duration-150'
+              />
+            ))}
           <IconCard
             Icon={FaChevronCircleRight}
             link='/events'

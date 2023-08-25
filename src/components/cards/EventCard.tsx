@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import { MouseEventHandler } from 'react';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import { AiOutlineClockCircle } from 'react-icons/ai';
-import { HiLocationMarker } from 'react-icons/hi';
 
 import Button from '@/components/buttons/Button';
 import Typography from '@/components/Typography';
@@ -22,25 +21,27 @@ type CardProps = {
   size?: keyof typeof CardSize;
   variant?: keyof typeof CardVariant;
   className?: string;
-  province?: string;
-  city?: string;
+
   eventName?: string;
-  startdate?: string;
-  starttime?: string;
-  ticketPrice?: string;
-  eventId?: string;
+  startDate?: string;
+  endDate?: string;
+  startTime?: string;
+  endTime?: string;
+  ticketPrice?: number;
+  eventId?: number;
   buttonText?: string;
+
   buttonOnClik?: MouseEventHandler;
   link?: string;
 };
 
 export default function EventCard({
   className,
-  province,
-  city,
   eventName,
-  startdate,
-  starttime,
+  startDate,
+  startTime,
+  endDate,
+  endTime,
   ticketPrice,
   size = 'base',
   buttonText,
@@ -62,16 +63,6 @@ export default function EventCard({
       onClick={() => link && router.push(link)}
     >
       <div>
-        {city && province && (
-          <Typography
-            className='text-cyan-600 my-1'
-            variant='p3'
-            weight='semibold'
-          >
-            <HiLocationMarker className='inline-block' /> {city}, {province}
-          </Typography>
-        )}
-
         <Typography variant='h5' color='cyan' className='my-1'>
           {eventName}
         </Typography>
@@ -81,7 +72,8 @@ export default function EventCard({
           variant='p3'
           weight='semibold'
         >
-          <AiOutlineCalendar className='inline-block' /> {startdate}
+          <AiOutlineCalendar className='inline-block' /> {startDate}{' '}
+          {endDate && ` - ${endDate}`}
         </Typography>
 
         <Typography
@@ -89,7 +81,8 @@ export default function EventCard({
           variant='p3'
           weight='semibold'
         >
-          <AiOutlineClockCircle className='inline-block' /> {starttime}
+          <AiOutlineClockCircle className='inline-block' /> {startTime}{' '}
+          {endTime && ` - ${endTime}`}
         </Typography>
       </div>
 
