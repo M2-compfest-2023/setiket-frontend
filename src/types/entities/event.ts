@@ -13,6 +13,8 @@ export type Event = {
   price: number;
   created_at: string;
   updated_at: string;
+  city: string;
+  province: string;
 };
 
 export type Category = {

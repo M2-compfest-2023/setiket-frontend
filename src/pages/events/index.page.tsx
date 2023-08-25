@@ -15,6 +15,7 @@ import Typography from '@/components/Typography';
 import Layout from '@/layouts/Layout';
 import api from '@/lib/api';
 import { ApiReturn } from '@/types/api';
+import { Event } from '@/types/entities/event';
 
 type SearchForm = {
   keyword: string;
@@ -60,26 +61,7 @@ export default function Events() {
       });
   };
 
-  const events = useQuery<
-    ApiReturn<
-      {
-        id: string;
-        title: string;
-        description: string;
-        start_date: string;
-        end_date: string;
-        ticket_total: string;
-        location: string;
-        category_id: string;
-        organizer_id: string;
-        verified: boolean;
-        city_id: string;
-        price: string;
-        created_at: string;
-        updated_at: string;
-      }[]
-    >
-  >(['/events']);
+  const events = useQuery<ApiReturn<Event[]>>(['/events']);
 
   return (
     <Layout withNavbar={true} withFooter={true}>
@@ -199,18 +181,21 @@ export default function Events() {
         </div>
 
         <div className='w-[80%] grid grid-cols-3 gap-x-3 gap-y-5 place-content-start'>
-          {events.data?.data?.map((event) => (
-            <EventCard
-              key={event.id}
-              city={event.city_id}
-              province={event.location}
-              eventName={event.title}
-              startdate={event.start_date.substring(0, 10)}
-              starttime={event.start_date.substring(11, 19)}
-              link={'/events/detail/'.concat(event.id)}
-              ticketPrice={event.price}
-            />
-          ))}
+          {events.data?.data
+            ?.filter((event) => event.verified === true) // Filter events where verified is true
+            .slice(0, 5) // Limit to a maximum of 5 events
+            .map((event) => (
+              <EventCard
+                key={event.id}
+                eventName={event.title}
+                startDate={event.start_date.substring(0, 10)}
+                endDate={event.end_date.substring(0, 10)}
+                startTime={event.start_date.substring(11, 16)}
+                endTime={event.end_date.substring(11, 16)}
+                link={`/events/detail/${event.id}`}
+                ticketPrice={event.price}
+              />
+            ))}
         </div>
       </div>
     </Layout>

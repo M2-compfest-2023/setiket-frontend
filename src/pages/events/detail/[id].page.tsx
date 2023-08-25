@@ -36,8 +36,8 @@ export default function Detail() {
   const eventProps = {
     eventName: eventItem?.title,
     eventCategory: category_name,
-    province: 'Province',
-    city: 'City',
+    province: eventItem?.province,
+    city: eventItem?.city,
     location: eventItem?.location,
     startDate: eventItem?.start_date.substring(0, 10),
     endDate: eventItem?.end_date.substring(0, 10),
