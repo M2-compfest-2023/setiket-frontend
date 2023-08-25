@@ -184,7 +184,7 @@ export default function Events() {
             eventName='Festival Kota'
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
+            // starttime='00:00 - 24:00'
             link='/events/detail/1'
           />
           <EventCard
@@ -193,7 +193,7 @@ export default function Events() {
             eventName='Festival Kota'
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
+            // starttime='00:00 - 24:00'
             link='/events/detail/1'
           />
           <EventCard
@@ -202,7 +202,7 @@ export default function Events() {
             eventName='Festival Kota'
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
+            // starttime='00:00 - 24:00'
             link='/events/detail/1'
           />
           <EventCard
@@ -211,7 +211,7 @@ export default function Events() {
             eventName='Festival Kota'
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
+            // starttime='00:00 - 24:00'
             link='/events/detail/1'
           />
           <EventCard
@@ -220,7 +220,7 @@ export default function Events() {
             eventName='Festival Kota'
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
+            // starttime='00:00 - 24:00'
             link='/events/detail/1'
           />
           <EventCard
@@ -229,7 +229,7 @@ export default function Events() {
             eventName='Festival Kota'
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
+            // starttime='00:00 - 24:00'
             link='/events/detail/1'
           />
           <EventCard
@@ -238,7 +238,7 @@ export default function Events() {
             eventName='Festival Kota'
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
+            // starttime='00:00 - 24:00'
             link='/events/detail/1'
           />
           <EventCard
@@ -247,7 +247,7 @@ export default function Events() {
             eventName='Festival Kota'
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
+            // starttime='00:00 - 24:00'
             link='/events/detail/1'
           />
           <EventCard
@@ -256,7 +256,7 @@ export default function Events() {
             eventName='Festival Kota'
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
+            // starttime='00:00 - 24:00'
             link='/events/detail/1'
           />
           <EventCard
@@ -265,7 +265,7 @@ export default function Events() {
             eventName='Festival Kota'
             ticketPrice='50,000'
             startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
+            // starttime='00:00 - 24:00'
             link='/events/detail/1'
           />
         </div>

@@ -27,6 +27,7 @@ type AddEventForm = {
   description: string;
   ticket_total: number;
   location: string;
+  price: number;
 };
 
 export default function AddEvent() {
@@ -70,6 +71,8 @@ export default function AddEvent() {
   const onSubmit = (data: AddEventForm) => {
     const y = parseInt(data.ticket_total.toString());
     data.ticket_total = y;
+    const x = parseInt(data.price.toString());
+    data.price = x;
     dialog({
       title: 'Pastikan Informasi yang Anda Isi Benar',
       description:
@@ -193,6 +196,8 @@ export default function AddEvent() {
                 type='number'
                 required
               />
+
+              <Input id='price' label='Ticket Price' type='number' required />
 
               <Button type='submit' isLoading={isLoading}>
                 Submit
