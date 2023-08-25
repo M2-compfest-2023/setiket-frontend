@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { MouseEventHandler } from 'react';
-import { AiOutlineCalendar, AiOutlineClockCircle } from 'react-icons/ai';
+import { AiOutlineCalendar } from 'react-icons/ai';
 import { HiLocationMarker } from 'react-icons/hi';
 
 import Button from '@/components/buttons/Button';
@@ -25,7 +25,7 @@ type CardProps = {
   city?: string;
   eventName: string;
   startdate: string;
-  starttime: string;
+  // starttime: string;
   ticketPrice?: string;
   eventId?: string;
   buttonText?: string;
@@ -39,7 +39,7 @@ export default function EventCard({
   city,
   eventName,
   startdate,
-  starttime,
+  // starttime,
   ticketPrice,
   size = 'base',
   buttonText,
@@ -88,7 +88,7 @@ export default function EventCard({
           variant='p3'
           weight='semibold'
         >
-          <AiOutlineClockCircle className='inline-block' /> {starttime}
+          {/* <AiOutlineClockCircle className='inline-block' /> {starttime} */}
         </Typography>
       </div>
 

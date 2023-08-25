@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { FormProvider, useForm } from 'react-hook-form';
 import { BsFillPlusCircleFill } from 'react-icons/bs';
@@ -7,9 +8,25 @@ import EventCard from '@/components/cards/EventCard';
 import IconCard from '@/components/cards/IconCard';
 import Input from '@/components/form/Input';
 import Layout from '@/layouts/Layout';
+import { ApiReturn } from '@/types/api';
 
 type SearchForm = {
   keyword: string;
+};
+
+type MyEvent = {
+  id: number;
+  title: string;
+  description: string;
+  start_date: string;
+  end_date: string;
+  ticket_total: number;
+  location: string;
+  category_id: number;
+  organizer_id: number;
+  verified: boolean;
+  city_id: number;
+  price: number;
 };
 
 export default function MyEvents() {
@@ -18,6 +35,8 @@ export default function MyEvents() {
   const searchMethod = useForm<SearchForm>({
     mode: 'onTouched',
   });
+
+  const myEvents = useQuery<ApiReturn<MyEvent[]>>(['/events/user/me']);
 
   return (
     <Layout withNavbar={true} withFooter={true}>
@@ -38,33 +57,17 @@ export default function MyEvents() {
           className='px-4 sm:px-10 grid grid-cols-4 gap-x-3 gap-y-5 place-content-start'
           id='events'
         >
-          <EventCard
-            eventName='Festival Kota'
-            startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
-            eventId='1'
-            size='sm'
-            buttonText='See detail'
-            buttonOnClik={() => router.push('/events/detail/'.concat('1'))}
-          />
-          <EventCard
-            eventName='Festival Kota'
-            startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
-            eventId='1'
-            size='sm'
-            buttonText='See detail'
-            buttonOnClik={() => router.push('/events/detail/'.concat('1'))}
-          />
-          <EventCard
-            eventName='Festival Kota'
-            startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
-            eventId='1'
-            size='sm'
-            buttonText='See detail'
-            buttonOnClik={() => router.push('/events/detail/'.concat('1'))}
-          />
+          {myEvents.data?.data.map((event) => (
+            <EventCard
+              key={event.id}
+              eventName={event.title}
+              startdate={event.start_date}
+              eventId='1'
+              size='sm'
+              buttonText='See detail'
+              buttonOnClik={() => router.push('/events/detail/'.concat('1'))}
+            />
+          ))}
 
           <IconCard
             Icon={BsFillPlusCircleFill}

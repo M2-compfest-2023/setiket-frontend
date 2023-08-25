@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { BsSearch, BsXCircleFill } from 'react-icons/bs';
@@ -7,9 +8,27 @@ import Input from '@/components/form/Input';
 import EventDetail from '@/layouts/EventDetail';
 import Layout from '@/layouts/Layout';
 import Modal from '@/layouts/Modal';
+import { ApiReturn } from '@/types/api';
 
 type SearchForm = {
   keyword: string;
+};
+
+type MyEvent = {
+  id: number;
+  title: string;
+  description: string;
+  start_date: string;
+  end_date: string;
+  ticket_total: number;
+  location: string;
+  category_id: number;
+  organizer_id: number;
+  verified: boolean;
+  city_id: number;
+  price: number;
+  created_at: string;
+  updated_at: string;
 };
 
 export default function MyTickets() {
@@ -18,32 +37,27 @@ export default function MyTickets() {
     mode: 'onTouched',
   });
 
+  const myEvents = useQuery<ApiReturn<MyEvent[]>>(['/events/user/me']);
+
   const [isVisible, setIsVisible] = useState(false);
   const [eventContent, setEventContent] = useState({});
 
   // Function to toggle visibility and fill detail event content
-  const toggleVisibility = (eventName?: string) => {
+  const toggleVisibility = (eventName?: MyEvent) => {
     setEventContent({
-      eventName: eventName,
-      eventCategory: 'Exhibition',
-      province: 'Province',
-      city: 'City',
-      eventOrganization: 'Event Organization',
-      startDate: 'dd/mm/yyyy',
-      endDate: 'dd/mm/yyyy',
+      eventName: eventName?.title,
+      eventCategory: eventName?.category_id,
+      province: eventName?.city_id,
+      city: eventName?.city_id,
+      eventOrganization: eventName?.organizer_id,
+      startDate: eventName?.start_date,
+      endDate: eventName?.end_date,
       startTime: '00:00',
       endTime: '24:00',
-      description: `Experience Van Gogh is art like never before at the immersive show in
-      Bangkok. State-of-the-art technology brings his masterpieces to life,
-      offering a captivating journey through the mind of a legendary artist.
-      Explore Van Goh is work and life from 1880 to 1890, and experience his
-      time in Arles, Saint Rémy, and Auvers-sur-Oise. View his masterpieces
-      in hyper-fine detail, with special attention to color and technique.
-      Discover the sources of his inspiration through augmented photographs
-      and videos`,
-      purchaseTime: 'dd/mm/yyyy',
-      totalTickets: 3,
-      totalPrice: '150000',
+      description: eventName?.description,
+      purchaseTime: eventName?.created_at,
+      totalTickets: eventName?.ticket_total,
+      totalPrice: eventName?.price,
     });
     setIsVisible(!isVisible);
   };
@@ -67,33 +81,17 @@ export default function MyTickets() {
           className='px-4 sm:px-10 grid grid-cols-4 gap-x-3 gap-y-5 place-content-start'
           id='events'
         >
-          <EventCard
-            eventName='Festival Kota 1'
-            startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
-            eventId='1'
-            size='sm'
-            buttonText='See detail'
-            buttonOnClik={() => toggleVisibility('Festival Kota 1')}
-          />
-          <EventCard
-            eventName='Festival Kota 2'
-            startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
-            eventId='1'
-            size='sm'
-            buttonText='See detail'
-            buttonOnClik={() => toggleVisibility('Festival Kota 2')}
-          />
-          <EventCard
-            eventName='Festival Kota 3'
-            startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
-            eventId='1'
-            size='sm'
-            buttonText='See detail'
-            buttonOnClik={() => toggleVisibility('Festival Kota 3')}
-          />
+          {myEvents.data?.data.map((event) => (
+            <EventCard
+              key={event.id}
+              eventName={event.title}
+              startdate={event.start_date}
+              eventId='1'
+              size='sm'
+              buttonText='See detail'
+              buttonOnClik={() => toggleVisibility(event)}
+            />
+          ))}
         </div>
       </div>
 
