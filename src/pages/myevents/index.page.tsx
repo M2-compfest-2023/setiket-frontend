@@ -61,8 +61,8 @@ export default function MyEvents() {
             <EventCard
               key={event.id}
               eventName={event.title}
-              startdate={event.start_date}
-              eventId='1'
+              startDate={event.start_date}
+              eventId={event.id}
               size='sm'
               buttonText='See detail'
               buttonOnClik={() => router.push('/events/detail/'.concat('1'))}
