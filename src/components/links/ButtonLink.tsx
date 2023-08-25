@@ -77,7 +77,8 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
               'hover:from-primarybutton-300 hover:to-primarybutton-400',
               'active:from-primarybutton-500 active:to-primarybutton-600',
               'shadow-p-100 hover:shadow-p-200 disabled:hover:shadow-p-100',
-              'disabled:from-primarybutton-500 disabled:to-primarybutton-600 disabled:brightness-90 ',
+              'disabled:from-primarybutton-500 disabled:to-primarybutton-600 disabled:brightness-90',
+              'text-white font-semibold',
             ],
             variant === 'secondary' && [
               'bg-gradient-to-b from-secondarybutton-100 to-secondarybutton-200',
