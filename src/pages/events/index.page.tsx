@@ -1,3 +1,5 @@
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { BsSearch } from 'react-icons/bs';
 import { FaFilter } from 'react-icons/fa';
@@ -10,8 +12,9 @@ import Input from '@/components/form/Input';
 import SearchableSelectInput from '@/components/form/SearchableSelectInput';
 import SEO from '@/components/SEO';
 import Typography from '@/components/Typography';
-import { categories } from '@/contents/categories';
 import Layout from '@/layouts/Layout';
+import api from '@/lib/api';
+import { ApiReturn } from '@/types/api';
 
 type SearchForm = {
   keyword: string;
@@ -35,41 +38,48 @@ export default function Events() {
     mode: 'onTouched',
   });
 
-  // location
-  const provinces = [
-    { value: 'dki-jakarta', label: 'DKI Jakarta' },
-    { value: 'jawa-barat', label: 'Jawa Barat' },
-    { value: 'jawa-timur', label: 'Jawa Timur' },
-    { value: 'jawa-tengah ', label: 'Jawa Barat' },
-  ];
-  // const cities = [
-  //   {
-  //     province: 'jawa-barat',
-  //     cities: [
-  //       { value: 'bekasi', label: 'Bekasi' },
-  //       { value: 'depok', label: 'Depok' },
-  //       { value: 'bogor', label: 'Bogor' },
-  //     ],
-  //   },
-  //   {
-  //     province: 'dki-jakarta',
-  //     cities: [
-  //       { value: 'jakarta-barat', label: 'Jakarta Barat' },
-  //       { value: 'jakarta-timur', label: 'Jakarta Timur' },
-  //       { value: 'jakarta-selatan', label: 'Jakarta Selatan' },
-  //     ],
-  //   },
-  // ];
+  const category = useQuery<ApiReturn<{ id: string; category_name: string }[]>>(
+    ['/category']
+  );
 
-  const cities_in_selected_province = [{ value: '', label: '' }];
+  const province = useQuery<ApiReturn<{ id: string; name: string }[]>>([
+    '/location/province',
+  ]);
 
-  // const [show, setShow] = useState(false);
-  // const handleChange = (selectedDate: Date) => {
-  //   console.log(selectedDate);
-  // };
-  // const handleClose = (state: boolean) => {
-  //   setShow(state);
-  // };
+  const [kabupaten, setKabupaten] = useState<
+    { id: string; name: string }[] | undefined
+  >(undefined);
+
+  const getKabupaten = (provinsiId: string) => {
+    api
+      .get<ApiReturn<{ id: string; name: string }[]>>(
+        `/location/city/${provinsiId}`
+      )
+      .then((res) => {
+        setKabupaten(res.data.data);
+      });
+  };
+
+  const events = useQuery<
+    ApiReturn<
+      {
+        id: string;
+        title: string;
+        description: string;
+        start_date: string;
+        end_date: string;
+        ticket_total: string;
+        location: string;
+        category_id: string;
+        organizer_id: string;
+        verified: boolean;
+        city_id: string;
+        price: string;
+        created_at: string;
+        updated_at: string;
+      }[]
+    >
+  >(['/events']);
 
   return (
     <Layout withNavbar={true} withFooter={true}>
@@ -112,14 +122,25 @@ export default function Events() {
               id='province'
               label='Province'
               placeholder='Select province'
-              options={provinces}
+              handleChange={getKabupaten}
+              options={
+                province.data?.data?.map((prov) => ({
+                  value: prov.id,
+                  label: prov.name,
+                })) || []
+              }
               labelClassName='text-cyan-600'
             />
             <SearchableSelectInput
               id='city'
               label='City'
               placeholder='Select city'
-              options={cities_in_selected_province}
+              options={
+                kabupaten?.map((kab) => ({
+                  value: kab.id,
+                  label: kab.name,
+                })) || []
+              }
               labelClassName='text-cyan-600'
             />
 
@@ -134,13 +155,13 @@ export default function Events() {
               Category
             </Typography>
 
-            {categories.map((category) => (
+            {category.data?.data?.map((cat) => (
               <Checkbox
-                key={category.name}
-                label={category.name}
+                key={cat.category_name}
+                label={cat.category_name}
                 name='category'
                 size='sm'
-                value={category.name}
+                value={cat.category_name}
                 labelClassName='text-cyan-800'
               />
             ))}
@@ -178,87 +199,19 @@ export default function Events() {
         </div>
 
         <div className='w-[80%] grid grid-cols-3 gap-x-3 gap-y-5 place-content-start'>
-          <EventCard
-            city='Bekasi'
-            province='Jawa Barat'
-            eventName='Festival Kota'
-            ticketPrice='50,000'
-            startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
-            link='/events/detail/1'
-          />
-          <EventCard
-            city='Bekasi'
-            province='Jawa Barat'
-            eventName='Festival Kota'
-            ticketPrice='50,000'
-            startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
-            link='/events/detail/1'
-          />
-          <EventCard
-            city='Bekasi'
-            province='Jawa Barat'
-            eventName='Festival Kota'
-            ticketPrice='50,000'
-            startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
-            link='/events/detail/1'
-          />
-          <EventCard
-            city='Bekasi'
-            province='Jawa Barat'
-            eventName='Festival Kota'
-            ticketPrice='50,000'
-            startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
-            link='/events/detail/1'
-          />
-          <EventCard
-            city='Bekasi'
-            province='Jawa Barat'
-            eventName='Festival Kota'
-            ticketPrice='50,000'
-            startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
-            link='/events/detail/1'
-          />
-          <EventCard
-            city='Bekasi'
-            province='Jawa Barat'
-            eventName='Festival Kota'
-            ticketPrice='50,000'
-            startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
-            link='/events/detail/1'
-          />
-          <EventCard
-            city='Bekasi'
-            province='Jawa Barat'
-            eventName='Festival Kota'
-            ticketPrice='50,000'
-            startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
-            link='/events/detail/1'
-          />
-          <EventCard
-            city='Bekasi'
-            province='Jawa Barat'
-            eventName='Festival Kota'
-            ticketPrice='50,000'
-            startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
-            link='/events/detail/1'
-          />
-          <EventCard
-            city='Bekasi'
-            province='Jawa Barat'
-            eventName='Festival Kota'
-            ticketPrice='50,000'
-            startdate='dd/mm/yyyy'
-            starttime='00:00 - 24:00'
-            link='/events/detail/1'
-          />
+          {events.data?.data?.map((event) => (
+            <EventCard
+              key={event.id}
+              city={event.city_id}
+              province={event.location}
+              eventName={event.title}
+              startdate={event.start_date.substring(0, 10)}
+              starttime={event.start_date.substring(11, 19)}
+              link={'/events/detail/'.concat(event.id)}
+              ticketPrice={event.price}
+            />
+          ))}
+
           <EventCard
             city='Bekasi'
             province='Jawa Barat'

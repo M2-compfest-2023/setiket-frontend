@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
@@ -8,9 +9,33 @@ import Typography from '@/components/Typography';
 import EventDetail from '@/layouts/EventDetail';
 import Layout from '@/layouts/Layout';
 import Modal from '@/layouts/Modal';
+import { ApiReturn } from '@/types/api';
 
 export default function Detail() {
   const router = useRouter();
+
+  const eventId = router.query.id as string;
+
+  const event = useQuery<
+    ApiReturn<
+      {
+        id: string;
+        title: string;
+        description: string;
+        start_date: string;
+        end_date: string;
+        ticket_total: string;
+        location: string;
+        category_id: string;
+        organizer_id: string;
+        verified: string;
+        city_id: string;
+        price: string;
+        created_at: string;
+        updated_at: string;
+      }[]
+    >
+  >(['/events/'.concat(eventId)]);
 
   const [ticketAmount, setTicketAmount] = useState(1);
   const [isVisible, setIsVisible] = useState(false);
