@@ -3,6 +3,7 @@ import { IconType } from 'react-icons';
 import { BsFillCalendarFill } from 'react-icons/bs';
 import { FaClock, FaRegMap } from 'react-icons/fa';
 import { IoIosPeople } from 'react-icons/io';
+import { MdLocationPin } from 'react-icons/md';
 
 import IconButton from '@/components/buttons/IconButton';
 import Chips from '@/components/Chips';
@@ -16,6 +17,7 @@ export type CardProps = {
     province?: string;
     city?: string;
     eventOrganization?: string;
+    location?: string;
     startDate?: string;
     endDate?: string;
     startTime?: string;
@@ -79,11 +81,16 @@ export default function EventDetail({
             {content.eventOrganization}
           </Typography>
         )}
+        {content.location && (
+          <Typography variant='p2'>
+            <MdLocationPin className='inline-block mr-3' /> {content.location}
+          </Typography>
+        )}
         {content.startDate && (
           <Typography variant='p2'>
             <BsFillCalendarFill className='inline-block mr-3' />{' '}
             {content.startDate}
-            {content.endDate && ` - ${content.endDate}`}
+            {content.endDate && ` until ${content.endDate}`}
           </Typography>
         )}
         {content.startTime && (

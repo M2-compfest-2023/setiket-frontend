@@ -9,16 +9,19 @@ type Props = {
   hidden?: boolean;
   onMouseEnter?: MouseEventHandler;
   onMouseLeave?: MouseEventHandler;
+  handleLogOutNavbar?: (() => void) | undefined;
 } & React.ComponentPropsWithRef<'div'>;
 
 export default function Popover({
   className,
   onMouseLeave,
   onMouseEnter,
+  handleLogOutNavbar,
 }: Props) {
   const logout = useAuthStore.useLogout();
   const router = useRouter();
   const handleLogout = () => {
+    handleLogOutNavbar && handleLogOutNavbar();
     logout();
     router.replace('/');
   };

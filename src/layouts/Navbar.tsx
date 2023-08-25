@@ -9,11 +9,13 @@ import IconButton from '@/components/buttons/IconButton';
 import ButtonLink from '@/components/links/ButtonLink';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import NextImage from '@/components/NextImage';
+import { showToast, SUCCESS_TOAST } from '@/components/Toast';
 import Typography from '@/components/Typography';
 import { categories } from '@/contents/categories';
 import Popover from '@/layouts/dashboard/PopoverMenu';
 import clsxm from '@/lib/clsxm';
 import { getToken } from '@/lib/cookies';
+import { removeToken } from '@/lib/cookies';
 import useAuthStore from '@/store/useAuthStore';
 
 export default function Navbar() {
@@ -30,11 +32,11 @@ export default function Navbar() {
     }
   }, [token]);
 
-  // const handleLogout = () => {
-  //   removeToken();
-  //   setIsLogin(false);
-  //   showToast("Sampai jumpa lagi!, semoga harimu menyenangkan", SUCCESS_TOAST);
-  // };
+  const handleLogout = () => {
+    removeToken();
+    setIsLogin(false);
+    showToast('Sampai jumpa lagi!, semoga harimu menyenangkan', SUCCESS_TOAST);
+  };
 
   const toggleShowNav = () => {
     setIsOpen(!isOpen);
@@ -175,11 +177,12 @@ export default function Navbar() {
                   />
                 </>
               )}
-              {isOpenPopover && (
+              {isOpenPopover && isLogin && (
                 <div className='absolute z-[110] end-7'>
                   <Popover
                     onMouseEnter={() => setisOpenPopover(true)}
                     onMouseLeave={() => setisOpenPopover(false)}
+                    handleLogOutNavbar={handleLogout}
                   />
                 </div>
               )}

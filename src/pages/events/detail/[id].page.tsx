@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
@@ -8,26 +9,41 @@ import Typography from '@/components/Typography';
 import EventDetail from '@/layouts/EventDetail';
 import Layout from '@/layouts/Layout';
 import Modal from '@/layouts/Modal';
+import { getToken } from '@/lib/cookies';
+import useAuthStore from '@/store/useAuthStore';
+import { ApiReturn } from '@/types/api';
+import { Category, Event } from '@/types/entities/event';
 
 export default function Detail() {
+  const token = getToken();
   const router = useRouter();
+  const user = useAuthStore.useUser();
+
+  const eventId = router.query.id as string;
+  const events = useQuery<ApiReturn<Event>>(['/events/'.concat(eventId)]);
+  const categories = useQuery<ApiReturn<Category[]>>(['/category/']);
+
+  const eventItem = events.data?.data;
+  const categoryItem = categories.data?.data?.find(
+    (category) => category.id == eventItem?.category_id
+  );
+  const category_name = categoryItem ? categoryItem.category_name : undefined;
 
   const [ticketAmount, setTicketAmount] = useState(1);
   const [isVisible, setIsVisible] = useState(false);
 
-  const ticketPrice = 150000;
+  const ticketPrice = eventItem?.price;
   const eventProps = {
-    eventName: 'Van Gogh Alive Immersive Show in Bangkok',
-    eventCategory: 'Exhibition',
+    eventName: eventItem?.title,
+    eventCategory: category_name,
     province: 'Province',
     city: 'City',
-    eventOrganization: 'Event Organization',
-    startDate: 'dd/mm/yyyy',
-    endDate: 'dd/mm/yyyy',
-    startTime: '00:00',
-    endTime: '24:00',
-    description:
-      'Experience Van Gogh is art like never before at the immersive show in Bangkok. State-of-the-art technology brings his masterpieces to life, offering a captivating journey through the mind of a legendary artist. Explore Van Goh is work and life from 1880 to 1890, and experience his time in Arles, Saint Rémy, and Auvers-sur-Oise. View his masterpieces in hyper-fine detail, with special attention to color and technique. Discover the sources of his inspiration through augmented photographs and videos',
+    location: eventItem?.location,
+    startDate: eventItem?.start_date.substring(0, 10),
+    endDate: eventItem?.end_date.substring(0, 10),
+    startTime: eventItem?.start_date.substring(11, 16),
+    endTime: eventItem?.end_date.substring(11, 16),
+    description: eventItem?.description,
   };
 
   return (
@@ -38,73 +54,76 @@ export default function Detail() {
         </div>
 
         {/* role customer */}
-        <div className='flex flex-col w-[30%] items-center bg-white rounded-2xl shadow-xl h-[200px] p-5'>
-          <Typography variant='b2' weight='semibold' className='mx-auto'>
-            Buy Ticket
-          </Typography>
-          <div className='flex items-center gap-3 w-full justify-center my-4'>
-            <IconButton
-              variant='secondary'
-              size='base'
-              className='rounded-full border-0'
-              iconClassName='font-bold text-white'
-              icon={AiOutlineMinus}
-              onClick={() => setTicketAmount(ticketAmount - 1)}
-              disabled={ticketAmount <= 1}
-            />
-            <Typography variant='p1' color='cyan'>
-              {ticketAmount}
+        {(!token || user?.role === 'CUSTOMER') && (
+          <div className='flex flex-col w-[30%] items-center bg-white rounded-2xl shadow-xl h-[200px] p-5'>
+            <Typography variant='b2' weight='semibold' className='mx-auto'>
+              Buy Ticket
             </Typography>
-            <IconButton
-              variant='secondary'
-              size='base'
-              className='rounded-full border-0'
-              iconClassName='font-bold text-white'
-              icon={AiOutlinePlus}
-              onClick={() => setTicketAmount(ticketAmount + 1)}
-            />
+            <div className='flex items-center gap-3 w-full justify-center my-4'>
+              <IconButton
+                variant='secondary'
+                size='base'
+                className='rounded-full border-0'
+                iconClassName='font-bold text-white'
+                icon={AiOutlineMinus}
+                onClick={() => setTicketAmount(ticketAmount - 1)}
+                disabled={ticketAmount <= 1}
+              />
+              <Typography variant='p1' color='cyan'>
+                {ticketAmount}
+              </Typography>
+              <IconButton
+                variant='secondary'
+                size='base'
+                className='rounded-full border-0'
+                iconClassName='font-bold text-white'
+                icon={AiOutlinePlus}
+                onClick={() => setTicketAmount(ticketAmount + 1)}
+              />
+            </div>
+            <div className='flex items-center gap-3 w-full justify-between my-4'>
+              <Typography variant='b1' color='cyan'>
+                Rp {ticketPrice}
+              </Typography>
+              <Button onClick={() => setIsVisible(!isVisible)}>Book Now</Button>
+            </div>
           </div>
-          <div className='flex items-center gap-3 w-full justify-between my-4'>
-            <Typography variant='b1' color='cyan'>
-              Rp {ticketPrice}
-            </Typography>
-            <Button onClick={() => setIsVisible(!isVisible)}>Book Now</Button>
-          </div>
-        </div>
+        )}
 
         {/* role EVENTORGANIZER */}
-        <div className='flex flex-col gap-3 w-[30%] items-center justify-center bg-white rounded-2xl shadow-xl h-[160px] p-5'>
-          <Typography variant='b2' weight='semibold' className='mx-auto'>
-            Sales Data
-          </Typography>
-          <Typography
-            variant='p2'
-            weight='semibold'
-            className='mx-auto'
-            color='cyan'
-          >
-            50 tickets sold
-          </Typography>
-          <Button onClick={() => router.push('/events/salesData/1')}>
-            See detail
-          </Button>
-        </div>
+        {user?.role === 'EVENTORGANIZER' && (
+          <div className='flex flex-col gap-3 w-[30%] items-center justify-center bg-white rounded-2xl shadow-xl h-[160px] p-5'>
+            <Typography variant='b2' weight='semibold' className='mx-auto'>
+              Sales Data
+            </Typography>
+            <Typography
+              variant='p2'
+              weight='semibold'
+              className='mx-auto'
+              color='cyan'
+            >
+              50 tickets sold
+            </Typography>
+            <Button onClick={() => router.push('/events/salesData/1')}>
+              See detail
+            </Button>
+          </div>
+        )}
 
         {/* role admin */}
-        <div className='flex flex-col w-[30%] items-center justify-center bg-white rounded-2xl shadow-xl h-[120px] p-5'>
-          <Typography variant='p2' weight='semibold' className='mx-auto'>
-            Event Approval
-          </Typography>
-          <div className='flex items-center gap-3 w-full justify-center my-4'>
-            <Button size='sm' variant='secondary'>
-              Reject
-            </Button>
-            <Button size='sm'>Approve</Button>
+        {user?.role === 'ADMIN' && (
+          <div className='flex flex-col w-[30%] items-center justify-center bg-white rounded-2xl shadow-xl h-[120px] p-5'>
+            <Typography variant='p2' weight='semibold' className='mx-auto'>
+              Event Approval
+            </Typography>
+            <div className='flex items-center gap-3 w-full justify-center my-4'>
+              <Button size='sm' variant='secondary'>
+                Reject
+              </Button>
+              <Button size='sm'>Approve</Button>
+            </div>
           </div>
-          {/* <Button size='sm' variant='primary' disabled>
-                Approved
-              </Button> */}
-        </div>
+        )}
 
         <div className='relative z-[110]'>
           {isVisible && (

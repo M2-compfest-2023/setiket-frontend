@@ -9,26 +9,10 @@ import EventDetail from '@/layouts/EventDetail';
 import Layout from '@/layouts/Layout';
 import Modal from '@/layouts/Modal';
 import { ApiReturn } from '@/types/api';
+import { Event } from '@/types/entities/event';
 
 type SearchForm = {
   keyword: string;
-};
-
-type MyEvent = {
-  id: number;
-  title: string;
-  description: string;
-  start_date: string;
-  end_date: string;
-  ticket_total: number;
-  location: string;
-  category_id: number;
-  organizer_id: number;
-  verified: boolean;
-  city_id: number;
-  price: number;
-  created_at: string;
-  updated_at: string;
 };
 
 export default function MyTickets() {
@@ -37,23 +21,22 @@ export default function MyTickets() {
     mode: 'onTouched',
   });
 
-  const myEvents = useQuery<ApiReturn<MyEvent[]>>(['/events/user/me']);
+  const myEvents = useQuery<ApiReturn<Event[]>>(['/events/user/me']);
 
   const [isVisible, setIsVisible] = useState(false);
   const [eventContent, setEventContent] = useState({});
 
   // Function to toggle visibility and fill detail event content
-  const toggleVisibility = (eventName?: MyEvent) => {
+  const toggleVisibility = (eventName?: Event) => {
     setEventContent({
       eventName: eventName?.title,
       eventCategory: eventName?.category_id,
       province: eventName?.city_id,
       city: eventName?.city_id,
-      eventOrganization: eventName?.organizer_id,
-      startDate: eventName?.start_date,
-      endDate: eventName?.end_date,
-      startTime: '00:00',
-      endTime: '24:00',
+      startDate: eventName?.start_date.substring(0, 10),
+      endDate: eventName?.end_date.substring(0, 10),
+      startTime: eventName?.start_date.substring(11, 16),
+      endTime: eventName?.end_date.substring(11, 16),
       description: eventName?.description,
       purchaseTime: eventName?.created_at,
       totalTickets: eventName?.ticket_total,
