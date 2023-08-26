@@ -4,7 +4,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { BsSearch } from 'react-icons/bs';
 import { FaFilter } from 'react-icons/fa';
 
-import Button from '@/components/buttons/Button';
 import EventCard from '@/components/cards/EventCard';
 import Checkbox from '@/components/form/Checkbox';
 import Datepicker from '@/components/form/Datepicker';
@@ -34,6 +33,8 @@ export default function Events() {
   const searchMethod = useForm<SearchForm>({
     mode: 'onTouched',
   });
+
+  const searchKeyword = searchMethod.watch().keyword;
 
   const filterMethod = useForm<FilterForm>({
     mode: 'onChange',
@@ -184,10 +185,6 @@ export default function Events() {
             </div>
 
             <hr className='h-px my-3 border-0 bg-gray-300' />
-
-            <Button size='sm' variant='danger' className='w-full'>
-              Clear all
-            </Button>
           </FormProvider>
         </div>
 
@@ -195,19 +192,24 @@ export default function Events() {
           {events.data?.data
             ?.filter((event) => event.verified === true) // Filter events where verified is true
             // .slice(0, 10) // Limit to a maximum of 5 events
-            .map((event) => (
-              <EventCard
-                key={event.id}
-                eventName={event.title}
-                startDate={event.start_date.substring(0, 10)}
-                endDate={event.end_date.substring(0, 10)}
-                startTime={event.start_date.substring(11, 16)}
-                endTime={event.end_date.substring(11, 16)}
-                verified={event.verified}
-                link={`/events/detail/${event.id}`}
-                ticketPrice={event.price}
-              />
-            ))}
+            .map(
+              (event) =>
+                event.title
+                  ?.toLowerCase()
+                  .includes(searchKeyword?.toLowerCase()) && (
+                  <EventCard
+                    key={event.id}
+                    eventName={event.title}
+                    startDate={event.start_date.substring(0, 10)}
+                    endDate={event.end_date.substring(0, 10)}
+                    startTime={event.start_date.substring(11, 16)}
+                    endTime={event.end_date.substring(11, 16)}
+                    verified={event.verified}
+                    link={`/events/detail/${event.id}`}
+                    ticketPrice={event.price}
+                  />
+                )
+            )}
         </div>
       </div>
     </Layout>
