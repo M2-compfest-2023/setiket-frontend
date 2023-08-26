@@ -8,18 +8,18 @@ export type Category = {
 
 export const categories: Category[] = [
   {
-    name: 'Concert & Show',
+    name: 'Concert',
     href: '/a',
     color: '',
     description: '',
     image: '/images/categories/concert-n-show.png',
   },
   {
-    name: 'Seminar',
+    name: 'Conference',
     href: '/b',
     color: '',
     description: '',
-    image: '/images/categories/seminar.png',
+    image: '/images/categories/conference.png',
   },
   {
     name: 'Workshop',
@@ -41,12 +41,5 @@ export const categories: Category[] = [
     color: '',
     description: '',
     image: '/images/categories/sports-n-competition.png',
-  },
-  {
-    name: 'Festival',
-    href: '/f',
-    color: '',
-    description: '',
-    image: '/images/categories/festival.png',
   },
 ];
