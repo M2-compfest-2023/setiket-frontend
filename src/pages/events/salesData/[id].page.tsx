@@ -1,22 +1,30 @@
+import { useQuery } from '@tanstack/react-query';
 import { ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/router';
-import { BiMoneyWithdraw } from 'react-icons/bi';
-import { BsGraphUp, BsTicketPerforated } from 'react-icons/bs';
+import { BsGraphUp } from 'react-icons/bs';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 
 import Button from '@/components/buttons/Button';
 import Table from '@/components/table/Table';
 import Typography from '@/components/Typography';
 import Layout from '@/layouts/Layout';
+import { ApiReturn } from '@/types/api';
 
 type SalesDataColumn = {
+  id: number;
   customer: string;
-  purchaseTime: string;
-  purchaseAmount: string;
+  quantity: number;
+  created_at: string;
 };
 
 export default function SalesData() {
   const router = useRouter();
+
+  const eventId = router.query.id as string;
+
+  const eventSales = useQuery<ApiReturn<SalesDataColumn[]>>([
+    `/events/${eventId}/sales`,
+  ]);
 
   const columns: ColumnDef<SalesDataColumn>[] = [
     {
@@ -26,34 +34,16 @@ export default function SalesData() {
       size: 50,
     },
     {
-      id: 'purchaseTime',
-      accessorKey: 'purchaseTime',
+      id: 'created_at',
+      accessorKey: 'created_at',
       header: 'Purchase Time',
       size: 40,
     },
     {
-      id: 'purchaseAmount',
-      accessorKey: 'purchaseAmount',
+      id: 'quantity',
+      accessorKey: 'quantity',
       header: 'Purchase Amount',
       size: 10,
-    },
-  ];
-
-  const data = [
-    {
-      customer: 'fachryanwar',
-      purchaseTime: 'dd/mm/yyyy - 12:00',
-      purchaseAmount: '5 Tickets',
-    },
-    {
-      customer: 'fachryanwar',
-      purchaseTime: 'dd/mm/yyyy - 12:00',
-      purchaseAmount: '5 Tickets',
-    },
-    {
-      customer: 'fachryanwar',
-      purchaseTime: 'dd/mm/yyyy - 12:00',
-      purchaseAmount: '5 Tickets',
     },
   ];
 
@@ -81,7 +71,7 @@ export default function SalesData() {
           </Typography>
           <hr className='h-px my-3 border-0 bg-white' />
 
-          <div className='flex gap-5'>
+          {/* <div className='flex gap-5'>
             <Typography
               variant='p2'
               color='white'
@@ -96,10 +86,10 @@ export default function SalesData() {
             >
               <BiMoneyWithdraw className='mr-3' /> Rp 50,000,000
             </Typography>
-          </div>
+          </div> */}
 
           <Table
-            data={data}
+            data={eventSales.data?.data || []}
             columns={columns}
             withFilter
             className='text-center text-typo-primary font-primary'

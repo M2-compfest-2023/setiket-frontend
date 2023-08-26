@@ -74,6 +74,7 @@ export default function MyTickets() {
                   eventName={event.title}
                   startDate={event.start_date}
                   eventId={event.id}
+                  verified={event.verified}
                   size='sm'
                   buttonText='See detail'
                   buttonOnClik={() => toggleVisibility(event)}

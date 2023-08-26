@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { MouseEventHandler } from 'react';
-import { AiOutlineCalendar } from 'react-icons/ai';
-import { AiOutlineClockCircle } from 'react-icons/ai';
+import { AiOutlineCalendar, AiOutlineVerified } from 'react-icons/ai';
 
 import Button from '@/components/buttons/Button';
 import Typography from '@/components/Typography';
@@ -27,6 +26,8 @@ type CardProps = {
   endDate?: string;
   startTime?: string;
   endTime?: string;
+  verified?: boolean;
+  showVerified?: boolean;
   ticketPrice?: number;
   eventId?: number;
   buttonText?: string;
@@ -39,9 +40,11 @@ export default function EventCard({
   className,
   eventName,
   startDate,
-  startTime,
-  endDate,
-  endTime,
+  // startTime,
+  // endDate,
+  // endTime,
+  verified,
+  showVerified = false,
   ticketPrice,
   size = 'base',
   buttonText,
@@ -72,18 +75,22 @@ export default function EventCard({
           variant='p3'
           weight='semibold'
         >
-          <AiOutlineCalendar className='inline-block' /> {startDate}{' '}
-          {endDate && ` - ${endDate}`}
+          <AiOutlineCalendar className='inline-block' />{' '}
+          {startDate?.slice(0, 10)}
         </Typography>
 
-        <Typography
-          className='text-cyan-700 my-1'
-          variant='p3'
-          weight='semibold'
-        >
-          <AiOutlineClockCircle className='inline-block' /> {startTime}{' '}
-          {endTime && ` - ${endTime}`}
-        </Typography>
+        {showVerified && (
+          <Typography
+            className='text-cyan-700 my-1'
+            variant='p3'
+            weight='semibold'
+          >
+            <AiOutlineVerified className='inline-block' /> Event{' '}
+            {verified
+              ? ' Sudah Terverifikasi Admin'
+              : ' Belum Terverifikasi Admin'}
+          </Typography>
+        )}
       </div>
 
       {ticketPrice && (

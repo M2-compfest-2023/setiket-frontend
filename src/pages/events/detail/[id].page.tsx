@@ -13,7 +13,6 @@ import EventDetail from '@/layouts/EventDetail';
 import Layout from '@/layouts/Layout';
 import Modal from '@/layouts/Modal';
 import api from '@/lib/api';
-import useAuthStore from '@/store/useAuthStore';
 import { ApiReturn } from '@/types/api';
 import { Category, Event } from '@/types/entities/event';
 
@@ -37,6 +36,12 @@ type MyEvent = {
   price: number;
 };
 
+type UserResponse = {
+  username: string;
+  id: string;
+  role: string;
+};
+
 export default function Detail() {
   //pembelian ticket
   const methods = useForm<TicketForm>({
@@ -45,7 +50,7 @@ export default function Detail() {
   const { handleSubmit } = methods;
 
   const router = useRouter();
-  const user = useAuthStore.useUser();
+  const user = useQuery<ApiReturn<UserResponse>>(['/auth/me']);
 
   //get event
   const eventId = router.query.id as string;
@@ -104,6 +109,13 @@ export default function Detail() {
     });
   };
 
+  const ticketLeft = useQuery<
+    ApiReturn<{
+      ticket_sold: number;
+      ticket_left: number;
+    }>
+  >([`/events/ticket_left/${eventId}`]);
+
   return (
     <Layout withNavbar={true} withFooter={true}>
       <div className='flex flex-col md:flex-row px-4 md:px-10 py-4 min-h-screen gap-5'>
@@ -112,7 +124,7 @@ export default function Detail() {
         </div>
 
         {/* role customer */}
-        {user?.role === 'CUSTOMER' && (
+        {user?.data?.data.role === 'CUSTOMER' && (
           <div className='flex flex-col md:w-[30%] items-center bg-white rounded-2xl shadow-xl h-[200px] p-5'>
             <Typography variant='b2' weight='semibold' className='mx-auto'>
               Buy Ticket
@@ -149,11 +161,11 @@ export default function Detail() {
         )}
 
         {/* role EVENTORGANIZER */}
-        {user?.role === 'EVENTORGANIZER' &&
+        {user?.data?.data.role === 'EVENTORGANIZER' &&
           myEvents.data?.data?.find(
             (event) => event.id == parseInt(eventId)
           ) && (
-            <div className='flex flex-col gap-3 w-[30%] items-center justify-center bg-white rounded-2xl shadow-xl h-[160px] p-5'>
+            <div className='flex flex-col gap-3 w-[30%] items-center justify-center bg-white rounded-2xl shadow-xl h-[200px] p-5'>
               <Typography variant='b2' weight='semibold' className='mx-auto'>
                 Sales Data
               </Typography>
@@ -163,16 +175,26 @@ export default function Detail() {
                 className='mx-auto'
                 color='cyan'
               >
-                50 tickets sold
+                {ticketLeft.data?.data?.ticket_sold ?? 0} Tickets Sold
               </Typography>
-              <Button onClick={() => router.push('/events/salesData/1')}>
+              <Typography
+                variant='p2'
+                weight='semibold'
+                className='mx-auto'
+                color='cyan'
+              >
+                {ticketLeft.data?.data?.ticket_left ?? 0} Tickets Left
+              </Typography>
+              <Button
+                onClick={() => router.push(`/events/salesData/${eventId}`)}
+              >
                 See detail
               </Button>
             </div>
           )}
 
         {/* role admin */}
-        {user?.role === 'ADMIN' && (
+        {user?.data?.data.role === 'ADMIN' && (
           <div className='flex flex-col md:w-[30%] items-center justify-center bg-white rounded-2xl shadow-xl h-[120px] p-5'>
             <Typography variant='p2' weight='semibold' className='mx-auto'>
               Event Approval

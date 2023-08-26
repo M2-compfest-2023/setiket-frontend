@@ -192,6 +192,7 @@ export default function Events() {
                 endDate={event.end_date.substring(0, 10)}
                 startTime={event.start_date.substring(11, 16)}
                 endTime={event.end_date.substring(11, 16)}
+                verified={event.verified}
                 link={`/events/detail/${event.id}`}
                 ticketPrice={event.price}
               />
