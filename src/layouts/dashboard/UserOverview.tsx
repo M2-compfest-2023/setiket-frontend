@@ -78,8 +78,9 @@ export default function UsersOverview({ className }: Props) {
   return (
     <div
       className={clsxm(
-        'flex flex-col justify-center md:px-10 md:py-5 w-full rounded-3xl bg-gradient-to-br from-gradient-500 to-gradient-600',
-        className
+        'flex flex-col justify-center px-10 py-5 w-full rounded-3xl bg-gradient-to-br from-gradient-500 to-gradient-600',
+        className,
+        'overflow-x-scroll'
       )}
     >
       <Typography

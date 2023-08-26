@@ -32,15 +32,15 @@ export default function MyTickets() {
   const toggleVisibility = (eventName?: Event) => {
     setEventContent({
       eventName: eventName?.title,
-      eventCategory: eventName?.category_id,
-      province: eventName?.city_id,
-      city: eventName?.city_id,
       startDate: eventName?.start_date.substring(0, 10),
       endDate: eventName?.end_date.substring(0, 10),
       startTime: eventName?.start_date.substring(11, 16),
       endTime: eventName?.end_date.substring(11, 16),
       description: eventName?.description,
-      purchaseTime: eventName?.created_at,
+      purchaseTime: `${eventName?.created_at.substring(
+        0,
+        10
+      )} | ${eventName?.created_at.substring(11, 19)}`,
       totalTickets: eventName?.ticket_total,
       totalPrice: eventName?.price,
       tickets: eventName?.tickets,

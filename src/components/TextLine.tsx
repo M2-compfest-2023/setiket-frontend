@@ -11,7 +11,7 @@ type Props = {
 export default function TextLine({ className, children }: Props) {
   return (
     <div
-      className={clsxm('w-full md:px-2 py-1 bg-white/80 rounded-lg', className)}
+      className={clsxm('w-full p-2 md:px-2 bg-white/80 rounded-lg', className)}
     >
       <Typography variant='p2' color='cyan' weight='medium'>
         {children}
