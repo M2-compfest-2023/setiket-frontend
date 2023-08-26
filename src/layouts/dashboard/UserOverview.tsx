@@ -16,6 +16,9 @@ export type UserOverviewColumn = {
   username: string;
   email: string;
   user_type: string;
+  verified: {
+    verified: boolean;
+  };
   // registrationTime: string;
 };
 
@@ -39,6 +42,12 @@ export default function UsersOverview({ className }: Props) {
       id: 'user_type',
       accessorKey: 'user_type',
       header: 'Role',
+      size: 5,
+    },
+    {
+      id: 'verified.verified',
+      accessorKey: 'verified.verified',
+      header: 'Verified',
       size: 5,
     },
     {

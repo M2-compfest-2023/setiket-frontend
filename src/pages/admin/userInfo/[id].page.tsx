@@ -1,7 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { IconType } from 'react-icons';
 import { AiFillEdit, AiOutlineCheckCircle } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
@@ -13,15 +14,12 @@ import Button from '@/components/buttons/Button';
 import Chips from '@/components/Chips';
 import Table from '@/components/table/Table';
 import TextLine from '@/components/TextLine';
+import { showToast, SUCCESS_TOAST } from '@/components/Toast';
 import Typography from '@/components/Typography';
+import useMutationToast from '@/hooks/useMutationToast';
 import Modal from '@/layouts/Modal';
+import api from '@/lib/api';
 import { ApiReturn } from '@/types/api';
-
-type EventCreatedColumn = {
-  eventName: string;
-  location: string;
-  status: string;
-};
 
 type ActivityUser = {
   eventName: string;
@@ -33,7 +31,25 @@ type UserOverviewColumn = {
   username: string;
   email: string;
   user_type: string;
+  verified: boolean;
   // registrationTime: string;
+};
+
+type EventCreated = {
+  id: string;
+  title: string;
+  description: string;
+  start_date: string;
+  end_date: string;
+  ticket_total: number;
+  location: string;
+  category_id: number;
+  organizer_id: number;
+  verified: boolean;
+  city_id: number;
+  price: number;
+  created_at: string;
+  updated_at: string;
 };
 
 export default function UserInfo() {
@@ -48,14 +64,16 @@ export default function UserInfo() {
 
   const user = useQuery<ApiReturn<UserOverviewColumn>>([`/users/${id}`]);
 
+  const events = useQuery<ApiReturn<EventCreated[]>>([`/events/eo/${id}`]);
+
   const activity = useQuery<ApiReturn<ActivityUser[]>>([
     `/users/activity/${id}`,
   ]);
 
-  const columns: ColumnDef<EventCreatedColumn>[] = [
+  const columns: ColumnDef<EventCreated>[] = [
     {
-      id: 'eventName',
-      accessorKey: 'eventName',
+      id: 'title',
+      accessorKey: 'title',
       header: 'Event Name',
       size: 40,
     },
@@ -66,8 +84,8 @@ export default function UserInfo() {
       size: 5,
     },
     {
-      id: 'status',
-      accessorKey: 'status',
+      id: 'verified',
+      accessorKey: 'verified',
       header: 'Status',
       size: 10,
     },
@@ -94,24 +112,30 @@ export default function UserInfo() {
     },
   ];
 
-  //static data, remove this
-  const data = [
+  const methods = useForm<{
+    approve: true;
+  }>({
+    mode: 'onTouched',
+  });
+  const { handleSubmit } = methods;
+
+  const { mutate: handleVerified, isLoading } = useMutationToast<
+    void,
     {
-      eventName: 'Event 1',
-      location: 'Province, City',
-      status: 'waiting confirmation',
-    },
-    {
-      eventName: 'Event 2',
-      location: 'Province, City',
-      status: 'approved',
-    },
-    {
-      eventName: 'Event 3',
-      location: 'Province, City',
-      status: 'waiting confirmation',
-    },
-  ];
+      approve: true;
+    }
+  >(
+    useMutation(async (data) => {
+      await api.put(`/users/eo/${id}`, data);
+
+      showToast('Berhasil Mengubah Status Event Organizer', SUCCESS_TOAST);
+      router.reload();
+    })
+  );
+
+  const onSubmit = () => {
+    handleVerified({ approve: true });
+  };
 
   return (
     <div className='flex flex-col gap-8 items-center min-h-screen md:p-10'>
@@ -131,18 +155,21 @@ export default function UserInfo() {
           {user.data?.data.user_type == 'EVENTORGANIZER' && (
             <Chips variant='secondary'>Event Organizer</Chips>
           )}
-          {/* role EO sebelum approve */}
-          <Chips
-            variant='yellow'
-            clickAble
-            Icon={AiFillEdit}
-            onClick={toggleVisibility}
-          >
-            Waiting Confirmation
-          </Chips>
-          <Chips variant='blue' Icon={AiOutlineCheckCircle}>
-            Approved
-          </Chips>
+          {!user.data?.data.verified && (
+            <Chips
+              variant='yellow'
+              clickAble
+              Icon={AiFillEdit}
+              onClick={toggleVisibility}
+            >
+              Waiting Confirmation
+            </Chips>
+          )}
+          {user.data?.data.verified && (
+            <Chips variant='blue' Icon={AiOutlineCheckCircle}>
+              Approved
+            </Chips>
+          )}
         </div>
 
         <div className='flex justify-between gap-8 mt-3'>
@@ -172,14 +199,6 @@ export default function UserInfo() {
               {user.data?.data.email}
             </Typography>
           </div>
-          {/* <div className='w-[50%] flex justify-between'>
-            <Typography color='white-2' variant='b2'>
-              Organization
-            </Typography>
-            <Typography color='white-2' variant='p2'>
-              PT Suya Tbk
-            </Typography>
-          </div> */}
         </div>
       </Container>
 
@@ -195,44 +214,44 @@ export default function UserInfo() {
       )}
 
       {user.data?.data.user_type == 'EVENTORGANIZER' && (
-        <Container title='Activities' Icon={RxActivityLog}>
-          {activity.data?.data.map((res) => (
-            <TextLine key={res.eventName} className='my-2'>
-              Create <span className='font-bold'> {res.eventName} </span> event{' '}
-              at {res.timeStamp}
-            </TextLine>
-          ))}
+        <Container title='Events Created' Icon={MdOutlineEventNote}>
+          <Table
+            data={events.data?.data || []}
+            columns={columns}
+            withFilter
+            className='text-center text-typo-primary font-primary'
+            filterClassName='bg-transparent text-white'
+          />
         </Container>
       )}
 
-      {/* role EO */}
-      <Container title='Events Created' Icon={MdOutlineEventNote}>
-        <Table
-          data={data}
-          columns={columns}
-          withFilter
-          className='text-center text-typo-primary font-primary'
-          filterClassName='bg-transparent text-white'
-        />
-      </Container>
-
-      <div className='relative z-[110]'>
-        {isVisible && (
-          <Modal className='flex flex-col'>
-            <div className='md:w-[30%] bg-white rounded-xl px-8 py-5'>
-              <Typography className='h5 text-center' font='ubuntu' color='cyan'>
-                User Approval
-              </Typography>
-              <div className='flex justify-around mt-5'>
-                <Button variant='danger' onClick={toggleVisibility}>
-                  Cancel
-                </Button>
-                <Button>Approve</Button>
-              </div>
-            </div>
-          </Modal>
-        )}
-      </div>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className='relative z-[110]'>
+            {isVisible && (
+              <Modal className='flex flex-col'>
+                <div className='md:w-[30%] bg-white rounded-xl px-8 py-5'>
+                  <Typography
+                    className='h5 text-center'
+                    font='ubuntu'
+                    color='cyan'
+                  >
+                    User Approval
+                  </Typography>
+                  <div className='flex justify-around mt-5'>
+                    <Button variant='danger' onClick={toggleVisibility}>
+                      Cancel
+                    </Button>
+                    <Button type='submit' isLoading={isLoading}>
+                      Approve
+                    </Button>
+                  </div>
+                </div>
+              </Modal>
+            )}
+          </div>
+        </form>
+      </FormProvider>
     </div>
   );
 }
