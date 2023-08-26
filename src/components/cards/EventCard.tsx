@@ -60,7 +60,7 @@ export default function EventCard({
           size === 'base' && ['w-[310px] h-[160px]'],
           size === 'sm' && ['w-[280px] h-[160px]'],
         ],
-        link && 'hover:bg-gray-100',
+        link && 'hover:bg-gray-100 hover:cursor-pointer',
         className
       )}
       onClick={() => link && router.push(link)}

@@ -186,7 +186,13 @@ export default function AddEvent() {
                 label='Description'
                 placeholder='Write event description here'
                 className='focus:ring-black'
-                maxLength={512}
+                maxLength={255}
+                validation={{
+                  maxLength: {
+                    value: 255,
+                    message: 'Description cannot exceed 255 characters',
+                  },
+                }}
                 required
               />
 
