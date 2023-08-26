@@ -65,7 +65,7 @@ export default function UsersOverview({ className }: Props) {
   ];
 
   const users = useQuery<ApiReturn<UserOverviewColumn[]>>(['/users']);
-
+  map;
   return (
     <div
       className={clsxm(

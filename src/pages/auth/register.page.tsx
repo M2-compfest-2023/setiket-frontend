@@ -106,7 +106,13 @@ export default function RegisterPage() {
                         id='name'
                         label='Name'
                         placeholder='Input Name'
-                        validation={{ required: 'Name shouldn`t be empty' }}
+                        validation={{
+                          required: 'Name shouldn`t be empty',
+                          maxLength: {
+                            value: 10,
+                            message: 'Name cannot exceed 10 characters',
+                          },
+                        }}
                       />
                     </div>
                     <div className='mt-3'>
