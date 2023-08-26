@@ -64,7 +64,7 @@ export default function EventOverview({ className }: Props) {
             >
               See Detail
             </Button>
-          </div>  
+          </div>
         );
       },
     },
