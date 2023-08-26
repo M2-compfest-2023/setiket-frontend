@@ -36,7 +36,7 @@ export default function Events() {
   });
 
   const filterMethod = useForm<FilterForm>({
-    mode: 'onTouched',
+    mode: 'onChange',
   });
 
   const category = useQuery<ApiReturn<{ id: string; category_name: string }[]>>(
@@ -51,6 +51,11 @@ export default function Events() {
     { id: string; name: string }[] | undefined
   >(undefined);
 
+  const [provinceId, setProvinceId] = useState('');
+  const [categoryId, setCategoryId] = useState('');
+  const [cityId, setCityId] = useState('');
+  const [endDate, setEndDate] = useState('');
+
   const getKabupaten = (provinsiId: string) => {
     api
       .get<ApiReturn<{ id: string; name: string }[]>>(
@@ -59,12 +64,21 @@ export default function Events() {
       .then((res) => {
         setKabupaten(res.data.data);
       });
+
+    setProvinceId(provinsiId ? provinsiId : '');
   };
 
-  const [categoryId, setCategoryId] = useState('');
+  const setCityForFilter = (cityIdSelected: string) => {
+    setCityId(cityIdSelected ? cityIdSelected : '');
+  };
+
+  const setEndDateFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedDate = event.target.value;
+    setEndDate(selectedDate);
+  };
 
   const events = useQuery<ApiReturn<Event[]>>([
-    `/events/filter?category=${categoryId}`,
+    `/events/filter?category=${categoryId}&province=${provinceId}&city=${cityId}&end_date=${endDate}`,
   ]);
 
   return (
@@ -127,6 +141,7 @@ export default function Events() {
                   label: kab.name,
                 })) || []
               }
+              handleChange={setCityForFilter}
               labelClassName='text-cyan-600'
             />
 
@@ -159,25 +174,12 @@ export default function Events() {
 
             <hr className='h-px my-3 border-0 bg-gray-300' />
 
-            <Typography
-              className='my-1 sm:my-2 text-cyan-700'
-              variant='p2'
-              weight='semibold'
-              font='inter'
-            >
-              Date
-            </Typography>
-
             <div>
               <Datepicker
-                label='Start Date'
-                labelClassName='text-cyan-600'
-                id='startdate'
-              />
-              <Datepicker
-                label='End Date'
+                label='Before Date'
                 labelClassName='text-cyan-600'
                 id='enddate'
+                onChange={setEndDateFilter}
               />
             </div>
 
