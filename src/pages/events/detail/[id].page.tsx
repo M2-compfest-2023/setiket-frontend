@@ -38,27 +38,36 @@ type MyEvent = {
 };
 
 export default function Detail() {
+  //pembelian ticket
   const methods = useForm<TicketForm>({
     mode: 'onTouched',
   });
   const { handleSubmit } = methods;
+
   const router = useRouter();
   const user = useAuthStore.useUser();
 
+  //get event
   const eventId = router.query.id as string;
   const events = useQuery<ApiReturn<Event>>([
     '/events/detail/'.concat(eventId),
   ]);
   const myEvents = useQuery<ApiReturn<MyEvent[]>>(['/events/user/me']);
+
+  //get categories
   const categories = useQuery<ApiReturn<Category[]>>(['/category/']);
 
+  //get event data
   const eventItem = events.data?.data;
+  //get category id and name
   const categoryItem = categories.data?.data?.find(
     (category) => category.id == eventItem?.category_id
   );
   const category_name = categoryItem ? categoryItem.category_name : undefined;
 
+  //ticket purchasement control
   const [ticketAmount, setTicketAmount] = useState(1);
+  //purchasement confirmation modal
   const [isVisible, setIsVisible] = useState(false);
 
   const ticketPrice = (eventItem?.price ?? 1) * ticketAmount;

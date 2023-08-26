@@ -165,11 +165,12 @@ export default function UserInfo() {
               Waiting Confirmation
             </Chips>
           )}
-          {user.data?.data.verified && (
-            <Chips variant='blue' Icon={AiOutlineCheckCircle}>
-              Approved
-            </Chips>
-          )}
+          {user.data?.data.verified &&
+            user.data?.data.user_type === 'EVENTORGANIZER' && (
+              <Chips variant='blue' Icon={AiOutlineCheckCircle}>
+                Approved
+              </Chips>
+            )}
         </div>
 
         <div className='flex justify-between gap-8 mt-3'>
