@@ -95,6 +95,13 @@ export default function Detail() {
     });
   };
 
+  const ticketLeft = useQuery<
+    ApiReturn<{
+      ticket_sold: number;
+      ticket_left: number;
+    }>
+  >([`/events/ticket_left/${eventId}`]);
+
   return (
     <Layout withNavbar={true} withFooter={true}>
       <div className='flex flex-col md:flex-row px-4 md:px-10 py-4 min-h-screen gap-5'>
@@ -144,7 +151,7 @@ export default function Detail() {
           myEvents.data?.data?.find(
             (event) => event.id == parseInt(eventId)
           ) && (
-            <div className='flex flex-col gap-3 w-[30%] items-center justify-center bg-white rounded-2xl shadow-xl h-[160px] p-5'>
+            <div className='flex flex-col gap-3 w-[30%] items-center justify-center bg-white rounded-2xl shadow-xl h-[200px] p-5'>
               <Typography variant='b2' weight='semibold' className='mx-auto'>
                 Sales Data
               </Typography>
@@ -154,7 +161,15 @@ export default function Detail() {
                 className='mx-auto'
                 color='cyan'
               >
-                50 tickets sold
+                {ticketLeft.data?.data?.ticket_sold ?? 0} Tickets Sold
+              </Typography>
+              <Typography
+                variant='p2'
+                weight='semibold'
+                className='mx-auto'
+                color='cyan'
+              >
+                {ticketLeft.data?.data?.ticket_left ?? 0} Tickets Left
               </Typography>
               <Button onClick={() => router.push('/events/salesData/1')}>
                 See detail

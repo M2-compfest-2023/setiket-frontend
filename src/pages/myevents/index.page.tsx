@@ -67,6 +67,7 @@ export default function MyEvents() {
                   eventName={event.title}
                   startDate={event.start_date}
                   eventId={event.id}
+                  verified={event.verified}
                   size='sm'
                   buttonText='See detail'
                   buttonOnClik={() => router.push(`/events/detail/${event.id}`)}
