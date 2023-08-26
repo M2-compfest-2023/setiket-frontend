@@ -113,19 +113,6 @@ export default function MobileNavbar({
                 </UnstyledLink>
               </li>
             )}
-            <li>
-              <UnstyledLink href='/about'>
-                <Typography
-                  font='inter'
-                  color='cyan'
-                  variant='p1'
-                  weight='medium'
-                  className='hover:text-slate-700'
-                >
-                  About Us
-                </Typography>
-              </UnstyledLink>
-            </li>
           </ul>
           <div className='flex flex-col'>
             {!isLogin ? (

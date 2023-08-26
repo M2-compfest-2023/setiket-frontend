@@ -131,20 +131,6 @@ export default function Navbar() {
                 </UnstyledLink>
               </li>
             )}
-
-            <li>
-              <UnstyledLink href='/about' className='flex p-2.5'>
-                <Typography
-                  font='inter'
-                  color='cyan'
-                  variant='p2'
-                  weight='semibold'
-                  className='hover:text-cyan-600'
-                >
-                  About Us
-                </Typography>
-              </UnstyledLink>
-            </li>
           </ul>
         </nav>
 

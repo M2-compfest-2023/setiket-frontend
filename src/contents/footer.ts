@@ -16,10 +16,6 @@ type Social = {
 
 export const quickLinks: QuickLink[] = [
   {
-    name: 'About Us',
-    href: '/about',
-  },
-  {
     name: 'Login',
     href: '/login',
   },
