@@ -6,6 +6,7 @@ import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
 import Button from '@/components/buttons/Button';
 import IconButton from '@/components/buttons/IconButton';
+import EventApproval from '@/components/EventApproval';
 import { showToast, SUCCESS_TOAST } from '@/components/Toast';
 import Typography from '@/components/Typography';
 import useMutationToast from '@/hooks/useMutationToast';
@@ -88,8 +89,10 @@ export default function Detail() {
     startTime: eventItem?.start_date.substring(11, 16),
     endTime: eventItem?.end_date.substring(11, 16),
     description: eventItem?.description,
+    isVerified: eventItem?.verified,
   };
 
+  //ticket purchasement handling
   const { mutate: handlePayment, isLoading } = useMutationToast<
     void,
     TicketForm
@@ -115,6 +118,13 @@ export default function Detail() {
       ticket_left: number;
     }>
   >([`/events/ticket_left/${eventId}`]);
+
+  //event approval modal
+  const [isOpenApproval, setIsOpenApproval] = useState(false);
+
+  const toggleVisibility = () => {
+    setIsOpenApproval(!isOpenApproval);
+  };
 
   return (
     <Layout withNavbar={true} withFooter={true}>
@@ -200,10 +210,20 @@ export default function Detail() {
               Event Approval
             </Typography>
             <div className='flex items-center gap-3 w-full justify-center my-4'>
-              <Button size='sm' variant='secondary'>
-                Reject
-              </Button>
-              <Button size='sm'>Approve</Button>
+              {!eventProps.isVerified ? (
+                <Button size='sm' onClick={toggleVisibility}>
+                  Approve
+                </Button>
+              ) : (
+                <Button
+                  size='sm'
+                  variant='success'
+                  disabled
+                  className='hover:cursor-none'
+                >
+                  Approved
+                </Button>
+              )}
             </div>
           </div>
         )}
@@ -239,6 +259,12 @@ export default function Detail() {
             </div>
           </form>
         </FormProvider>
+
+        <EventApproval
+          isVisible={isOpenApproval}
+          eventId={eventId}
+          toggleVisibility={toggleVisibility}
+        />
       </div>
     </Layout>
   );
