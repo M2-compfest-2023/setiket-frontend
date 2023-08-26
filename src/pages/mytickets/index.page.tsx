@@ -43,6 +43,7 @@ export default function MyTickets() {
       purchaseTime: eventName?.created_at,
       totalTickets: eventName?.ticket_total,
       totalPrice: eventName?.price,
+      tickets: eventName?.tickets,
     });
     setIsVisible(!isVisible);
   };
@@ -92,6 +93,7 @@ export default function MyTickets() {
               content={eventContent}
               iconButton={BsXCircleFill}
               iconButtonOnClick={() => toggleVisibility()}
+              isCustomerPage
             />
           </Modal>
         )}
