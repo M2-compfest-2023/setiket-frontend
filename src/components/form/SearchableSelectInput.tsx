@@ -86,7 +86,7 @@ export default function SearchableSelectInput({
                         (selectedOptions as (typeof options)[number])?.value ??
                           ''
                       );
-                  handleChange?.(selectedOptions.value);
+                  handleChange?.(selectedOptions?.value);
                 }}
                 isDisabled={disabled}
                 isClearable
