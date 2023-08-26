@@ -109,6 +109,7 @@ export default function Home() {
                 startTime={event.start_date.substring(11, 16)}
                 endTime={event.end_date.substring(11, 16)}
                 link={`/events/detail/${event.id}`}
+                verified={event.verified}
                 ticketPrice={event.price}
                 className='hover:shadow-xl hover:scale-105 duration-150'
               />

@@ -27,6 +27,7 @@ type CardProps = {
   startTime?: string;
   endTime?: string;
   verified?: boolean;
+  showVerified?: boolean;
   ticketPrice?: number;
   eventId?: number;
   buttonText?: string;
@@ -43,6 +44,7 @@ export default function EventCard({
   // endDate,
   // endTime,
   verified,
+  showVerified = false,
   ticketPrice,
   size = 'base',
   buttonText,
@@ -77,16 +79,18 @@ export default function EventCard({
           {startDate?.slice(0, 10)}
         </Typography>
 
-        <Typography
-          className='text-cyan-700 my-1'
-          variant='p3'
-          weight='semibold'
-        >
-          <AiOutlineVerified className='inline-block' /> Event{' '}
-          {verified
-            ? ' Sudah Terverifikasi Admin'
-            : ' Belum Terverifikasi Admin'}
-        </Typography>
+        {showVerified && (
+          <Typography
+            className='text-cyan-700 my-1'
+            variant='p3'
+            weight='semibold'
+          >
+            <AiOutlineVerified className='inline-block' /> Event{' '}
+            {verified
+              ? ' Sudah Terverifikasi Admin'
+              : ' Belum Terverifikasi Admin'}
+          </Typography>
+        )}
       </div>
 
       {ticketPrice && (
