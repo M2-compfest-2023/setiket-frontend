@@ -12,6 +12,7 @@ import { ApiReturn } from '@/types/api';
 type Props = React.ComponentPropsWithoutRef<'div'>;
 
 export type EventOverviewColumn = {
+  id: number;
   title: string;
   ticket_total: string;
   location: string;
@@ -51,14 +52,14 @@ export default function EventOverview({ className }: Props) {
       accessorKey: 'action',
       header: 'Action',
       size: 15,
-      cell: () => {
+      cell: (info) => {
         return (
           <div className='flex flex-row justify-center'>
             <Button
               variant='secondary'
               size='sm'
               onClick={
-                () => router.push(`/events/detail/1`) // ini 1 diganti id atau pk
+                () => router.push(`/events/detail/${info.row.original.id}`) // ini 1 diganti id atau pk
               }
             >
               See Detail
