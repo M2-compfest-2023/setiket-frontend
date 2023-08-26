@@ -1,34 +1,27 @@
 import NextImage from '@/components/NextImage';
 import Typography from '@/components/Typography';
+import clsxm from '@/lib/clsxm';
 
-export default function AuthIllustration(): JSX.Element {
+type Props = React.ComponentPropsWithRef<'button'>;
+
+export default function AuthIllustration({ className }: Props): JSX.Element {
   return (
     <section className='relative'>
-      <div className='w-7/12 h-screen fixed left-0'>
-        <div className='h-full relative w-full overflow-hidden flex items-center justify-center'>
-          <div className='absolute w-1/2'>
-            <Typography
-              className='flex items-center justify-center'
-              color='white'
-              variant='h2'
-              font='pattaya'
-            >
-              SeTiket
-            </Typography>
-            <Typography
-              className='flex items-center justify-center mt-2'
-              color='white'
-            >
-              Where Innovation Meets Event Excellence.
-            </Typography>
-            <NextImage
-              src='/images/auth/person-with-moped.png'
-              alt='head'
-              width={221}
-              height={222}
-              className='w-full mt-8'
-            />
-          </div>
+      <div className={clsxm('fixed w-7/12 h-screen', className)}>
+        <div className='h-full w-full overflow-hidden flex flex-col items-center justify-center p-10'>
+          <Typography color='white' variant='h3' font='ubuntu'>
+            SeTiket
+          </Typography>
+          <Typography color='white' weight='medium' variant='p1'>
+            Where Innovation Meets Event Excellence.
+          </Typography>
+          <NextImage
+            src='/images/auth/person-with-moped.png'
+            alt='head'
+            width={400}
+            height={400}
+            className='mt-4'
+          />
         </div>
       </div>
     </section>

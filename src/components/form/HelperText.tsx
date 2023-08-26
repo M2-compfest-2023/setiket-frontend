@@ -11,9 +11,9 @@ export default function HelperText({
   return (
     <div className='flex space-x-1'>
       <Typography
-        variant='c2'
+        variant='p3'
         className={clsxm(
-          '!leading-tight text-typo-secondary text-xs',
+          '!leading-tight text-typo-secondary',
           helperTextClassName
         )}
       >

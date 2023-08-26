@@ -70,22 +70,27 @@ export default function RegisterPage() {
     <Layout>
       <SEO title='Register' description='Register Page' />
       <main>
-        <section className='flex bg-background-violet'>
+        <section className='flex bg-gradient-to-b from-gradient-500 to-gradient-600'>
           <section className='hidden lg:block md:w-1/2 lg:w-7/12'>
             <AuthIllustration />
           </section>
-          <section className='w-screen lg:w-5/12 min-h-screen flex bg-white rounded-l-3xl'>
-            <div className='w-10/12 mx-auto py-16'>
+          <section className='w-screen lg:w-5/12 min-h-screen flex bg-white lg:rounded-l-3xl'>
+            <div className='w-10/12 mx-auto py-10'>
               <PrimaryLink href='/' size='medium' variant='primary'>
-                <AiOutlineHome className='mr-2 fill-primary-50 w-6 h-6' />
-                Back to home
+                <Typography
+                  className='text-primary-50 flex items-center'
+                  variant='p2'
+                >
+                  <AiOutlineHome className='mr-2 inline-block' />
+                  Back to home
+                </Typography>
               </PrimaryLink>
-              <div className='mt-8'>
-                <Typography variant='h4' font='ubuntu' className='text-5xl'>
+              <div className='mt-4'>
+                <Typography variant='h4' font='ubuntu'>
                   Sign Up
                 </Typography>
               </div>
-              <div className='mt-6'>
+              <div className='mt-4'>
                 <FormProvider {...methods}>
                   <form onSubmit={handleSubmit(onSubmit)}>
                     <div>
@@ -96,7 +101,7 @@ export default function RegisterPage() {
                         validation={{ required: 'Username shouldn`t be empty' }}
                       />
                     </div>
-                    <div className='mt-5'>
+                    <div className='mt-3'>
                       <Input
                         id='name'
                         label='Name'
@@ -104,7 +109,7 @@ export default function RegisterPage() {
                         validation={{ required: 'Name shouldn`t be empty' }}
                       />
                     </div>
-                    <div className='mt-5'>
+                    <div className='mt-3'>
                       <Input
                         id='email'
                         label='Email'
@@ -119,7 +124,7 @@ export default function RegisterPage() {
                         }}
                       />
                     </div>
-                    <div className='mt-5'>
+                    <div className='mt-3'>
                       <SearchableSelectInput
                         id='role'
                         label='Role'
@@ -132,7 +137,7 @@ export default function RegisterPage() {
                       />
                     </div>
                     {userRoleVar === 'eo' && (
-                      <div className='mt-5'>
+                      <div className='mt-3'>
                         <Input
                           id='organizationName'
                           label='Organization Name'
@@ -143,7 +148,7 @@ export default function RegisterPage() {
                         />
                       </div>
                     )}
-                    <div className='mt-5'>
+                    <div className='mt-3'>
                       <Input
                         id='password'
                         label='Password'
@@ -163,16 +168,15 @@ export default function RegisterPage() {
                     <Button
                       variant='primary'
                       size='base'
-                      className='w-full mt-6'
+                      className='w-full mt-5'
                       type='submit'
                       isLoading={isLoading}
                     >
                       Submit
                     </Button>
                     <Typography
-                      variant='c1'
+                      variant='p2'
                       weight='medium'
-                      font='inter'
                       className='mt-4 text-center'
                     >
                       Already have account?{' '}

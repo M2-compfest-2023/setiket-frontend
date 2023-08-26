@@ -118,13 +118,25 @@ export default function Typography<T extends React.ElementType>({
           variant === 'h6' && [
             'text-[14px] md:text-[16px] leading-[16px] md:leading-[20px] font-bold',
           ],
-          variant === 'p1' && ['md:text-[24px] md:leading-[36px]'],
-          variant === 'p2' && ['md:text-[16px] md:leading-[24px]'],
-          variant === 'p3' && ['md:text-[12px] md:leading-[18px]'],
+          variant === 'p1' && [
+            'text-[20px] md:text-[24px] leading-[30px] md:leading-[36px]',
+          ],
+          variant === 'p2' && [
+            'text-[14px] md:text-[16px] leading-[20px] md:leading-[24px]',
+          ],
+          variant === 'p3' && [
+            'text-[12px] md:text-[12px] leading-[13px] md:leading-[18px]',
+          ],
           variant === 'p4' && ['md:text-[9px] md:leading-[12px]'],
-          variant === 'b1' && ['md:text-[24px] md:leading-[36px] font-bold'],
-          variant === 'b2' && ['md:text-[16px] md:leading-[24px] font-bold'],
-          variant === 'b3' && ['md:text-[12px] md:leading-[18px] font-bold'],
+          variant === 'b1' && [
+            'text-[20px] md:text-[24px] leading-[30px] md:leading-[36px] font-bold',
+          ],
+          variant === 'b2' && [
+            'text-[14px] md:text-[16px] leading-[20px] md:leading-[24px] font-bold',
+          ],
+          variant === 'b3' && [
+            'text-[12px] md:text-[12px] leading-[13px] md:leading-[18px] font-bold',
+          ],
           variant === 'c1' && ['md:text-[14px] md:leading-[24px]'],
           variant === 'c2' && ['md:text-[12px] md:leading-[24px]'],
           variant === 't' && ['md:text-[20px] md:leading-[24px]'],

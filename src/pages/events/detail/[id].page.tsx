@@ -48,18 +48,18 @@ export default function Detail() {
 
   return (
     <Layout withNavbar={true} withFooter={true}>
-      <div className='flex px-10 py-4 min-h-screen gap-5'>
-        <div className='w-[70%]'>
+      <div className='flex flex-col md:flex-row px-4 md:px-10 py-4 min-h-screen gap-5'>
+        <div className='md:w-[70%]'>
           <EventDetail content={eventProps} />
         </div>
 
         {/* role customer */}
         {(!token || user?.role === 'CUSTOMER') && (
-          <div className='flex flex-col w-[30%] items-center bg-white rounded-2xl shadow-xl h-[200px] p-5'>
+          <div className='flex flex-col md:w-[30%] items-center bg-white rounded-2xl shadow-xl h-[200px] p-5'>
             <Typography variant='b2' weight='semibold' className='mx-auto'>
               Buy Ticket
             </Typography>
-            <div className='flex items-center gap-3 w-full justify-center my-4'>
+            <div className='flex items-center gap-3 w-full justify-center mt-4 mb-2'>
               <IconButton
                 variant='secondary'
                 size='base'
@@ -92,7 +92,7 @@ export default function Detail() {
 
         {/* role EVENTORGANIZER */}
         {user?.role === 'EVENTORGANIZER' && (
-          <div className='flex flex-col gap-3 w-[30%] items-center justify-center bg-white rounded-2xl shadow-xl h-[160px] p-5'>
+          <div className='flex flex-col gap-3 md:w-[30%] items-center justify-center bg-white rounded-2xl shadow-xl h-[160px] p-5'>
             <Typography variant='b2' weight='semibold' className='mx-auto'>
               Sales Data
             </Typography>
@@ -112,7 +112,7 @@ export default function Detail() {
 
         {/* role admin */}
         {user?.role === 'ADMIN' && (
-          <div className='flex flex-col w-[30%] items-center justify-center bg-white rounded-2xl shadow-xl h-[120px] p-5'>
+          <div className='flex flex-col md:w-[30%] items-center justify-center bg-white rounded-2xl shadow-xl h-[120px] p-5'>
             <Typography variant='p2' weight='semibold' className='mx-auto'>
               Event Approval
             </Typography>
@@ -128,7 +128,7 @@ export default function Detail() {
         <div className='relative z-[110]'>
           {isVisible && (
             <Modal className='flex flex-col'>
-              <div className='md:w-[40%] bg-white rounded-xl px-8 py-5'>
+              <div className='w-full md:w-[40%] bg-white rounded-xl px-8 py-5'>
                 <Typography
                   className='text-center'
                   variant='p1'
@@ -138,14 +138,15 @@ export default function Detail() {
                 >
                   Do you want to proceed with purchasing the event tickets?
                 </Typography>
-                <div className='flex justify-evenly mt-5'>
+                <div className='flex justify-evenly mt-5 gap-5'>
                   <Button
                     variant='danger'
                     onClick={() => setIsVisible(!isVisible)}
+                    className='w-full rounded-xl'
                   >
                     No
                   </Button>
-                  <Button>Yes</Button>
+                  <Button className='w-full rounded-xl'>Yes</Button>
                 </div>
               </div>
             </Modal>

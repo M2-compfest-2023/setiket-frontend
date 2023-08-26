@@ -79,8 +79,8 @@ export default function Events() {
         </FormProvider>
       </div>
 
-      <div className='flex px-5 mb-10'>
-        <div className='w-[20%] pr-5'>
+      <div className='md:flex px-5 mb-10'>
+        <div className='md:w-[20%] pr-5'>
           <Typography
             className='my-1 sm:my-5 text-cyan-700'
             variant='p2'
@@ -174,16 +174,15 @@ export default function Events() {
 
             <hr className='h-px my-3 border-0 bg-gray-300' />
 
-            <Button size='sm' variant='danger'>
+            <Button size='sm' variant='danger' className='w-full'>
               Clear all
             </Button>
           </FormProvider>
         </div>
 
-        <div className='w-[80%] grid grid-cols-3 gap-x-3 gap-y-5 place-content-start'>
+        <div className='flex flex-col gap-5 md:w-[80%] md:grid md:grid-cols-3 md:gap-x-3 md:gap-y-5 md:place-content-start'>
           {events.data?.data
-            ?.filter((event) => event.verified === true) // Filter events where verified is true
-            .slice(0, 5) // Limit to a maximum of 5 events
+            ?.slice(0, 5) // Limit to a maximum of 5 events
             .map((event) => (
               <EventCard
                 key={event.id}

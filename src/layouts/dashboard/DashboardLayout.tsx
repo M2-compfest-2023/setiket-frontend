@@ -49,7 +49,7 @@ export default function DashboardLayout({
         <DesktopNavigation action={action} />
 
         <div className='bg-white flex flex-col lg:pl-72'>
-          <MobileNavigation />
+          <MobileNavigation action={action} />
 
           <main
             className={clsxm(
