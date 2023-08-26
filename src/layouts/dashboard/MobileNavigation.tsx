@@ -1,4 +1,3 @@
-import { Dialog, Transition } from '@headlessui/react';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { BiLogOut } from 'react-icons/bi';
@@ -20,7 +19,6 @@ type NavigationProps = {
 
 export default function MobileNavigation({ action }: NavigationProps) {
   const [isOpen, setIsOpen] = React.useState(false);
-  const user = useAuthStore.useUser();
   const logout = useAuthStore.useLogout();
   const router = useRouter();
   const handleLogout = () => {
