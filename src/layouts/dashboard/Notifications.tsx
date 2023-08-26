@@ -1,14 +1,23 @@
+import { useQuery } from '@tanstack/react-query';
 import { BsBellFill } from 'react-icons/bs';
 
 import TextLine from '@/components/TextLine';
 import Typography from '@/components/Typography';
 import clsxm from '@/lib/clsxm';
+import { ApiReturn } from '@/types/api';
 
 type Props = {
   className?: string;
 };
 
+type ActivityUser = {
+  message: string;
+  timestamp: string;
+};
+
 export default function Notifications({ className }: Props) {
+  const activities = useQuery<ApiReturn<ActivityUser[]>>([`/users/activity`]);
+
   return (
     <div
       className={clsxm(
@@ -28,33 +37,11 @@ export default function Notifications({ className }: Props) {
       <hr className='h-px my-3 border-0 bg-white' />
 
       <div>
-        <TextLine className='my-2'>
-          A new event: <b>Event Name</b> by <b>Username</b> submitted for review
-        </TextLine>
-        <TextLine className='my-2'>
-          A new event: <b>Event Name</b> by <b>Username</b> submitted for review
-        </TextLine>
-        <TextLine className='my-2'>
-          A new event: <b>Event Name</b> by <b>Username</b> submitted for review
-        </TextLine>
-        <TextLine className='my-2'>
-          A new event: <b>Event Name</b> by <b>Username</b> submitted for review
-        </TextLine>
-        <TextLine className='my-2'>
-          A new event: <b>Event Name</b> by <b>Username</b> submitted for review
-        </TextLine>
-        <TextLine className='my-2'>
-          A new event: <b>Event Name</b> by <b>Username</b> submitted for review
-        </TextLine>
-        <TextLine className='my-2'>
-          A new event: <b>Event Name</b> by <b>Username</b> submitted for review
-        </TextLine>
-        <TextLine className='my-2'>
-          A new event: <b>Event Name</b> by <b>Username</b> submitted for review
-        </TextLine>
-        <TextLine className='my-2'>
-          A new event: <b>Event Name</b> by <b>Username</b> submitted for review
-        </TextLine>
+        {activities.data?.data.map((activity) => (
+          <TextLine className='my-2' key={activity.message}>
+            {activity.message} - {activity.timestamp}
+          </TextLine>
+        ))}
       </div>
     </div>
   );
