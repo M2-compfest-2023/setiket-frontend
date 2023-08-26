@@ -118,6 +118,7 @@ export default function Home() {
             Icon={FaChevronCircleRight}
             link='/events'
             className='hover:shadow-xl hover:scale-105 duration-150'
+            text='See More'
           />
         </div>
 

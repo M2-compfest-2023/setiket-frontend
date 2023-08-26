@@ -69,7 +69,9 @@ export default function MyTickets() {
         >
           {myEvents.data?.data.map(
             (event) =>
-              event.title.includes(searchKeyword) && (
+              event.title
+                .toLowerCase()
+                .includes(searchKeyword?.toLowerCase()) && (
                 <EventCard
                   key={event.id}
                   eventName={event.title}
