@@ -15,6 +15,16 @@ export type Event = {
   updated_at: string;
   city: string;
   province: string;
+  tickets: [
+    {
+      id: number;
+      quantity: number;
+      customer_id: number;
+      event_id: number;
+      created_at: string;
+      updated_at: string;
+    }
+  ];
 };
 
 export type Category = {

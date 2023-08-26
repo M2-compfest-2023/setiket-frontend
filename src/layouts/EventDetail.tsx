@@ -25,11 +25,17 @@ export type CardProps = {
     description?: string;
     purchaseTime?: string;
     totalTickets?: number;
-    totalPrice?: string;
+    totalPrice?: number;
+    tickets?: {
+      id: number;
+      ticket_number: string;
+      status: string;
+    }[];
   };
   className?: string;
   iconButton?: IconType;
   iconButtonOnClick?: MouseEventHandler;
+  isCustomerPage?: boolean;
 };
 
 export default function EventDetail({
@@ -37,6 +43,7 @@ export default function EventDetail({
   className,
   iconButton,
   iconButtonOnClick,
+  isCustomerPage = false,
 }: CardProps) {
   return (
     <div
@@ -115,18 +122,52 @@ export default function EventDetail({
               </Typography>
               <Typography variant='p2'>{content.purchaseTime}</Typography>
             </div>
+            {!isCustomerPage && (
+              <div className='flex justify-between'>
+                <Typography variant='p2' weight='semibold'>
+                  Total tickets
+                </Typography>
+                <Typography variant='p2'>{content.totalTickets}</Typography>
+              </div>
+            )}
+            {isCustomerPage && (
+              <div className='flex justify-between'>
+                <Typography variant='p2' weight='semibold'>
+                  Ticket Terbeli
+                </Typography>
+                <Typography variant='p2'>{content.tickets?.length}</Typography>
+              </div>
+            )}
             <div className='flex justify-between'>
               <Typography variant='p2' weight='semibold'>
-                Total tickets
-              </Typography>
-              <Typography variant='p2'>{content.totalTickets}</Typography>
-            </div>
-            <div className='flex justify-between'>
-              <Typography variant='p2' weight='semibold'>
-                Total price
+                Ticket Price
               </Typography>
               <Typography variant='p2'>Rp {content.totalPrice}</Typography>
             </div>
+            {isCustomerPage && (
+              <div className='flex justify-between'>
+                <Typography variant='p2' weight='semibold'>
+                  Total price
+                </Typography>
+                <Typography variant='p2'>
+                  Rp{' '}
+                  {(content.totalPrice ?? 10000) *
+                    (content.tickets?.length ?? 1)}
+                </Typography>
+              </div>
+            )}
+            {isCustomerPage && (
+              <div className='flex justify-between'>
+                <Typography variant='p2' weight='semibold'>
+                  Kode Unik
+                </Typography>
+                <Typography variant='p2'>
+                  {content.tickets
+                    ?.map((ticket) => ticket.id.toString())
+                    .join(', ')}
+                </Typography>
+              </div>
+            )}
           </div>
         )}
       </div>

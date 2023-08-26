@@ -61,7 +61,11 @@ export default function Events() {
       });
   };
 
-  const events = useQuery<ApiReturn<Event[]>>(['/events']);
+  const [categoryId, setCategoryId] = useState('');
+
+  const events = useQuery<ApiReturn<Event[]>>([
+    `/events/filter?category=${categoryId}`,
+  ]);
 
   return (
     <Layout withNavbar={true} withFooter={true}>
@@ -145,6 +149,11 @@ export default function Events() {
                 size='sm'
                 value={cat.category_name}
                 labelClassName='text-cyan-800'
+                onChange={() =>
+                  categoryId == cat.id
+                    ? setCategoryId('')
+                    : setCategoryId(cat.id)
+                }
               />
             ))}
 
@@ -183,7 +192,7 @@ export default function Events() {
         <div className='flex flex-col gap-5 md:w-[80%] md:grid md:grid-cols-3 md:gap-x-3 md:gap-y-5 md:place-content-start'>
           {events.data?.data
             ?.filter((event) => event.verified === true) // Filter events where verified is true
-            .slice(0, 10) // Limit to a maximum of 5 events
+            // .slice(0, 10) // Limit to a maximum of 5 events
             .map((event) => (
               <EventCard
                 key={event.id}
