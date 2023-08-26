@@ -21,6 +21,8 @@ export default function MyTickets() {
     mode: 'onTouched',
   });
 
+  const searchKeyword = searchMethod.watch().keyword;
+
   const myEvents = useQuery<ApiReturn<Event[]>>(['/events/user/me']);
 
   const [isVisible, setIsVisible] = useState(false);
@@ -64,17 +66,20 @@ export default function MyTickets() {
           className='px-4 sm:px-10 grid grid-cols-4 gap-x-3 gap-y-5 place-content-start'
           id='events'
         >
-          {myEvents.data?.data.map((event) => (
-            <EventCard
-              key={event.id}
-              eventName={event.title}
-              startDate={event.start_date}
-              eventId={event.id}
-              size='sm'
-              buttonText='See detail'
-              buttonOnClik={() => toggleVisibility(event)}
-            />
-          ))}
+          {myEvents.data?.data.map(
+            (event) =>
+              event.title.includes(searchKeyword) && (
+                <EventCard
+                  key={event.id}
+                  eventName={event.title}
+                  startDate={event.start_date}
+                  eventId={event.id}
+                  size='sm'
+                  buttonText='See detail'
+                  buttonOnClik={() => toggleVisibility(event)}
+                />
+              )
+          )}
         </div>
       </div>
 

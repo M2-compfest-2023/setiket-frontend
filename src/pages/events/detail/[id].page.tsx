@@ -13,7 +13,6 @@ import EventDetail from '@/layouts/EventDetail';
 import Layout from '@/layouts/Layout';
 import Modal from '@/layouts/Modal';
 import api from '@/lib/api';
-import { getToken } from '@/lib/cookies';
 import useAuthStore from '@/store/useAuthStore';
 import { ApiReturn } from '@/types/api';
 import { Category, Event } from '@/types/entities/event';
@@ -43,12 +42,13 @@ export default function Detail() {
     mode: 'onTouched',
   });
   const { handleSubmit } = methods;
-  const token = getToken();
   const router = useRouter();
   const user = useAuthStore.useUser();
 
   const eventId = router.query.id as string;
-  const events = useQuery<ApiReturn<Event>>(['/events/'.concat(eventId)]);
+  const events = useQuery<ApiReturn<Event>>([
+    '/events/detail/'.concat(eventId),
+  ]);
   const myEvents = useQuery<ApiReturn<MyEvent[]>>(['/events/user/me']);
   const categories = useQuery<ApiReturn<Category[]>>(['/category/']);
 
@@ -103,7 +103,7 @@ export default function Detail() {
         </div>
 
         {/* role customer */}
-        {(!token || user?.role === 'CUSTOMER') && (
+        {user?.role === 'CUSTOMER' && (
           <div className='flex flex-col w-[30%] items-center bg-white rounded-2xl shadow-xl h-[200px] p-5'>
             <Typography variant='b2' weight='semibold' className='mx-auto'>
               Buy Ticket
