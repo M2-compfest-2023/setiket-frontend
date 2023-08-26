@@ -38,7 +38,7 @@ function NavigationControl({
     <div
       onClick={() => action && action(navigation.componentIndex)}
       className={clsxm(
-        'md:hover:bg-gradient-to-r md:hover:from-gradient-100 md:hover:to-gradient-200',
+        'hover:bg-gradient-to-r hover:from-gradient-100 hover:to-gradient-200',
         'group flex flex-1 items-center px-6 py-2 transition-opacity',
         className
       )}
@@ -48,7 +48,15 @@ function NavigationControl({
         variant='p2'
         weight='semibold'
         color='cyan'
-        className='group-hover:text-white'
+        className='group-hover:text-white hidden md:block'
+      >
+        {navigation.name}
+      </Typography>
+      <Typography
+        variant='p1'
+        weight='semibold'
+        color='cyan'
+        className='group-hover:text-white md:hidden'
       >
         {navigation.name}
       </Typography>

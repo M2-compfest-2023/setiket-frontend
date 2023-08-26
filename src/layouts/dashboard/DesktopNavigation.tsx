@@ -45,7 +45,7 @@ export default function DesktopNavigation({ action }: NavigationProps) {
         {user && (
           <section className='flex flex-start gap-4 items-center md:mx-20 md:px-6 md:py-3 mt-8 bg-typo-white bg-opacity-5 rounded-lg'>
             <NextImage
-              src='/images/profile.png'
+              src='/images/logo.png'
               width={50}
               height={50}
               alt='profile'

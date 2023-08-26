@@ -52,7 +52,7 @@ export default function Input({
   return (
     <div className='w-full space-y-1.5 rounded-md'>
       {label && (
-        <label htmlFor={id} className='flex space-x-1'>
+        <label htmlFor={id} className='flex space-x-1 items-center'>
           <Typography
             font='inter'
             variant='p3'
@@ -61,9 +61,7 @@ export default function Input({
           >
             {label}
           </Typography>
-          {validation?.required && (
-            <Typography className='text-danger-50'>*</Typography>
-          )}
+          {validation?.required && <Typography color='danger'>*</Typography>}
         </label>
       )}
 

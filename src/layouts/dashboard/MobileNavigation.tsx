@@ -1,20 +1,24 @@
-import { Dialog, Transition } from '@headlessui/react';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { BiLogOut } from 'react-icons/bi';
 import { HiOutlineChevronDoubleLeft, HiOutlineMenu } from 'react-icons/hi';
 
 import Button from '@/components/buttons/Button';
+import IconButton from '@/components/buttons/IconButton';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import Logo from '@/components/Logo';
 import NextImage from '@/components/NextImage';
 import Typography from '@/components/Typography';
 import Navigation from '@/layouts/dashboard/Navigation';
+import clsxm from '@/lib/clsxm';
 import useAuthStore from '@/store/useAuthStore';
 
-export default function MobileNavigation() {
-  const [sidebarOpen, setSidebarOpen] = React.useState(false);
-  const user = useAuthStore.useUser();
+type NavigationProps = {
+  action?: ((index: number) => void) | undefined;
+};
+
+export default function MobileNavigation({ action }: NavigationProps) {
+  const [isOpen, setIsOpen] = React.useState(false);
   const logout = useAuthStore.useLogout();
   const router = useRouter();
   const handleLogout = () => {
@@ -24,109 +28,85 @@ export default function MobileNavigation() {
 
   return (
     <>
-      <div className='bg-typo-primary sticky top-0 z-10 flex h-20 flex-shrink-0 justify-between lg:hidden'>
+      <div className='bg-white sticky top-0 z-10 flex h-15 flex-shrink-0 justify-between lg:hidden items-center py-2'>
         <button
           type='button'
-          className='absolute top-[50%] -translate-y-[50%] h-20 text-white px-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-main lg:hidden'
-          onClick={() => setSidebarOpen(true)}
+          className='absolute top-[50%] -translate-y-[50%] h-20 text-cyan px-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-main md:hidden'
+          onClick={() => setIsOpen(true)}
         >
           <span className='sr-only '>Open sidebar</span>
-          <HiOutlineMenu className='h-6 w-6 text-white' aria-hidden='true' />
+          <HiOutlineMenu className='h-6 w-6 text-cyan' aria-hidden='true' />
         </button>
         <div className='flex items-center justify-center flex-1'>
-          <UnstyledLink href='/'>
-            <Logo className='w-16' />
+          <UnstyledLink href='/' className='flex items-center gap-2'>
+            <Logo className='w-12' />
+            <Typography variant='b1' font='ubuntu' color='cyan'>
+              Seticket 2023
+            </Typography>
           </UnstyledLink>
         </div>
       </div>
 
       {/* Navigation Dialog */}
-      <Transition.Root show={sidebarOpen} as={React.Fragment}>
-        <Dialog
-          as='div'
-          className='fixed inset-0 z-40 flex lg:hidden bg-typo-primary'
-          onClose={setSidebarOpen}
-        >
-          <Transition.Child
-            as={React.Fragment}
-            enter='transition-opacity ease-linear duration-300'
-            enterFrom='opacity-0'
-            enterTo='opacity-100'
-            leave='transition-opacity ease-linear duration-300'
-            leaveFrom='opacity-100'
-            leaveTo='opacity-0'
+      <div
+        className={clsxm(
+          'fixed left-0 top-0 flex flex-col items-center gap-12',
+          'w-full h-screen px-4 py-10 md:hidden bg-white',
+          'transition ease-in-out duration-300 z-20',
+          isOpen ? 'translate-x-0' : '-translate-x-full'
+        )}
+      >
+        <div className='flex justify-between w-full'>
+          <UnstyledLink
+            href='/'
+            className='flex flex-row items-center gap-2 md:gap-4'
           >
-            <Dialog.Overlay className='fixed inset-0 bg-background-liteCream bg-opacity-75' />
-          </Transition.Child>
-          <Transition.Child
-            as={React.Fragment}
-            enter='transition ease-in-out duration-300 transform'
-            enterFrom='-translate-x-full'
-            enterTo='translate-x-0'
-            leave='transition ease-in-out duration-300 transform'
-            leaveFrom='translate-x-0'
-            leaveTo='-translate-x-full'
-          >
-            <div className='relative flex w-full max-w-full flex-1 flex-col pt-5 pb-4'>
-              <Transition.Child
-                as={React.Fragment}
-                enter='ease-in-out duration-300'
-                enterFrom='opacity-0'
-                enterTo='opacity-100'
-                leave='ease-in-out duration-300'
-                leaveFrom='opacity-100'
-                leaveTo='opacity-0'
+            <NextImage
+              src='/images/logo.png'
+              alt='logo'
+              width={42}
+              height={42}
+            />
+            <Typography font='ubuntu' variant='h4' color='cyan'>
+              SeTicket 2023
+            </Typography>
+          </UnstyledLink>
+
+          <IconButton
+            variant='label'
+            icon={HiOutlineChevronDoubleLeft}
+            size='lg'
+            className='border-transparent bg-transparent rounded-full sm:hidden'
+            iconClassName='text-gray-500 hover:text-slate-800'
+            onClick={() => setIsOpen(false)}
+          />
+        </div>
+
+        <nav className='flex-1 w-full'>
+          <div className='space-y-4 flex flex-col justify-between h-full'>
+            <Navigation
+              className=''
+              action={action}
+              onClick={() => setIsOpen(false)}
+            />
+            <div className='flex flex-col px-10'>
+              <Button
+                size='lg'
+                variant='danger'
+                className='text-white border-0 text-lg'
+                onClick={handleLogout}
               >
-                <div className='absolute top-0 right-0 mr-0 pt-8'>
-                  <Button
-                    variant='primary'
-                    className='hover:bg-transparent active:bg-transparent'
-                    onClick={() => setSidebarOpen(false)}
-                  >
-                    <HiOutlineChevronDoubleLeft className='text-xl text-white' />
-                    <span className='sr-only'>Close sidebar</span>
-                  </Button>
-                </div>
-              </Transition.Child>
-              <div className='flex flex-shrink-0 items-center justify-center gap-2 px-4'>
-                <section className='flex flex-start gap-4 items-center w-full px-4 md:px-6 mt-16'>
-                  <NextImage
-                    src='/images/profile.png'
-                    width={50}
-                    height={50}
-                    alt='profile'
-                  />
-                  <div className='text-white'>
-                    <Typography
-                      variant='c1'
-                      className='font-bold text-typo-white'
-                    >
-                      {user?.username ?? 'Testing Testing'}
-                    </Typography>
-                  </div>
-                </section>
-              </div>
-              <div className='mt-5 h-0 flex-1 overflow-y-auto'>
-                <Navigation className='text-white' />
-              </div>
-              <div className='w-full'>
-                <button
-                  className='relative flex bottom-8 justify-center mx-auto text-white hover:brightness-90 bg-danger-30 py-2 px-10 rounded-md'
-                  onClick={handleLogout}
-                >
-                  <BiLogOut width={20} height={20} className='w-6 h-6' />
-                  <Typography
-                    className='ml-2.5 font-medium text-typo-white'
-                    variant='c1'
-                  >
-                    Log Out
-                  </Typography>
-                </button>
-              </div>
+                <BiLogOut
+                  className='inline-block text-lg'
+                  width={20}
+                  height={20}
+                />{' '}
+                Log Out
+              </Button>
             </div>
-          </Transition.Child>
-        </Dialog>
-      </Transition.Root>
+          </div>
+        </nav>
+      </div>
     </>
   );
 }

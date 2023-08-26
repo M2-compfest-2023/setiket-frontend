@@ -38,8 +38,10 @@ export default function Popover({
       onMouseLeave={onMouseLeave}
       onMouseEnter={onMouseEnter}
     >
-      <div className='flex flex-col justify-center hover:bg-gray-200 w-full p-3'>
-        <Typography variant='p3'>Name</Typography>
+      <div className='flex justify-center hover:bg-gray-200 w-full p-3'>
+        <Typography variant='p3' className='mr-1'>
+          Welcome,{' '}
+        </Typography>
         <Typography variant='p3' weight='semibold'>
           {user?.username}
         </Typography>

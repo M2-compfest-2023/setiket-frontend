@@ -66,17 +66,22 @@ function LoginPage() {
   return (
     <Layout>
       <SEO title='Login' description='Login Page' />
-      <main className='flex bg-background-violet'>
+      <main className='flex bg-gradient-to-b from-gradient-500 to-gradient-600'>
         <section className='hidden lg:block w-7/12'>
           <AuthIllustration />
         </section>
-        <section className='w-screen lg:w-5/12 h-screen flex bg-white rounded-l-3xl'>
+        <section className='w-screen lg:w-5/12 h-screen flex bg-white lg:rounded-l-3xl'>
           <div className='w-10/12 m-auto h-fit'>
             <PrimaryLink href='/' size='medium' variant='primary'>
-              <AiOutlineHome className='mr-2 fill-primary-50 w-6 h-6' />
-              Back to home
+              <Typography
+                className='text-primary-50 flex items-center'
+                variant='p2'
+              >
+                <AiOutlineHome className='mr-2 inline-block' />
+                Back to home
+              </Typography>
             </PrimaryLink>
-            <div className='mt-8'>
+            <div className='mt-4'>
               <Typography variant='h4' font='ubuntu'>
                 Login
               </Typography>
@@ -113,34 +118,29 @@ function LoginPage() {
                   </div>
                   <PrimaryLink
                     href='/forgot-password'
-                    variant='primary'
                     size='medium'
                     type='button'
+                    className='mt-3'
                   >
                     Forgot password?
                   </PrimaryLink>
                   <Button
                     variant='primary'
                     size='base'
-                    className='w-full mt-12'
+                    className='w-full mt-10'
                     type='submit'
                     isLoading={isLoading}
                   >
                     Submit
                   </Button>
                   <Typography
-                    variant='b2'
+                    variant='p2'
                     weight='medium'
                     font='inter'
                     className='mt-4 text-center'
                   >
                     Doesn`t have account?{' '}
-                    <PrimaryLink
-                      href='/register'
-                      variant='primary'
-                      size='medium'
-                      type='button'
-                    >
+                    <PrimaryLink href='/register' size='medium' type='button'>
                       Sign Up
                     </PrimaryLink>
                   </Typography>

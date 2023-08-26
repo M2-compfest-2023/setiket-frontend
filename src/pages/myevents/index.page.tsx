@@ -43,7 +43,7 @@ export default function MyEvents() {
   return (
     <Layout withNavbar={true} withFooter={true}>
       <div className='min-h-screen'>
-        <div className='flex justify-end px-10 py-5'>
+        <div className='md:flex md:justify-end px-10 py-5'>
           <FormProvider {...searchMethod}>
             <form action=''>
               <Input
@@ -56,7 +56,7 @@ export default function MyEvents() {
         </div>
 
         <div
-          className='px-4 sm:px-10 grid grid-cols-4 gap-x-3 gap-y-5 place-content-start'
+          className='px-4 sm:px-10 md:grid md:grid-cols-4 md:gap-x-3 md:gap-y-5 md:place-content-start'
           id='events'
         >
           {myEvents.data?.data.map(
@@ -69,9 +69,7 @@ export default function MyEvents() {
                   eventId={event.id}
                   size='sm'
                   buttonText='See detail'
-                  buttonOnClik={() =>
-                    router.push('/events/detail/'.concat('1'))
-                  }
+                  buttonOnClik={() => router.push(`/events/detail/${event.id}`)}
                 />
               )
           )}
@@ -80,7 +78,7 @@ export default function MyEvents() {
             Icon={BsFillPlusCircleFill}
             link='/myevents/add'
             className='hover:shadow-xl'
-            // text='Add event'
+            text='Add event'
             size='sm'
           />
         </div>

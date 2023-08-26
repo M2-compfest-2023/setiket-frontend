@@ -97,18 +97,18 @@ export default function Detail() {
 
   return (
     <Layout withNavbar={true} withFooter={true}>
-      <div className='flex px-10 py-4 min-h-screen gap-5'>
-        <div className='w-[70%]'>
+      <div className='flex flex-col md:flex-row px-4 md:px-10 py-4 min-h-screen gap-5'>
+        <div className='md:w-[70%]'>
           <EventDetail content={eventProps} />
         </div>
 
         {/* role customer */}
         {user?.role === 'CUSTOMER' && (
-          <div className='flex flex-col w-[30%] items-center bg-white rounded-2xl shadow-xl h-[200px] p-5'>
+          <div className='flex flex-col md:w-[30%] items-center bg-white rounded-2xl shadow-xl h-[200px] p-5'>
             <Typography variant='b2' weight='semibold' className='mx-auto'>
               Buy Ticket
             </Typography>
-            <div className='flex items-center gap-3 w-full justify-center my-4'>
+            <div className='flex items-center gap-3 w-full justify-center mt-4 mb-2'>
               <IconButton
                 variant='secondary'
                 size='base'
@@ -164,7 +164,7 @@ export default function Detail() {
 
         {/* role admin */}
         {user?.role === 'ADMIN' && (
-          <div className='flex flex-col w-[30%] items-center justify-center bg-white rounded-2xl shadow-xl h-[120px] p-5'>
+          <div className='flex flex-col md:w-[30%] items-center justify-center bg-white rounded-2xl shadow-xl h-[120px] p-5'>
             <Typography variant='p2' weight='semibold' className='mx-auto'>
               Event Approval
             </Typography>
@@ -176,7 +176,6 @@ export default function Detail() {
             </div>
           </div>
         )}
-
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className='relative z-[110]'>
