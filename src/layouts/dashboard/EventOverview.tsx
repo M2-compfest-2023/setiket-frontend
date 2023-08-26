@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import { ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/router';
 import { MdOutlineEventNote } from 'react-icons/md';
@@ -6,14 +7,15 @@ import Button from '@/components/buttons/Button';
 import Table from '@/components/table/Table';
 import Typography from '@/components/Typography';
 import clsxm from '@/lib/clsxm';
+import { ApiReturn } from '@/types/api';
 
 type Props = React.ComponentPropsWithoutRef<'div'>;
 
 export type EventOverviewColumn = {
-  eventName: string;
-  eoUsername: string;
+  title: string;
+  ticket_total: string;
   location: string;
-  status: string;
+  verified: string;
 };
 
 export default function EventOverview({ className }: Props) {
@@ -21,15 +23,15 @@ export default function EventOverview({ className }: Props) {
 
   const columns: ColumnDef<EventOverviewColumn>[] = [
     {
-      id: 'eventName',
-      accessorKey: 'eventName',
+      id: 'title',
+      accessorKey: 'title',
       header: 'Event Name',
       size: 40,
     },
     {
-      id: 'eoUsername',
-      accessorKey: 'eoUsername',
-      header: 'EO Username',
+      id: 'ticket_total',
+      accessorKey: 'ticket_total',
+      header: 'Ticket Total',
       size: 30,
     },
     {
@@ -39,8 +41,8 @@ export default function EventOverview({ className }: Props) {
       size: 5,
     },
     {
-      id: 'status',
-      accessorKey: 'status',
+      id: 'verified',
+      accessorKey: 'verified',
       header: 'Status',
       size: 10,
     },
@@ -67,27 +69,7 @@ export default function EventOverview({ className }: Props) {
     },
   ];
 
-  //static data, remove this
-  const data = [
-    {
-      eventName: 'Event 1',
-      eoUsername: 'fachryanwar',
-      location: 'Province, City',
-      status: 'waiting confirmation',
-    },
-    {
-      eventName: 'Event 2',
-      eoUsername: 'orang2',
-      location: 'Province, City',
-      status: 'approved',
-    },
-    {
-      eventName: 'Event 3',
-      eoUsername: 'orang3',
-      location: 'Province, City',
-      status: 'waiting confirmation',
-    },
-  ];
+  const events = useQuery<ApiReturn<EventOverviewColumn[]>>(['/events']);
 
   return (
     <div
@@ -109,7 +91,7 @@ export default function EventOverview({ className }: Props) {
 
       <div>
         <Table
-          data={data}
+          data={events.data?.data || []}
           columns={columns}
           withFilter
           className='text-center text-typo-primary font-primary'

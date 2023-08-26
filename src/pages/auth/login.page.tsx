@@ -42,7 +42,7 @@ function LoginPage() {
       const token = res.data.data.access_token;
       setToken(token);
 
-      const user = await api.post<ApiReturn<User>>('/auth/me');
+      const user = await api.get<ApiReturn<User>>('/auth/me');
       if (!user.data.data) {
         throw new Error('Sesi login tidak valid');
       }

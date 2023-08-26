@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
@@ -12,15 +13,20 @@ import Popover from '@/layouts/dashboard/PopoverMenu';
 import MobileNavbar from '@/layouts/MobileNavbar';
 import { getToken } from '@/lib/cookies';
 import { removeToken } from '@/lib/cookies';
-import useAuthStore from '@/store/useAuthStore';
+import { ApiReturn } from '@/types/api';
+
+type UserResponse = {
+  username: string;
+  id: string;
+  role: string;
+};
 
 export default function Navbar() {
   const token = getToken();
   const [isLogin, setIsLogin] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenPopover, setisOpenPopover] = useState(false);
-
-  const user = useAuthStore.useUser();
+  const user = useQuery<ApiReturn<UserResponse>>(['/auth/me']);
 
   useEffect(() => {
     if (token) {
@@ -95,7 +101,7 @@ export default function Navbar() {
                 </Typography>
               </UnstyledLink>
             </li>
-            {user?.role === 'CUSTOMER' && (
+            {user.data?.data?.role === 'CUSTOMER' && (
               <li>
                 <UnstyledLink href='/mytickets' className='flex p-2.5'>
                   <Typography
@@ -110,7 +116,7 @@ export default function Navbar() {
                 </UnstyledLink>
               </li>
             )}
-            {user?.role === 'EVENTORGANIZER' && (
+            {user.data?.data?.role === 'EVENTORGANIZER' && (
               <li>
                 <UnstyledLink href='/myevents' className='flex p-2.5'>
                   <Typography

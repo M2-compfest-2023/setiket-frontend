@@ -1,9 +1,11 @@
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { MouseEventHandler } from 'react';
 
 import Typography from '@/components/Typography';
 import clsxm from '@/lib/clsxm';
 import useAuthStore from '@/store/useAuthStore';
+import { ApiReturn } from '@/types/api';
 
 type Props = {
   hidden?: boolean;
@@ -11,6 +13,12 @@ type Props = {
   onMouseLeave?: MouseEventHandler;
   handleLogOutNavbar?: (() => void) | undefined;
 } & React.ComponentPropsWithRef<'div'>;
+
+type UserResponse = {
+  username: string;
+  id: string;
+  role: string;
+};
 
 export default function Popover({
   className,
@@ -23,10 +31,10 @@ export default function Popover({
   const handleLogout = () => {
     handleLogOutNavbar && handleLogOutNavbar();
     logout();
-    router.replace('/');
+    router.reload();
   };
 
-  const user = useAuthStore.useUser();
+  const user = useQuery<ApiReturn<UserResponse>>(['/auth/me']);
 
   return (
     <div
@@ -43,11 +51,11 @@ export default function Popover({
           Welcome,{' '}
         </Typography>
         <Typography variant='p3' weight='semibold'>
-          {user?.username}
+          {user.data?.data?.username}
         </Typography>
       </div>
       {/* role admin */}
-      {user?.role === 'ADMIN' && (
+      {user.data?.data?.role === 'ADMIN' && (
         <div
           className='flex flex-col justify-center hover:bg-gray-200 w-full p-3 hover:cursor-pointer'
           onClick={() => router.push('/admin')}

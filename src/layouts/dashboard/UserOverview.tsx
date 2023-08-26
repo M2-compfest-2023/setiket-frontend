@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import { ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/router';
 import { BsPeopleFill } from 'react-icons/bs';
@@ -6,14 +7,16 @@ import Button from '@/components/buttons/Button';
 import Table from '@/components/table/Table';
 import Typography from '@/components/Typography';
 import clsxm from '@/lib/clsxm';
+import { ApiReturn } from '@/types/api';
 
 type Props = React.ComponentPropsWithoutRef<'div'>;
 
 export type UserOverviewColumn = {
+  id: string;
   username: string;
   email: string;
-  role: string;
-  registrationTime: string;
+  user_type: string;
+  // registrationTime: string;
 };
 
 export default function UsersOverview({ className }: Props) {
@@ -33,16 +36,10 @@ export default function UsersOverview({ className }: Props) {
       size: 40,
     },
     {
-      id: 'role',
-      accessorKey: 'role',
+      id: 'user_type',
+      accessorKey: 'user_type',
       header: 'Role',
       size: 5,
-    },
-    {
-      id: 'registrationTime',
-      accessorKey: 'registrationTime',
-      header: 'Registrated On',
-      size: 10,
     },
     {
       id: 'action',
@@ -56,7 +53,7 @@ export default function UsersOverview({ className }: Props) {
               variant='secondary'
               size='sm'
               onClick={() =>
-                router.push(`/admin/userInfo/${info.row.original.username}`)
+                router.push(`/admin/userInfo/${info.row.original.id}`)
               }
             >
               See Detail
@@ -67,27 +64,7 @@ export default function UsersOverview({ className }: Props) {
     },
   ];
 
-  //static data, remove this
-  const data = [
-    {
-      username: 'fachryanwar',
-      email: 'fachryanwar2626@gmail.com',
-      role: 'customer',
-      registrationTime: 'dd/mm/yyyy',
-    },
-    {
-      username: 'orang2',
-      email: 'orang2@gmail.com',
-      role: 'EO',
-      registrationTime: 'dd/mm/yyyy',
-    },
-    {
-      username: 'orang3',
-      email: 'orang3@gmail.com',
-      role: 'EO',
-      registrationTime: 'dd/mm/yyyy',
-    },
-  ];
+  const users = useQuery<ApiReturn<UserOverviewColumn[]>>(['/users']);
 
   return (
     <div
@@ -109,7 +86,7 @@ export default function UsersOverview({ className }: Props) {
 
       <div>
         <Table
-          data={data}
+          data={users.data?.data || []}
           columns={columns}
           withFilter
           className='text-center text-typo-primary font-primary'

@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import { ColumnDef } from '@tanstack/react-table';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -14,6 +15,7 @@ import Table from '@/components/table/Table';
 import TextLine from '@/components/TextLine';
 import Typography from '@/components/Typography';
 import Modal from '@/layouts/Modal';
+import { ApiReturn } from '@/types/api';
 
 type EventCreatedColumn = {
   eventName: string;
@@ -21,14 +23,34 @@ type EventCreatedColumn = {
   status: string;
 };
 
+type ActivityUser = {
+  eventName: string;
+  timeStamp: string;
+};
+
+type UserOverviewColumn = {
+  id: string;
+  username: string;
+  email: string;
+  user_type: string;
+  // registrationTime: string;
+};
+
 export default function UserInfo() {
   const router = useRouter();
+  const { id } = router.query;
 
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => {
     setIsVisible(!isVisible);
   };
+
+  const user = useQuery<ApiReturn<UserOverviewColumn>>([`/users/${id}`]);
+
+  const activity = useQuery<ApiReturn<ActivityUser[]>>([
+    `/users/activity/${id}`,
+  ]);
 
   const columns: ColumnDef<EventCreatedColumn>[] = [
     {
@@ -105,9 +127,11 @@ export default function UserInfo() {
 
       <Container title='User Information' Icon={FaUserAlt}>
         <div className='flex gap-5 items-center'>
-          <Chips>Customer</Chips>
+          {user.data?.data.user_type == 'CUSTOMER' && <Chips>Customer</Chips>}
+          {user.data?.data.user_type == 'EVENTORGANIZER' && (
+            <Chips variant='secondary'>Event Organizer</Chips>
+          )}
           {/* role EO sebelum approve */}
-          <Chips variant='secondary'>Event Organizer</Chips>
           <Chips
             variant='yellow'
             clickAble
@@ -127,15 +151,15 @@ export default function UserInfo() {
               Username
             </Typography>
             <Typography color='white-2' variant='p2'>
-              fachryanwar
+              {user.data?.data.username}
             </Typography>
           </div>
           <div className='w-[50%] flex justify-between'>
             <Typography color='white-2' variant='b2'>
-              Registrated on
+              Role
             </Typography>
             <Typography color='white-2' variant='p2'>
-              dd/mm/yyyy - 24:00
+              {user.data?.data.user_type}
             </Typography>
           </div>
         </div>
@@ -145,32 +169,41 @@ export default function UserInfo() {
               Email
             </Typography>
             <Typography color='white-2' variant='p2'>
-              fachryanwar@gmail.com
+              {user.data?.data.email}
             </Typography>
           </div>
-          <div className='w-[50%] flex justify-between'>
-            {/* role EO */}
+          {/* <div className='w-[50%] flex justify-between'>
             <Typography color='white-2' variant='b2'>
               Organization
             </Typography>
             <Typography color='white-2' variant='p2'>
               PT Suya Tbk
             </Typography>
-          </div>
+          </div> */}
         </div>
       </Container>
 
-      <Container title='Activities' Icon={RxActivityLog}>
-        <TextLine className='my-2'>
-          Bought ticket for the Van Gogh Festival
-        </TextLine>
-        <TextLine className='my-2'>
-          Bought ticket for the Van Gogh Festival
-        </TextLine>
-        <TextLine className='my-2'>
-          Bought ticket for the Van Gogh Festival
-        </TextLine>
-      </Container>
+      {user.data?.data.user_type == 'CUSTOMER' && (
+        <Container title='Activities' Icon={RxActivityLog}>
+          {activity.data?.data.map((res) => (
+            <TextLine key={res.eventName} className='my-2'>
+              Bought event <span className='font-bold'> {res.eventName} </span>{' '}
+              ticket at {res.timeStamp}
+            </TextLine>
+          ))}
+        </Container>
+      )}
+
+      {user.data?.data.user_type == 'EVENTORGANIZER' && (
+        <Container title='Activities' Icon={RxActivityLog}>
+          {activity.data?.data.map((res) => (
+            <TextLine key={res.eventName} className='my-2'>
+              Create <span className='font-bold'> {res.eventName} </span> event{' '}
+              at {res.timeStamp}
+            </TextLine>
+          ))}
+        </Container>
+      )}
 
       {/* role EO */}
       <Container title='Events Created' Icon={MdOutlineEventNote}>
