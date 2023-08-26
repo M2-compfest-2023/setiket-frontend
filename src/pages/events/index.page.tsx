@@ -182,7 +182,8 @@ export default function Events() {
 
         <div className='flex flex-col gap-5 md:w-[80%] md:grid md:grid-cols-3 md:gap-x-3 md:gap-y-5 md:place-content-start'>
           {events.data?.data
-            ?.slice(0, 5) // Limit to a maximum of 5 events
+            ?.filter((event) => event.verified === true) // Filter events where verified is true
+            .slice(0, 10) // Limit to a maximum of 5 events
             .map((event) => (
               <EventCard
                 key={event.id}

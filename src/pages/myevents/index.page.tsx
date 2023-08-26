@@ -36,12 +36,14 @@ export default function MyEvents() {
     mode: 'onTouched',
   });
 
+  const searchKeyword = searchMethod.watch().keyword;
+
   const myEvents = useQuery<ApiReturn<MyEvent[]>>(['/events/user/me']);
 
   return (
     <Layout withNavbar={true} withFooter={true}>
       <div className='min-h-screen'>
-        <div className='flex justify-end px-10 py-5'>
+        <div className='md:flex md:justify-end px-10 py-5'>
           <FormProvider {...searchMethod}>
             <form action=''>
               <Input
@@ -54,26 +56,29 @@ export default function MyEvents() {
         </div>
 
         <div
-          className='px-4 sm:px-10 grid grid-cols-4 gap-x-3 gap-y-5 place-content-start'
+          className='px-4 sm:px-10 md:grid md:grid-cols-4 md:gap-x-3 md:gap-y-5 md:place-content-start'
           id='events'
         >
-          {myEvents.data?.data.map((event) => (
-            <EventCard
-              key={event.id}
-              eventName={event.title}
-              startDate={event.start_date}
-              eventId={event.id}
-              size='sm'
-              buttonText='See detail'
-              buttonOnClik={() => router.push('/events/detail/'.concat('1'))}
-            />
-          ))}
+          {myEvents.data?.data.map(
+            (event) =>
+              event.title.includes(searchKeyword) && (
+                <EventCard
+                  key={event.id}
+                  eventName={event.title}
+                  startDate={event.start_date}
+                  eventId={event.id}
+                  size='sm'
+                  buttonText='See detail'
+                  buttonOnClik={() => router.push(`/events/detail/${event.id}`)}
+                />
+              )
+          )}
 
           <IconCard
             Icon={BsFillPlusCircleFill}
             link='/myevents/add'
             className='hover:shadow-xl'
-            // text='Add event'
+            text='Add event'
             size='sm'
           />
         </div>
