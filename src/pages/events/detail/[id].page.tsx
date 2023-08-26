@@ -1,26 +1,55 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
 import Button from '@/components/buttons/Button';
 import IconButton from '@/components/buttons/IconButton';
+import { showToast, SUCCESS_TOAST } from '@/components/Toast';
 import Typography from '@/components/Typography';
+import useMutationToast from '@/hooks/useMutationToast';
 import EventDetail from '@/layouts/EventDetail';
 import Layout from '@/layouts/Layout';
 import Modal from '@/layouts/Modal';
+import api from '@/lib/api';
 import { getToken } from '@/lib/cookies';
 import useAuthStore from '@/store/useAuthStore';
 import { ApiReturn } from '@/types/api';
 import { Category, Event } from '@/types/entities/event';
 
+type TicketForm = {
+  quantity: number;
+  event_id: number;
+};
+
+type MyEvent = {
+  id: number;
+  title: string;
+  description: string;
+  start_date: string;
+  end_date: string;
+  ticket_total: number;
+  location: string;
+  category_id: number;
+  organizer_id: number;
+  verified: boolean;
+  city_id: number;
+  price: number;
+};
+
 export default function Detail() {
+  const methods = useForm<TicketForm>({
+    mode: 'onTouched',
+  });
+  const { handleSubmit } = methods;
   const token = getToken();
   const router = useRouter();
   const user = useAuthStore.useUser();
 
   const eventId = router.query.id as string;
   const events = useQuery<ApiReturn<Event>>(['/events/'.concat(eventId)]);
+  const myEvents = useQuery<ApiReturn<MyEvent[]>>(['/events/user/me']);
   const categories = useQuery<ApiReturn<Category[]>>(['/category/']);
 
   const eventItem = events.data?.data;
@@ -32,7 +61,8 @@ export default function Detail() {
   const [ticketAmount, setTicketAmount] = useState(1);
   const [isVisible, setIsVisible] = useState(false);
 
-  const ticketPrice = eventItem?.price;
+  const ticketPrice = (eventItem?.price ?? 1) * ticketAmount;
+
   const eventProps = {
     eventName: eventItem?.title,
     eventCategory: category_name,
@@ -44,6 +74,25 @@ export default function Detail() {
     startTime: eventItem?.start_date.substring(11, 16),
     endTime: eventItem?.end_date.substring(11, 16),
     description: eventItem?.description,
+  };
+
+  const { mutate: handlePayment, isLoading } = useMutationToast<
+    void,
+    TicketForm
+  >(
+    useMutation(async (data) => {
+      await api.post(`/ticket/purchase`, data);
+
+      showToast('Berhasil Membeli Tiket', SUCCESS_TOAST);
+      router.push('/mytickets');
+    })
+  );
+
+  const onSubmit = () => {
+    handlePayment({
+      quantity: ticketAmount,
+      event_id: parseInt(eventId),
+    });
   };
 
   return (
@@ -83,7 +132,7 @@ export default function Detail() {
             </div>
             <div className='flex items-center gap-3 w-full justify-between my-4'>
               <Typography variant='b1' color='cyan'>
-                Rp {ticketPrice}
+                Rp. {ticketPrice}
               </Typography>
               <Button onClick={() => setIsVisible(!isVisible)}>Book Now</Button>
             </div>
@@ -91,24 +140,27 @@ export default function Detail() {
         )}
 
         {/* role EVENTORGANIZER */}
-        {user?.role === 'EVENTORGANIZER' && (
-          <div className='flex flex-col gap-3 w-[30%] items-center justify-center bg-white rounded-2xl shadow-xl h-[160px] p-5'>
-            <Typography variant='b2' weight='semibold' className='mx-auto'>
-              Sales Data
-            </Typography>
-            <Typography
-              variant='p2'
-              weight='semibold'
-              className='mx-auto'
-              color='cyan'
-            >
-              50 tickets sold
-            </Typography>
-            <Button onClick={() => router.push('/events/salesData/1')}>
-              See detail
-            </Button>
-          </div>
-        )}
+        {user?.role === 'EVENTORGANIZER' &&
+          myEvents.data?.data?.find(
+            (event) => event.id == parseInt(eventId)
+          ) && (
+            <div className='flex flex-col gap-3 w-[30%] items-center justify-center bg-white rounded-2xl shadow-xl h-[160px] p-5'>
+              <Typography variant='b2' weight='semibold' className='mx-auto'>
+                Sales Data
+              </Typography>
+              <Typography
+                variant='p2'
+                weight='semibold'
+                className='mx-auto'
+                color='cyan'
+              >
+                50 tickets sold
+              </Typography>
+              <Button onClick={() => router.push('/events/salesData/1')}>
+                See detail
+              </Button>
+            </div>
+          )}
 
         {/* role admin */}
         {user?.role === 'ADMIN' && (
@@ -125,32 +177,38 @@ export default function Detail() {
           </div>
         )}
 
-        <div className='relative z-[110]'>
-          {isVisible && (
-            <Modal className='flex flex-col'>
-              <div className='md:w-[40%] bg-white rounded-xl px-8 py-5'>
-                <Typography
-                  className='text-center'
-                  variant='p1'
-                  weight='semibold'
-                  font='inter'
-                  color='cyan'
-                >
-                  Do you want to proceed with purchasing the event tickets?
-                </Typography>
-                <div className='flex justify-evenly mt-5'>
-                  <Button
-                    variant='danger'
-                    onClick={() => setIsVisible(!isVisible)}
-                  >
-                    No
-                  </Button>
-                  <Button>Yes</Button>
-                </div>
-              </div>
-            </Modal>
-          )}
-        </div>
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className='relative z-[110]'>
+              {isVisible && (
+                <Modal className='flex flex-col'>
+                  <div className='md:w-[40%] bg-white rounded-xl px-8 py-5'>
+                    <Typography
+                      className='text-center'
+                      variant='p1'
+                      weight='semibold'
+                      font='inter'
+                      color='cyan'
+                    >
+                      Do you want to proceed with purchasing the event tickets?
+                    </Typography>
+                    <div className='flex justify-evenly mt-5'>
+                      <Button
+                        variant='danger'
+                        onClick={() => setIsVisible(!isVisible)}
+                      >
+                        No
+                      </Button>
+                      <Button type='submit' isLoading={isLoading}>
+                        Yes
+                      </Button>
+                    </div>
+                  </div>
+                </Modal>
+              )}
+            </div>
+          </form>
+        </FormProvider>
       </div>
     </Layout>
   );

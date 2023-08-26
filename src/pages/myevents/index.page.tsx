@@ -36,6 +36,8 @@ export default function MyEvents() {
     mode: 'onTouched',
   });
 
+  const searchKeyword = searchMethod.watch().keyword;
+
   const myEvents = useQuery<ApiReturn<MyEvent[]>>(['/events/user/me']);
 
   return (
@@ -57,17 +59,22 @@ export default function MyEvents() {
           className='px-4 sm:px-10 grid grid-cols-4 gap-x-3 gap-y-5 place-content-start'
           id='events'
         >
-          {myEvents.data?.data.map((event) => (
-            <EventCard
-              key={event.id}
-              eventName={event.title}
-              startDate={event.start_date}
-              eventId={event.id}
-              size='sm'
-              buttonText='See detail'
-              buttonOnClik={() => router.push('/events/detail/'.concat('1'))}
-            />
-          ))}
+          {myEvents.data?.data.map(
+            (event) =>
+              event.title.includes(searchKeyword) && (
+                <EventCard
+                  key={event.id}
+                  eventName={event.title}
+                  startDate={event.start_date}
+                  eventId={event.id}
+                  size='sm'
+                  buttonText='See detail'
+                  buttonOnClik={() =>
+                    router.push('/events/detail/'.concat('1'))
+                  }
+                />
+              )
+          )}
 
           <IconCard
             Icon={BsFillPlusCircleFill}

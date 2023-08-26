@@ -26,6 +26,8 @@ export default function Popover({
     router.replace('/');
   };
 
+  const user = useAuthStore.useUser();
+
   return (
     <div
       id='userDropdown'
@@ -39,18 +41,20 @@ export default function Popover({
       <div className='flex flex-col justify-center hover:bg-gray-200 w-full p-3'>
         <Typography variant='p3'>Name</Typography>
         <Typography variant='p3' weight='semibold'>
-          email@gmail.com
+          {user?.username}
         </Typography>
       </div>
       {/* role admin */}
-      <div
-        className='flex flex-col justify-center hover:bg-gray-200 w-full p-3 hover:cursor-pointer'
-        onClick={() => router.push('/admin')}
-      >
-        <Typography variant='p3' weight='semibold'>
-          Dashboard
-        </Typography>
-      </div>
+      {user?.role === 'ADMIN' && (
+        <div
+          className='flex flex-col justify-center hover:bg-gray-200 w-full p-3 hover:cursor-pointer'
+          onClick={() => router.push('/admin')}
+        >
+          <Typography variant='p3' weight='semibold'>
+            Dashboard
+          </Typography>
+        </div>
+      )}
       {/* until here */}
       <div
         className='flex flex-col justify-center hover:bg-gray-200 w-full p-3 hover:cursor-pointer'

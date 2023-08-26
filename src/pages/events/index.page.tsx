@@ -183,7 +183,7 @@ export default function Events() {
         <div className='w-[80%] grid grid-cols-3 gap-x-3 gap-y-5 place-content-start'>
           {events.data?.data
             ?.filter((event) => event.verified === true) // Filter events where verified is true
-            .slice(0, 5) // Limit to a maximum of 5 events
+            .slice(0, 10) // Limit to a maximum of 5 events
             .map((event) => (
               <EventCard
                 key={event.id}
